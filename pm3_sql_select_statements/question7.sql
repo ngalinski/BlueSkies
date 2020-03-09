@@ -1,2 +1,2 @@
-SELECT COUNT(BlueSkiesUML.Drug.DrugNDC)
+SELECT COUNT(BlueSkiesUML.Drug.DrugID)
 FROM BlueSkiesUML.Drug;
