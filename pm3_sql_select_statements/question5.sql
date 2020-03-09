@@ -1,4 +1,4 @@
--- 5. What are the top 5 counties in the U.S. rated by air quality? What is the top county in each state? 
+-- 5. What are the top 5 counties in the U.S. rated by air quality?
 SELECT t2.LocationName, t2.StateCode, t3.CountyName, t3.MedianAQI, t2.HospitalName, t2.OverallRating FROM
 	-- Join location names (city names) with hospital and rating, joining on zipcode
 	(SELECT Location.LocationName, Location.StateCode, Location.CountyCode, t1.HospitalCode, t1.OverallRating, t1.HospitalName, t1.ZipCode FROM
