@@ -1,2 +1,2 @@
-SELECT count(BlueSkiesUML.DrugUtilization.NumRX)
+SELECT SUM(BlueSkiesUML.DrugUtilization.NumRX)
 FROM BlueSkiesUML.DrugUtilization;
