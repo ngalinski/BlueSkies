@@ -16,6 +16,7 @@
 DROP TABLE IF EXISTS `DrugUtilization`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
+
 CREATE TABLE `DrugUtilization` (
   `DrugUtilizationCode` int NOT NULL AUTO_INCREMENT,
   `StateCode` varchar(2) NOT NULL,
@@ -25,8 +26,10 @@ CREATE TABLE `DrugUtilization` (
   `TotalReimbursed` decimal(15,2) NOT NULL,
   `MedicaidReimbursed` decimal(15,2) NOT NULL,
   `NonMedicaidReimbursed` decimal(15,2) NOT NULL,
-  `DrugCode` int NOT NULL,
-  PRIMARY KEY (`DrugCode`),
+  `DrugCode` varchar(20) NOT NULL,
+  PRIMARY KEY (`DrugUtilizationCode`),
+  KEY `fk_DrugUtilizationDrugCode` (`DrugCode`),
+  CONSTRAINT `fk_DrugUtilizationDrugCode` FOREIGN KEY (`DrugCode`) REFERENCES `Drug` (`DrugCode`),
   KEY `fk_DrugUtilization_StateCode` (`StateCode`),
   CONSTRAINT `fk_DrugUtilization_StateCode` FOREIGN KEY (`StateCode`) REFERENCES `State` (`StateCode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
