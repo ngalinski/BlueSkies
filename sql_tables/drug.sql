@@ -24,6 +24,7 @@ CREATE TABLE `Drug` (
   `DrugName` varchar(255) NOT NULL,
   `Strength` varchar(45) NOT NULL,
   `Route` varchar(45) NOT NULL,
+  `DrugNDC` varchar(45) NOT NULL,
   PRIMARY KEY (`DrugCode`),
   KEY `fk_DrugUtilizationDrugCode` (`DrugCode`),
   CONSTRAINT `fk_DrugCompanyName` FOREIGN KEY (`CompanyName`) REFERENCES `PharmaCompanies` (`CompanyName`),

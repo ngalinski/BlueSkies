@@ -26,10 +26,10 @@ CREATE TABLE `DrugUtilization` (
   `TotalReimbursed` decimal(15,2) NOT NULL,
   `MedicaidReimbursed` decimal(15,2) NOT NULL,
   `NonMedicaidReimbursed` decimal(15,2) NOT NULL,
-  `DrugCode` varchar(20) NOT NULL,
+  `DrugNDC` varchar(20) NOT NULL,
   PRIMARY KEY (`DrugUtilizationCode`),
   KEY `fk_DrugUtilizationDrugCode` (`DrugCode`),
-  CONSTRAINT `fk_DrugUtilizationDrugCode` FOREIGN KEY (`DrugCode`) REFERENCES `Drug` (`DrugCode`),
+  CONSTRAINT `fk_DrugUtilizationDrugNDC` FOREIGN KEY (`DrugNDC`) REFERENCES `Drug` (`DrugNDC`),
   KEY `fk_DrugUtilization_StateCode` (`StateCode`),
   CONSTRAINT `fk_DrugUtilization_StateCode` FOREIGN KEY (`StateCode`) REFERENCES `State` (`StateCode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
