@@ -1,3 +1,4 @@
+-- 2. What are the 10 most populous locations without a hospital?
 SELECT Location.LocationName, Location.ZipCode, Location.Population, COUNT(HospitalCode)
 FROM BlueSkiesUML.Location
 LEFT JOIN BlueSkiesUML.Hospital
