@@ -1,2 +1,2 @@
-SELECT COUNT(BlueSkiesUML.Drug.DrugID)
-FROM BlueSkiesUML.Drug;
+SELECT SUM(HealthCareSpending.TotalSpending) as TotalSpending
+FROM HealthCareSpending
