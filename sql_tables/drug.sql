@@ -10,28 +10,24 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `DrugUtilization`
+-- Table structure for table `Drug`
 --
 
-DROP TABLE IF EXISTS `DrugUtilization`;
+DROP TABLE IF EXISTS `Drug`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 
-CREATE TABLE `DrugUtilization` (
-  `DrugUtilizationCode` int NOT NULL AUTO_INCREMENT,
-  `StateCode` varchar(2) NOT NULL,
+CREATE TABLE `Drug` (
+  `DrugCode` int NOT NULL AUTO_INCREMENT,
+  `DrugID` varchar(25) NOT NULL,
+  `CompanyName` varchar(255) NOT NULL,
   `DrugName` varchar(255) NOT NULL,
-  `NumReimbursed` decimal(15,2) NOT NULL,
-  `NumRX` int NOT NULL,
-  `TotalReimbursed` decimal(15,2) NOT NULL,
-  `MedicaidReimbursed` decimal(15,2) NOT NULL,
-  `NonMedicaidReimbursed` decimal(15,2) NOT NULL,
-  `DrugNDC` varchar(20) NOT NULL,
-  PRIMARY KEY (`DrugUtilizationCode`),
+  `Strength` varchar(45) NOT NULL,
+  `Route` varchar(45) NOT NULL,
+  `DrugNDC` varchar(45) NOT NULL,
+  PRIMARY KEY (`DrugCode`),
   KEY `fk_DrugUtilizationDrugCode` (`DrugCode`),
-  CONSTRAINT `fk_DrugUtilizationDrugNDC` FOREIGN KEY (`DrugNDC`) REFERENCES `Drug` (`DrugNDC`),
-  KEY `fk_DrugUtilization_StateCode` (`StateCode`),
-  CONSTRAINT `fk_DrugUtilization_StateCode` FOREIGN KEY (`StateCode`) REFERENCES `State` (`StateCode`)
+  CONSTRAINT `fk_DrugCompanyName` FOREIGN KEY (`CompanyName`) REFERENCES `PharmaCompanies` (`CompanyName`),
 ) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
