@@ -1,6 +1,6 @@
 package model;
 
-public class Healthcarespending {
+public class HealthCareSpending {
   private String StateCode;
   private int TotalSpending;
   private int InpatientServices;
