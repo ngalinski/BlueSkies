@@ -1,4 +1,4 @@
-//Nicholas Galinski
+//BlueSkies
 
 package dal;
 
@@ -46,7 +46,7 @@ public class ConnectionManager {
 	// Port to your database server. By default, this is 3307.
 	private final int port= 3306;
 	// Name of the MySQL schema that contains your tables.
-	private final String schema = "ReviewApplication";
+	private final String schema = "BlueSkiesUML";
 	private final String serverTimezone = "UTC";
 
 	/** Get the connection to the database instance. */
