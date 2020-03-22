@@ -46,8 +46,12 @@ public class HospitalDAO {
     }
   }
 
-  public Hospital getHospital() throws SQLException {
+  public Hospital getHospitalbyType(String hospitalType) throws SQLException {
 
+  }
+
+  public Hospital getHospitalbyName(String HospitalName) throws SQLException {
+    
   }
 
   public Hospital delete() throws SQLException {
