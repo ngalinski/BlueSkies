@@ -22,8 +22,27 @@ public class HospitalQualityDAO {
     return instance;
   }
 
-  public HospitalQuality create() throws SQLException {
+  public HospitalQuality create(HospitalQuality hospitalQuality) throws SQLException {
+    String insertHQ = "INSERT INTO HospitalQuality() VALUE();";
+    Connection connection = null;
+    PreparedStatement insertStmt = null;
+    try {
+      connection = connectionManager.getConnection();
+      insertStmt = connection.prepareStatement(insertHQ);
 
+      insertStmt.executeUpdate();
+      return hospitalQuality;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if(connection != null) {
+        connection.close();
+      }
+      if(insertStmt != null) {
+        insertStmt.close();
+      }
+    }
   }
 
   public HospitalQuality getHospitalQuality() throws SQLException {

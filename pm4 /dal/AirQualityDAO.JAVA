@@ -22,8 +22,27 @@ public class AirQualityDAO {
     return instance;
   }
 
-  public AirQuality create() throws SQLException {
+  public AirQuality create(AirQuality airQuality) throws SQLException {
+    String insertAQI = "INSERT INTO HospitalQuality() VALUE();";
+    Connection connection = null;
+    PreparedStatement insertStmt = null;
+    try {
+      connection = connectionManager.getConnection();
+      insertStmt = connection.prepareStatement(insertAQI);
 
+      insertStmt.executeUpdate();
+      return airQuality;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if(connection != null) {
+        connection.close();
+      }
+      if(insertStmt != null) {
+        insertStmt.close();
+      }
+    }
   }
 
   public AirQuality getAirQuality() throws SQLException {
