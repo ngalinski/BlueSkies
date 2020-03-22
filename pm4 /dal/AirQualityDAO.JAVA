@@ -17,13 +17,13 @@ public class AirQualityDAO {
 
   public static AirQualityDAO getInstance() {
     if (instance == null) {
-      instance = new LocationDAO();
+      instance = new AirQualityDAO();
     }
     return instance;
   }
 
   public AirQuality create(AirQuality airQuality) throws SQLException {
-    String insertAQI = "INSERT INTO HospitalQuality() VALUE();";
+    String insertAQI = "INSERT INTO AirQuality() VALUE();";
     Connection connection = null;
     PreparedStatement insertStmt = null;
     try {
