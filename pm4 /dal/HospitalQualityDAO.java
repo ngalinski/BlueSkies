@@ -23,13 +23,13 @@ public class HospitalQualityDAO {
   }
 
   public HospitalQuality create(HospitalQuality hospitalQuality) throws SQLException {
-    String insertHQ = "INSERT INTO HospitalQuality() VALUE();";
+    String insertHQ = "INSERT INTO HospitalQuality(HospitalQualityCode) VALUE(?);";
     Connection connection = null;
     PreparedStatement insertStmt = null;
     try {
       connection = connectionManager.getConnection();
       insertStmt = connection.prepareStatement(insertHQ);
-
+      insertStmt.setString(1, hospitalQuality.getHospitalQualityCode());
       insertStmt.executeUpdate();
       return hospitalQuality;
     } catch (SQLException e) {

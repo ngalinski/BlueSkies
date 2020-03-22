@@ -1,13 +1,13 @@
 package model;
 
 public class HospitalQuality {
-  private int HospitalCode;
+  private int HospitalQualityCode;
 
-  public int getHospitalcode() {
-    return HospitalCode;
+  public int getHospitalQualityCode() {
+    return HospitalQualityCode;
   }
 
-  public void setHospitalcode(int HospitalCode) {
-    this.HospitalCode = HospitalCode;
+  public void setHospitalQualityCode(int HospitalQualityCode) {
+    this.HospitalQualityCode = HospitalQualityCode;
   }
 }
