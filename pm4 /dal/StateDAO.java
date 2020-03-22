@@ -10,12 +10,27 @@ import java.sql.SQLException;
 public class StateDAO {
   protected ConnectionManager connectionManager;
   private static StateDAO instance = null;
+
   protected StateDAO() {
     connectionManager = new ConnectionManager();
   }
+
   public static StateDAO getInstance() {
-    if(instance == null) {
+    if (instance == null) {
       instance = new StateDAO();
     }
     return instance;
   }
+
+  public State create() throws SQLException {
+
+  }
+
+  public State getState() throws SQLException {
+
+  }
+
+  public State delete() throws SQLException {
+
+  }
+}
