@@ -25,6 +25,6 @@ public class Inserter {
     //UPDATE
 
     //DELETE
-    
+
   }
 }

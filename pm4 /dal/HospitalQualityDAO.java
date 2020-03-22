@@ -10,12 +10,27 @@ import java.sql.SQLException;
 public class HospitalQualityDAO {
   protected ConnectionManager connectionManager;
   private static HospitalQualityDAO instance = null;
+
   protected HospitalQualityDAO() {
     connectionManager = new ConnectionManager();
   }
+
   public static HospitalQualityDAO getInstance() {
-    if(instance == null) {
+    if (instance == null) {
       instance = new HospitalQualityDAO();
     }
     return instance;
   }
+
+  public HospitalQuality create() throws SQLException {
+
+  }
+
+  public HospitalQuality getHospitalQuality() throws SQLException {
+
+  }
+
+  public HosptialQuality delete() throws SQLException {
+
+  }
+}
