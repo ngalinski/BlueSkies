@@ -23,13 +23,14 @@ public class HospitalDAO {
   }
 
   public Hospital create(Hospital hospital) throws SQLException {
-    String insertHospital = "INSERT INTO Hospital() VALUE();";
+    String insertHospital = "INSERT INTO Hospital(HospitalName,ZipCode) VALUE(?,?);";
     Connection connection = null;
     PreparedStatement insertStmt = null;
     try {
       connection = connectionManager.getConnection();
       insertStmt = connection.prepareStatement(insertHospital);
-
+      insertStmt.setString(1, hospital.getHospitalName());
+      insertStmt.setString(2, hospital.getZipCode());
       insertStmt.executeUpdate();
       return hospital;
     } catch (SQLException e) {
