@@ -1,112 +1,161 @@
 package model;
 
-public class Airquality {
-  private int CountyCode;
-  private String StateCode;
-  private int DaysWithAQI;
-  private int GoodDaysCount;
-  private int ModerateDaysCount;
-  private int UnhealthyForSensitiveDaysCount;
-  private int UnhealthyDays;
-  private int VeryUnhealthyDays;
-  private int HazardousDays;
-  private int MaxAQI;
-  private int 90thPercentileAQI;
-  private int MedianAQI;
+public class AirQuality {
+  private int airQualityCode;
+  private int countyCode;
+  private String stateCode;
+  private int daysWithAQI;
+  private int goodDays;
+  private int moderateDays;
+  private int unhealthyForSensitiveDays;
+  private int unhealthyDays;
+  private int veryUnhealthyDays;
+  private int hazardousDays;
+  private int maxAQI;
+  private int ninetiethPercentileAQI;
+  private int medianAQI;
 
-  public int getCountycode() {
-    return CountyCode;
+  
+  public AirQuality(int countyCode, String stateCode, int daysWithAQI, int goodDays, int moderateDays, int unhealthyForSensitiveDays,
+		 int unhealthyDays, int veryUnhealthyDays, int hazardousDays, int maxAQI, int ninetiethPercentileAQI, int medianAQI) {
+	 this.countyCode = countyCode;
+	 this.stateCode = stateCode;
+	 this.daysWithAQI = daysWithAQI;
+	 this.goodDays = goodDays;
+	 this.moderateDays = moderateDays;
+	 this.unhealthyForSensitiveDays = unhealthyForSensitiveDays;
+	 this.unhealthyDays = unhealthyDays;
+	 this.veryUnhealthyDays = veryUnhealthyDays;
+	 this.hazardousDays = hazardousDays;
+	 this.maxAQI = maxAQI;
+	 this.ninetiethPercentileAQI =ninetiethPercentileAQI;
+	 this.medianAQI = medianAQI;
+  }
+  
+  public AirQuality(int airQualityCode, int countyCode, String stateCode, int daysWithAQI, int goodDays, int moderateDays, int unhealthyForSensitiveDays,
+		  int unhealthyDays, int veryUnhealthyDays, int hazardousDays, int maxAQI, int ninetiethPercentileAQI, int medianAQI) {
+		this.airQualityCode = airQualityCode;
+	  	this.countyCode = countyCode;
+		 this.stateCode = stateCode;
+		 this.daysWithAQI = daysWithAQI;
+		 this.goodDays = goodDays;
+		 this.moderateDays = moderateDays;
+		 this.unhealthyForSensitiveDays = unhealthyForSensitiveDays;
+		 this.unhealthyDays = unhealthyDays;
+		 this.veryUnhealthyDays = veryUnhealthyDays;
+		 this.hazardousDays = hazardousDays;
+		 this.maxAQI = maxAQI;
+		 this.ninetiethPercentileAQI =ninetiethPercentileAQI;
+		 this.medianAQI = medianAQI;
+  }
+  
+  
+  public AirQuality(int airQualityCode) {
+	this.airQualityCode = airQualityCode;
+  }
+  
+  
+  public int getAirQualityCode() {
+	  return airQualityCode;
+  }
+  
+  public void setAirQualityCode(int airQualityCode) {
+	  this.airQualityCode = airQualityCode;
+  }
+	  
+  public int getCountyCode() {
+    return countyCode;
   }
 
-  public void setCountycode(int CountyCode) {
-    this.CountyCode = CountyCode;
+  public void setCountyCode(int countyCode) {
+    this.countyCode = countyCode;
   }
 
-  public String getStatecode() {
-    return StateCode;
+  public String getStateCode() {
+    return stateCode;
   }
 
-  public void setStatecode(String StateCode) {
-    this.StateCode = StateCode;
+  public void setStateCode(String stateCode) {
+    this.stateCode = stateCode;
   }
 
-  public int getDayswithaqi() {
-    return DaysWithAQI;
+  public int getDaysWithAQI() {
+    return daysWithAQI;
   }
 
-  public void setDayswithaqi(int DaysWithAQI) {
-    this.DaysWithAQI = DaysWithAQI;
+  public void setDaysWithAQI(int daysWithAQI) {
+    this.daysWithAQI = daysWithAQI;
   }
 
-  public int getFooddayscount() {
-    return GoodDaysCount;
+  public int getGoodDays() {
+    return goodDays;
   }
 
-  public void setFooddayscount(int GoodDaysCount) {
-    this.GoodDaysCount = GoodDaysCount;
+  public void setGoodDays(int goodDays) {
+    this.goodDays = goodDays;
   }
 
-  public int getModeratedayscount() {
-    return ModerateDaysCount;
+  public int getModerateDays() {
+    return moderateDays;
   }
 
-  public void setModeratedayscount(int ModerateDaysCount) {
-    this.ModerateDaysCount = ModerateDaysCount;
+  public void setModerateDays(int moderateDays) {
+    this.moderateDays = moderateDays;
   }
 
-  public int getUnhealthyforsensitivedayscount() {
-    return UnhealthyForSensitiveDaysCount;
+  public int getUnhealthyForSensitiveDays() {
+    return unhealthyForSensitiveDays;
   }
 
-  public void setUnhealthyforsensitivedayscount(int UnhealthyForSensitiveDaysCount) {
-    this.UnhealthyForSensitiveDaysCount = UnhealthyForSensitiveDaysCount;
+  public void setUnhealthyForSensitiveDays(int unhealthyForSensitiveDays) {
+    this.unhealthyForSensitiveDays = unhealthyForSensitiveDays;
   }
 
-  public int getUnhealthydays() {
-    return UnhealthyDays;
+  public int getUnhealthyDays() {
+    return unhealthyDays;
   }
 
-  public void setUnhealthydays(int UnhealthyDays) {
-    this.UnhealthyDays = UnhealthyDays;
+  public void setUnhealthyDays(int unhealthyDays) {
+    this.unhealthyDays = unhealthyDays;
   }
 
-  public int getVeryunhealthydays() {
-    return VeryUnhealthyDays;
+  public int getVeryUnhealthyDays() {
+    return veryUnhealthyDays;
   }
 
-  public void Veryunhealthydays(int VeryUnhealthyDays) {
-    this.VeryUnhealthyDays = VeryUnhealthyDays;
+  public void setVeryUnhealthyDays(int veryUnhealthyDays) {
+    this.veryUnhealthyDays = veryUnhealthyDays;
   }
 
-  public int getHazardousdays() {
-    return HazardousDays;
+  public int getHazardousDays() {
+    return hazardousDays;
   }
 
-  public void setHazardousdays(int HazardousDays) {
-    this.HazardousDays = HazardousDays;
+  public void setHazardousDays(int hazardousDays) {
+    this.hazardousDays = hazardousDays;
   }
 
-  public int getMaxaqi() {
-    return MaxAQI;
+  public int getMaxAQI() {
+    return maxAQI;
   }
 
-  public void setMaxaqi(int MaxAQI) {
-    this.MaxAQI = MaxAQI;
+  public void setMaxAQI(int maxAQI) {
+    this.maxAQI = maxAQI;
   }
 
-  public int get90thpercentileaqi() {
-    return 90thPercentileAQI;
+  public int getNinetiethPercentileAQI() {
+    return ninetiethPercentileAQI;
   }
 
-  public void set90thpercentileaqi(int 90thPercentileAQI) {
-    this.90thPercentileAQI = 90thPercentileAQI;
+  public void setNinetiethPercentileAQI(int ninetiethPercentileAQI) {
+    this.ninetiethPercentileAQI = ninetiethPercentileAQI;
   }
 
-  public int getMedianaqi() {
-    return MedianAQI;
+  public int getMedianAQI() {
+    return medianAQI;
   }
 
-  public void setMedianaqi(int MedianAQI) {
-    this.MedianAQI = MedianAQI;
+  public void setMedianAQI(int medianAQI) {
+    this.medianAQI = medianAQI;
   }
 }
