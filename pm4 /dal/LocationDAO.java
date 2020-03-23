@@ -87,7 +87,7 @@ public class LocationDAO {
       connection = connectionManager.getConnection();
       updateStmt = connection.prepareStatement(updatePop);
       updateStmt.setInt(1, newPopulation);
-      company.setPopulation(newPopulation);
+      location.setPopulation(newPopulation);
       return location;
     } catch (SQLException e) {
       e.printStackTrace();
@@ -110,7 +110,7 @@ public class LocationDAO {
       connection = connectionManager.getConnection();
       updateStmt = connection.prepareStatement(updateName);
       updateStmt.setString(1, newName);
-      company.setLocationname(newName);
+      location.setLocationname(newName);
       return location;
     } catch (SQLException e) {
       e.printStackTrace();
@@ -133,7 +133,7 @@ public class LocationDAO {
       connection = connectionManager.getConnection();
       updateStmt = connection.prepareStatement(updateCounty);
       updateStmt.setInt(1, NewCountyCode);
-      company.setCountycode(NewCountyCode);
+      location.setCountycode(NewCountyCode);
       return location;
     } catch (SQLException e) {
       e.printStackTrace();
@@ -154,7 +154,7 @@ public class LocationDAO {
     PreparedStatement deleteStmt = null;
     try {
       connection = connectionManager.getConnection();
-      deleteStmt = connection.prepareStatement(deleteLocation;
+      deleteStmt = connection.prepareStatement(deleteLocation);
       deleteStmt.setInt(1, location.getZipCode());
       deleteStmt.executeUpdate();
       return null;
@@ -169,6 +169,5 @@ public class LocationDAO {
         deleteStmt.close();
       }
     }
-  }
   }
 }
