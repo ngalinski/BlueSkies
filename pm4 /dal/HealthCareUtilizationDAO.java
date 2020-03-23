@@ -45,11 +45,34 @@ public class HospitalCareUtilizationDAO {
     }
   }
 
-  public HealthCareUtilization getHealthCareUtilization() throws SQLException {
+  public HealthCareUtilization getHealthCareUtilizationbyState(String StateCode) throws SQLException {
 
   }
 
-  public HealthCareUtilization delete() throws SQLException {
+  public HealthCareUtilization updateUtilization(HealthCareUtilization healthCareUtilization, double newUtil) throws SQLException {
 
+  }
+
+  public HealthCareUtilization delete(HealthCareUtilization healthCareUtilization) throws SQLException {
+    String deleteHCU = "DELETE FROM HealthCareUtilization WHERE HealthCareUtilizationCode=?;";
+    Connection connection = null;
+    PreparedStatement deleteStmt = null;
+    try {
+      connection = connectionManager.getConnection();
+      deleteStmt = connection.prepareStatement(deleteHCU);
+      deleteStmt.setString(1, healthCareUtilization.getHealthCareUtilizationCode());
+      deleteStmt.executeUpdate();
+      return null;
+    } catch (SQLException e) {
+      e.printStackTrace();;
+      throw e;
+    } finally {
+      if (connection != null) {
+        connection.close();
+      }
+      if (deleteStmt != null) {
+        deleteStmt.close();
+      }
+    }
   }
 }
