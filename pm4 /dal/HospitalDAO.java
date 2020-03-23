@@ -83,6 +83,18 @@ public class HospitalDAO {
 
   }
 
+  public Hospital updateName() throws SQLException {
+
+  }
+
+  public Hospital updateZipCode() throws SQLException {
+
+  }
+
+  public Hospital updateHospitalName() throws SQLException {
+    
+  }
+
   public Hospital delete(Hospital hospital) throws SQLException {
     String deleteHospital = "DELETE FROM Hospital WHERE HospitalName=?;";
     Connection connection = null;

@@ -45,7 +45,15 @@ public class HospitalQualityDAO {
     }
   }
 
-  public HospitalQuality getHospitalQuality() throws SQLException {
+  public HospitalQuality getHQbyCode() throws SQLException {
+
+  }
+
+  public HospitalQuality updateRating() throws SQLException {
+
+  }
+
+  public HospitalQuality updatePatientExp() throws SQLException {
 
   }
 
