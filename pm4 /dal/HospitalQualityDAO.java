@@ -49,7 +49,26 @@ public class HospitalQualityDAO {
 
   }
 
-  public HosptialQuality delete() throws SQLException {
-
+  public HosptialQuality delete(HospitalQuality hospitalQuality) throws SQLException {
+    String deleteHQ = "DELETE FROM HospitalQuality WHERE HospitalQualityCode=?;";
+    Connection connection = null;
+    PreparedStatement deleteStmt = null;
+    try {
+      connection = connectionManager.getConnection();
+      deleteStmt = connection.prepareStatement(deleteHQ);
+      deleteStmt.setInt(1, hospital.getHospitalQualityCode());
+      deleteStmt.executeUpdate();
+      return null;
+    } catch (SQLException e) {
+      e.printStackTrace();;
+      throw e;
+    } finally {
+      if (connection != null) {
+        connection.close();
+      }
+      if (deleteStmt != null) {
+        deleteStmt.close();
+      }
+    }
   }
 }

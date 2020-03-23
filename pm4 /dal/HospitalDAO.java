@@ -46,15 +46,63 @@ public class HospitalDAO {
     }
   }
 
-  public Hospital getHospitalbyType(String hospitalType) throws SQLException {
+  public Hospital getHospitalbyName(String hospitalName) throws SQLException {
+    String selectHospital = "SELECT hospitalName,ZipCode FROM Hospital WHERE hospitalName=?;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = connectionManager.getConnection();
+      selectStmt = connection.prepareStatement(selectHospital);
+      selectStmt.setString(1, hospitalName);
+      results = selectStmt.executreQuery();
+      if(results.next()) {
+        String resultHospitalName = results.getString("hospitalName");
+        int ZipCode = results.getInt("ZipCode");
+        Hospital hospital = new Hospital(resultHospitalName, ZipCode);
+        return hospital;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if(connection != null) {
+        connection.close();
+      }
+      if(selectStmt != null) {
+        selectStmt.close();
+      }
+      if(results != null) {
+        results.close();
+      }
+    }
+    return null;
+  }
+
+  public Hospital getHospitalbyType(String HospitalType) throws SQLException {
 
   }
 
-  public Hospital getHospitalbyName(String HospitalName) throws SQLException {
-    
-  }
-
-  public Hospital delete() throws SQLException {
-
+  public Hospital delete(Hospital hospital) throws SQLException {
+    String deleteHospital = "DELETE FROM Hospital WHERE HospitalName=?;";
+    Connection connection = null;
+    PreparedStatement deleteStmt = null;
+    try {
+      connection = connectionManager.getConnection();
+      deleteStmt = connection.prepareStatement(deleteHospital);
+      deleteStmt.setString(1, hospital.getHospitalName());
+      deleteStmt.executeUpdate();
+      return null;
+    } catch (SQLException e) {
+      e.printStackTrace();;
+      throw e;
+    } finally {
+      if (connection != null) {
+        connection.close();
+      }
+      if (deleteStmt != null) {
+        deleteStmt.close();
+      }
+    }
   }
 }
