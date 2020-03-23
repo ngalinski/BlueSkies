@@ -1,58 +1,90 @@
 package model;
 
 public class HealthCareSpending {
-  private String StateCode;
-  private int TotalSpending;
-  private int InpatientServices;
-  private int OutpatientServices;
-  private int ProfessionalServices;
-  private int RxDrugs;
+  private int healthCareSpendingCode;
+  private String stateCode;
+  private int totalSpending;
+  private int inpatientServices;
+  private int outpatientServices;
+  private int professionalServices;
+  private int rxDrugs;
 
-  public String getStatecode() {
-    return StateCode;
+  public HealthCareSpending(int healthCareSpendingCode, String stateCode, int totalSpending, int inpatientServices, int outpatientServices, int professionalServices, int rxDrugs) {
+	  this.healthCareSpendingCode = healthCareSpendingCode;
+	  this.stateCode = stateCode;
+	  this.totalSpending = totalSpending;
+	  this.inpatientServices = inpatientServices;
+	  this.outpatientServices = outpatientServices;
+	  this.professionalServices = professionalServices;
+	  this.rxDrugs = rxDrugs;
+  }
+  
+  public HealthCareSpending(int healthCareSpendingCode) {
+	  this.healthCareSpendingCode = healthCareSpendingCode;
+  }
+  
+  public HealthCareSpending(String stateCode, int totalSpending, int inpatientServices, int outpatientServices, int professionalServices, int rxDrugs) {
+	  this.stateCode = stateCode;
+	  this.totalSpending = totalSpending;
+	  this.inpatientServices = inpatientServices;
+	  this.outpatientServices = outpatientServices;
+	  this.professionalServices = professionalServices;
+	  this.rxDrugs = rxDrugs;
+  }
+  
+  public int getHealthCareSpendingCode() {
+    return healthCareSpendingCode;
   }
 
-  public void setStatecode(String StateCode) {
-    this.StateCode = StateCode;
+  public void setHealthCareSpendingCode(int healthCareSpendingCode) {
+    this.healthCareSpendingCode = healthCareSpendingCode;
+  }
+  
+  public String getStateCode() {
+    return stateCode;
   }
 
-  public int getTotalspending() {
-    return TotalSpending;
+  public void setStateCode(String stateCode) {
+    this.stateCode = stateCode;
   }
 
-  public void setTotalspending(int TotalSpending) {
-    this.TotalSpending = TotalSpending;
+  public int getTotalSpending() {
+    return totalSpending;
   }
 
-  public int getInpatientservices() {
-    return InpatientServices;
+  public void setTotalSpending(int totalSpending) {
+    this.totalSpending = totalSpending;
   }
 
-  public void setInpatientservices(int InpatientServices) {
-    this.InpatientServices = InpatientServices;
+  public int getInpatientServices() {
+    return inpatientServices;
   }
 
-  public int getOutpatientservices() {
-    return OutpatientServices;
+  public void setInpatientServices(int inpatientServices) {
+    this.inpatientServices = inpatientServices;
   }
 
-  public void setOutpatientservices(int OutpatientServices) {
-    this.OutpatientServices = OutpatientServices;
+  public int getOutpatientServices() {
+    return outpatientServices;
   }
 
-  public int getProfessionalservices() {
-    return ProfessionalServices;
+  public void setOutpatientservices(int outpatientServices) {
+    this.outpatientServices = outpatientServices;
   }
 
-  public void setProfessionalservices(int ProfessionalServices) {
-    this.ProfessionalServices = ProfessionalServices;
+  public int getProfessionalServices() {
+    return professionalServices;
   }
 
-  public int getRxdrugs() {
-    return RxDrugs;
+  public void setProfessionalServices(int professionalServices) {
+    this.professionalServices = professionalServices;
   }
 
-  public void setRxdrugs(int RxDrugs) {
-    this.RxDrugs = RxDrugs;
+  public int getRxDrugs() {
+    return rxDrugs;
+  }
+
+  public void setRxDrugs(int rxDrugs) {
+    this.rxDrugs = rxDrugs;
   }
 }

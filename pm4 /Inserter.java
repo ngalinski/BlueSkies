@@ -11,7 +11,7 @@ public class Inserter {
   public static void main(String[] args) throws SQLException {
 	 AirQualityDAO airQualityDAO = AirQualityDAO.getInstance();
      CountyDAO countyDAO = CountyDAO.getInstance();
-//    HealthCareSpendingDAO healthCareSpendingDAO = HealthCareSpendingDAO.getInstance();
+     HealthCareSpendingDAO healthCareSpendingDAO = HealthCareSpendingDAO.getInstance();
 //    HealthCareUtilizationDAO healthCareUtilizationDAO = HealthCareUtilizationDAO.getInstance();
 //    HospitalDAO hospitalDAO = HospitalDAO.getInstance();
 //    HospitalQualityDAO hospitalQualityDAO = HospitalQualityDAO.getInstance();
@@ -22,8 +22,12 @@ public class Inserter {
     AirQuality airQuality = new AirQuality(9999,"WA",2,3,4,5,6,7,8,12,43,13);
 	airQuality = airQualityDAO.create(airQuality);
 
-    County county = new County("Testing","WA");
+    County county = new County("Testing4","WA");
     county = countyDAO.create(county);
+    
+
+    HealthCareSpending healthCareSpending = new HealthCareSpending("TE", 3, 2, 17, 6, 43);
+    healthCareSpending = healthCareSpendingDAO.create(healthCareSpending);
 	
     //READ
 	AirQuality airQuality2 = airQualityDAO.getAirQualityFromCountyCode(9999);
@@ -37,6 +41,10 @@ public class Inserter {
 			c.getCountyCode(), c.getCountyName(), c.getStateCode());
 	}
 	
+	HealthCareSpending healthCareSpending2 = healthCareSpendingDAO.getHealthCareSpendingByState("TE");
+	System.out.format("Health Care Spending for State: 'TEST' | Code: %s, TotalSpending: %s, InpatientServices: %s, OutpatientServices: %s, ProfessionalServices: %s, RxDrugs: %s, StateCode: %s \n",
+			healthCareSpending2.getHealthCareSpendingCode(), healthCareSpending2.getTotalSpending(), healthCareSpending2.getInpatientServices(), healthCareSpending2.getOutpatientServices(), healthCareSpending2.getProfessionalServices(), healthCareSpending2.getRxDrugs(), healthCareSpending2.getStateCode());
+	
 	
     //UPDATE	
 	airQualityDAO.updateMedianAQI(airQuality2, 678);
@@ -47,8 +55,17 @@ public class Inserter {
 	
 	countyDAO.updateCountyName(county, "NewName");
 	
+	HealthCareSpending healthCareSpending3 = healthCareSpendingDAO.updateTotalSpending(healthCareSpending2, 1234567890);
+
+//	HealthCareSpending healthCareSpending3 = healthCareSpendingDAO.getHealthCareSpendingByState("TE");
+	System.out.format("Health Care Spending for State after updating: 'TEST' | Code: %s, TotalSpending: %s, InpatientServices: %s, OutpatientServices: %s, ProfessionalServices: %s, RxDrugs: %s, StateCode: %s \n",
+			healthCareSpending3.getHealthCareSpendingCode(), healthCareSpending3.getTotalSpending(), healthCareSpending3.getInpatientServices(), healthCareSpending3.getOutpatientServices(), healthCareSpending3.getProfessionalServices(), healthCareSpending3.getRxDrugs(), healthCareSpending3.getStateCode());
+
+			
+	
     //DELETE
 	airQualityDAO.delete(airQuality2updated);
 	countyDAO.delete(county);
+	healthCareSpendingDAO.delete(healthCareSpending2);
   }
 }
