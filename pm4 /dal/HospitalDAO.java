@@ -80,19 +80,82 @@ public class HospitalDAO {
   }
 
   public Hospital getHospitalbyType(String HospitalType) throws SQLException {
-
+    String selectHospital = "SELECT HospitalName,ZipCode FROM Hospital WHERE HospitalType=?;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = connectionManager.getConnection();
+      selectStmt = connection.prepareStatement(selectHospital);
+      selectStmt.setString(1, HospitalType);
+      results = selectStmt.executreQuery();
+      if(results.next()) {
+        String resultName = results.getString("HospitalName");
+        int ZipCode = results.getInt("ZipCode");
+        Hospital hospital = new Hospital(resultName,ZipCode);
+        return hospital;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if(connection != null) {
+        connection.close();
+      }
+      if(selectStmt != null) {
+        selectStmt.close();
+      }
+      if(results != null) {
+        results.close();
+      }
+    }
+    return null;
   }
 
-  public Hospital updateName() throws SQLException {
-
+  public Hospital updateZipCode(Hospital hospital, int newZip) throws SQLException {
+    String updateZip = "UPDATE Hospital SET ZipCode=?;";
+    Connection connection = null;
+    PreparedStatement updateStmt = null;
+    try {
+      connection = connectionManager.getConnection();
+      updateStmt = connection.prepareStatement(updateZip);
+      updateStmt.setInt(1, newZip);
+      hospital.setZipCode(newZip);
+      return hospital;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if(connection != null) {
+        connection.close();
+      }
+      if(updateStmt != null) {
+        updateStmt.close();
+      }
+    }
   }
 
-  public Hospital updateZipCode() throws SQLException {
-
-  }
-
-  public Hospital updateHospitalName() throws SQLException {
-    
+  public Hospital updateHospitalName(Hospital hospital, String newName) throws SQLException {
+    String updateName = "UPDATE Hospital SET HospitalName=?;";
+    Connection connection = null;
+    PreparedStatement updateStmt = null;
+    try {
+      connection = connectionManager.getConnection();
+      updateStmt = connection.prepareStatement(updateName);
+      updateStmt.setString(1, newName);
+      hospital.setHospitalName(newName);
+      return hospital;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if(connection != null) {
+        connection.close();
+      }
+      if(updateStmt != null) {
+        updateStmt.close();
+      }
+    }
   }
 
   public Hospital delete(Hospital hospital) throws SQLException {

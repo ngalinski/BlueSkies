@@ -46,7 +46,7 @@ public class LocationDAO {
     }
   }
 
-  public Location getLocation(int ZipCode) throws SQLException {
+  public Location getLocationbyZip(int ZipCode) throws SQLException {
     String selectLocation = "SELECT LocationName,ZipCode FROM Location WHERE ZipCode=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
