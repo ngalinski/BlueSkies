@@ -79,16 +79,73 @@ public class LocationDAO {
     return null;
   }
 
-  public Location updatePopulation() throws SQLException {
-
+  public Location updatePopulation(Location location, int newPopulation) throws SQLException {
+    String updatePop = "UPDATE Location SET Population=?;";
+    Connection connection = null;
+    PreparedStatement updateStmt = null;
+    try {
+      connection = connectionManager.getConnection();
+      updateStmt = connection.prepareStatement(updatePop);
+      updateStmt.setInt(1, newPopulation);
+      company.setPopulation(newPopulation);
+      return location;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if(connection != null) {
+        connection.close();
+      }
+      if(updateStmt != null) {
+        updateStmt.close();
+      }
+    }
   }
 
-  public Location updateLocationName() throws SQLException {
-
+  public Location updateLocationName(Location location, String newName) throws SQLException {
+    String updateName = "UPDATE Location SET LocationName=?;";
+    Connection connection = null;
+    PreparedStatement updateStmt = null;
+    try {
+      connection = connectionManager.getConnection();
+      updateStmt = connection.prepareStatement(updateName);
+      updateStmt.setString(1, newName);
+      company.setLocationname(newName);
+      return location;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if(connection != null) {
+        connection.close();
+      }
+      if(updateStmt != null) {
+        updateStmt.close();
+      }
+    }
   }
 
-  public Location updateLocationCounty() throws SQLException {
-
+  public Location updateLocationCounty(Location location, int NewCountyCode) throws SQLException {
+    String updateCounty = "UPDATE Location SET CountyCode=?;";
+    Connection connection = null;
+    PreparedStatement updateStmt = null;
+    try {
+      connection = connectionManager.getConnection();
+      updateStmt = connection.prepareStatement(updateCounty);
+      updateStmt.setInt(1, NewCountyCode);
+      company.setCountycode(NewCountyCode);
+      return location;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if(connection != null) {
+        connection.close();
+      }
+      if(updateStmt != null) {
+        updateStmt.close();
+      }
+    }
   }
 
   public Location delete(Location location) throws SQLException {
