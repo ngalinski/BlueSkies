@@ -74,5 +74,6 @@ public class Inserter {
 	airQualityDAO.delete(airQuality2updated);
 	countyDAO.delete(county);
 	healthCareSpendingDAO.delete(healthCareSpending2);
+	healthCareUtilizationDAO.delete(healthCareUtilization1);
   }
 }
