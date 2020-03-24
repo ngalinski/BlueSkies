@@ -1,40 +1,57 @@
 package model;
 
 public class Location {
-  private String LocationName;
-  private String StateCode;
-  private int Population;
-  private int CountyCode;
-
-  public String getLocationname() {
-    return LocationName;
+  private String zipCode;
+  private String locationName;
+  private String stateCode;
+  private int population;
+  private int countyCode;
+  
+  public Location(String zipCode, String locationName, String stateCode, int population, int countyCode) {
+	  this.zipCode = zipCode;
+	  this.locationName = locationName;
+	  this.stateCode = stateCode;
+	  this.population = population;
+	  this.countyCode = countyCode;
+  }
+  
+  public String getZipCode() {
+    return zipCode;
   }
 
-  public void setLocationname(String LocationName) {
-    this.LocationName = LocationName;
+  public void setZipCode(String zipCode) {
+    this.zipCode = zipCode;
   }
 
-  public String getStatecode() {
-    return StateCode;
+  public String getLocationName() {
+    return locationName;
   }
 
-  public void setStatecode(String StateCode) {
-    this.StateCode = StateCode;
+  public void setLocationName(String locationName) {
+    this.locationName = locationName;
+  }
+
+  public String getStateCode() {
+    return stateCode;
+  }
+
+  public void setStateCode(String stateCode) {
+    this.stateCode = stateCode;
   }
 
   public int getPopulation() {
-    return Population;
+    return population;
   }
 
-  public void setPopulation(int Population) {
-    this.Population = Population;
+  public void setPopulation(int population) {
+    this.population = population;
   }
 
-  public int getCountycode() {
-    return CountyCode;
+  public int getCountyCode() {
+    return countyCode;
   }
 
-  public void setCountycode(int CountyCode) {
-    this.CountyCode = CountyCode;
+  public void setCountyCode(int countyCode) {
+    this.countyCode = countyCode;
   }
 }

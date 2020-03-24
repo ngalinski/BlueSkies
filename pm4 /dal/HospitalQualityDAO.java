@@ -7,8 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
-import java.util.ArrayList;
 
 
 public class HospitalQualityDAO {
@@ -73,7 +71,7 @@ public class HospitalQualityDAO {
   }
 	// READ 
 	public HospitalQuality getHospitalQualityFromHospitalCode(int hospitalCode) throws SQLException {
-		String selectHospitalQualityCode = "SELECT HospitalCode,OverallRating,Mortality,Safety,Readmission,PatientExperience,Effectiveness,Timeliness,EfficientUseMedicalImaging WHERE HospitalQuality=?;";
+		String selectHospitalQualityCode = "SELECT HospitalQualityCode,HospitalCode,OverallRating,Mortality,Safety,Readmission,PatientExperience,Effectiveness,Timeliness,EfficientUseMedicalImaging FROM HospitalQuality WHERE HospitalCode=?;";
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;
@@ -85,7 +83,7 @@ public class HospitalQualityDAO {
 			results = selectStmt.executeQuery();
 
 			if(results.next()) {
-			  	  
+				int hospitalQualityCode = results.getInt("HospitalQualityCode");
 				int resultHospitalCode = results.getInt("HospitalCode");
 				int rating = results.getInt("OverallRating");
 				int mortality = results.getInt("Mortality");
@@ -96,7 +94,7 @@ public class HospitalQualityDAO {
 				int timeliness = results.getInt("Timeliness");
 				int efficientUseMedicalImaging = results.getInt("EfficientUseMedicalImaging");
 
-				HospitalQuality hospitalQuality = new HospitalQuality(resultHospitalCode, rating, mortality, safety, readmission, patientExperience, effectiveness, timeliness, efficientUseMedicalImaging);
+				HospitalQuality hospitalQuality = new HospitalQuality(hospitalQualityCode, resultHospitalCode, rating, mortality, safety, readmission, patientExperience, effectiveness, timeliness, efficientUseMedicalImaging);
 				return hospitalQuality;
 			}
 		} catch (SQLException e) {

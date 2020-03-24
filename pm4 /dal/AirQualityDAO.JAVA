@@ -1,23 +1,28 @@
 package dal;
 
 import model.*;
-import model.AirQuality;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
+/**
+ * Data access object (DAO) class to interact with the underlying Persons table in your MySQL
+ * instance. This is used to store {@link Persons} into your MySQL instance and retrieve 
+ * {@link Persons} from MySQL instance.
+ */
 public class AirQualityDAO {
 	protected ConnectionManager connectionManager;
+	
+	// Single pattern: instantiation is limited to one object.
 	private static AirQualityDAO instance = null;
-
 	protected AirQualityDAO() {
 		connectionManager = new ConnectionManager();
 	}
-
 	public static AirQualityDAO getInstance() {
-		if (instance == null) {
+		if(instance == null) {
 			instance = new AirQualityDAO();
 		}
 		return instance;
@@ -28,11 +33,12 @@ public class AirQualityDAO {
 		String insertAirQuality = "INSERT INTO AirQuality(CountyCode,StateCode,0_DaysWithAQI,1_GoodDaysCount,2_ModerateDaysCount,3_UnhealthyForSensitiveDaysCount,4_UnhealthyDays,5_VeryUnhealthyDays,6_HazardousDays,MaxAQI,90thPercentileAQI,MedianAQI) VALUES(?,?,?,?,?,?,?,?,?,?,?,?);";
 		Connection connection = null;
 		PreparedStatement insertStmt = null;
+		ResultSet resultKey = null;
 
 		try {
 			connection = connectionManager.getConnection();
-			insertStmt = connection.prepareStatement(insertAirQuality);
-
+			insertStmt = connection.prepareStatement(insertAirQuality,
+					Statement.RETURN_GENERATED_KEYS);
 			insertStmt.setInt(1, airQuality.getCountyCode());
 			insertStmt.setString(2, airQuality.getStateCode());
 			insertStmt.setInt(3, airQuality.getDaysWithAQI());
@@ -45,9 +51,16 @@ public class AirQualityDAO {
 			insertStmt.setInt(10, airQuality.getMaxAQI());
 			insertStmt.setInt(11, airQuality.getNinetiethPercentileAQI());
 			insertStmt.setInt(12, airQuality.getMedianAQI());
-
 			insertStmt.executeUpdate();
 
+			resultKey = insertStmt.getGeneratedKeys();
+			int airQualityCode = -1;
+			if(resultKey.next()) {
+				airQualityCode = resultKey.getInt(1);
+			} else {
+				throw new SQLException("Unable to retrieve auto-generated key.");
+			}
+			airQuality.setAirQualityCode(airQualityCode);
 			return airQuality;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -163,5 +176,4 @@ public class AirQualityDAO {
 			}
 		}
 	}
-}
 }

@@ -1,6 +1,6 @@
 package dal;
 
-import blog.model.*;
+import model.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

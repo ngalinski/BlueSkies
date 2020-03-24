@@ -11,26 +11,26 @@ public class HealthCareUtilization {
 
 
   public HealthCareUtilization(int healthCareUtilizationCode, String stateCode, double totalUtilization, double inpatientServices, double outpatientServices, double professionalServices, double rxDrugs) {
-    this.healthCareUtilizationCode = healthCareUtilizationCode;
-    this.stateCode = stateCode;
-    this.totalUtilization = totalUtilization;
-    this.inpatientServices = inpatientServices;
-    this.outpatientServices = outpatientServices;
-    this.professionalServices = professionalServices;
-    this.rxDrugs = rxDrugs;
+	  this.healthCareUtilizationCode = healthCareUtilizationCode;
+	  this.stateCode = stateCode;
+	  this.totalUtilization = totalUtilization;
+	  this.inpatientServices = inpatientServices;
+	  this.outpatientServices = outpatientServices;
+	  this.professionalServices = professionalServices;
+	  this.rxDrugs = rxDrugs;
   }
   
   public HealthCareUtilization(int healthCareUtilizationCode) {
-    this.healthCareUtilizationCode = healthCareUtilizationCode;
+	  this.healthCareUtilizationCode = healthCareUtilizationCode;
   }
   
   public HealthCareUtilization(String stateCode, double totalUtilization, double inpatientServices, double outpatientServices, double professionalServices, double rxDrugs) {
-    this.stateCode = stateCode;
-    this.totalUtilization = totalUtilization;
-    this.inpatientServices = inpatientServices;
-    this.outpatientServices = outpatientServices;
-    this.professionalServices = professionalServices;
-    this.rxDrugs = rxDrugs;
+	  this.stateCode = stateCode;
+	  this.totalUtilization = totalUtilization;
+	  this.inpatientServices = inpatientServices;
+	  this.outpatientServices = outpatientServices;
+	  this.professionalServices = professionalServices;
+	  this.rxDrugs = rxDrugs;
   }
   
   
