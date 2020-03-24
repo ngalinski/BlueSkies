@@ -1,11 +1,15 @@
 package dal;
 
-import blog.model.*;
+import model.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
+import java.util.ArrayList;
+
 
 public class HospitalQualityDAO {
   protected ConnectionManager connectionManager;
@@ -23,15 +27,37 @@ public class HospitalQualityDAO {
   }
 
   public HospitalQuality create(HospitalQuality hospitalQuality) throws SQLException {
-    String insertHQ = "INSERT INTO HospitalQuality(HospitalQualityCode) VALUE(?);";
+    String insertHospitalQuality = "INSERT INTO HospitalQuality(HospitalCode,OverallRating,Mortality,Safety,Readmission,PatientExperience,Effectiveness,Timeliness,EfficientUseMedicalImaging) VALUE(?,?,?,?,?,?,?,?,?);";
     Connection connection = null;
     PreparedStatement insertStmt = null;
+	ResultSet resultKey = null;
+
     try {
-      connection = connectionManager.getConnection();
-      insertStmt = connection.prepareStatement(insertHQ);
-      insertStmt.setString(1, hospitalQuality.getHospitalQualityCode());
-      insertStmt.executeUpdate();
-      return hospitalQuality;
+        connection = connectionManager.getConnection();
+
+        insertStmt = connection.prepareStatement(insertHospitalQuality,
+  				Statement.RETURN_GENERATED_KEYS);
+	      insertStmt.setInt(1, hospitalQuality.getHospitalCode());
+	  	  insertStmt.setInt(2, hospitalQuality.getOverallRating());
+	  	  insertStmt.setInt(3, hospitalQuality.getMortality());
+	  	  insertStmt.setInt(4, hospitalQuality.getSafety());
+	  	  insertStmt.setInt(5, hospitalQuality.getReadmission());
+	  	  insertStmt.setInt(6, hospitalQuality.getPatientExperience());
+	  	  insertStmt.setInt(7, hospitalQuality.getEffectiveness());
+	  	  insertStmt.setInt(8, hospitalQuality.getTimeliness());
+	  	  insertStmt.setInt(9, hospitalQuality.getEfficientUseMedicalImaging());
+
+  	  insertStmt.executeUpdate();
+
+  		resultKey = insertStmt.getGeneratedKeys();
+  		int hospitalQualityCode = -1;
+  		if(resultKey.next()) {
+  			hospitalQualityCode = resultKey.getInt(1);
+  		} else {
+  			throw new SQLException("Unable to retrieve auto-generated key.");
+  		}
+  		hospitalQuality.setHospitalQualityCode(hospitalQualityCode);
+  		return hospitalQuality;
     } catch (SQLException e) {
       e.printStackTrace();
       throw e;
@@ -43,50 +69,63 @@ public class HospitalQualityDAO {
         insertStmt.close();
       }
     }
+    
   }
+	// READ 
+	public HospitalQuality getHospitalQualityFromHospitalCode(int hospitalCode) throws SQLException {
+		String selectHospitalQualityCode = "SELECT HospitalCode,OverallRating,Mortality,Safety,Readmission,PatientExperience,Effectiveness,Timeliness,EfficientUseMedicalImaging WHERE HospitalQuality=?;";
+		Connection connection = null;
+		PreparedStatement selectStmt = null;
+		ResultSet results = null;
+		try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectHospitalQualityCode);
+			selectStmt.setInt(1, hospitalCode);
 
-  public HospitalQuality getHQbyCode(int HospitalQualityCode) throws SQLException {
-    String selectHQ = "SELECT HospitalCode,HospitalName FROM HospitalQualityCode WHERE HospitalQualityCode=?;";
-    Connection connection = null;
-    PreparedStatement selectStmt = null;
-    ResultSet results = null;
-    try {
-      connection = connectionManager.getConnection();
-      selectStmt = connection.prepareStatement(selectHQ);
-      selectStmt.setInt(1, HospitalQualityCode);
-      results = selectStmt.executreQuery();
-      if(results.next()) {
-        String resultHospitalName = results.getString("HospitalName");
-        int HospitalCode = results.getInt("HospitalCode");
-        HospitalQuality hospitalQuality = new HospitalQuality(resultHospitalName, HospitalCode);
-        return hospitalQuality;
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      throw e;
-    } finally {
-      if(connection != null) {
-        connection.close();
-      }
-      if(selectStmt != null) {
-        selectStmt.close();
-      }
-      if(results != null) {
-        results.close();
-      }
-    }
-    return null;
-  }
+			results = selectStmt.executeQuery();
 
-  public HospitalQuality updateRating(HospitalQuality hospitalQuality, int newRating) throws SQLException {
-    String updateRating = "UPDATE HospitalQuality SET Rating=?;";
+			if(results.next()) {
+			  	  
+				int resultHospitalCode = results.getInt("HospitalCode");
+				int rating = results.getInt("OverallRating");
+				int mortality = results.getInt("Mortality");
+				int safety = results.getInt("Safety");
+				int readmission = results.getInt("Readmission");
+				int patientExperience = results.getInt("PatientExperience");
+				int effectiveness = results.getInt("Effectiveness");
+				int timeliness = results.getInt("Timeliness");
+				int efficientUseMedicalImaging = results.getInt("EfficientUseMedicalImaging");
+
+				HospitalQuality hospitalQuality = new HospitalQuality(resultHospitalCode, rating, mortality, safety, readmission, patientExperience, effectiveness, timeliness, efficientUseMedicalImaging);
+				return hospitalQuality;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		return null;
+	}
+
+
+  public HospitalQuality updateOverallRating(HospitalQuality hospitalQuality, int overallRating) throws SQLException {
+    String updateOverallRating = "UPDATE HospitalQuality SET OverallRating=?;";
     Connection connection = null;
     PreparedStatement updateStmt = null;
     try {
       connection = connectionManager.getConnection();
-      updateStmt = connection.prepareStatement(updateRating);
-      updateStmt.setString(1, newRating);
-      hospitalQuality.setRating(newRating);
+      updateStmt = connection.prepareStatement(updateOverallRating);
+      updateStmt.setInt(1, overallRating);
+      hospitalQuality.setOverallRating(overallRating);
       return hospitalQuality;
     } catch (SQLException e) {
       e.printStackTrace();
@@ -101,37 +140,14 @@ public class HospitalQualityDAO {
     }
   }
 
-  public HospitalQuality updatePatientExp(HospitalQuality hospitalQuality, int newExp) throws SQLException {
-    String updateExp = "UPDATE HospitalQuality SET PatientExperience=?;";
-    Connection connection = null;
-    PreparedStatement updateStmt = null;
-    try {
-      connection = connectionManager.getConnection();
-      updateStmt = connection.prepareStatement(updateExp);
-      updateStmt.setString(1, newExp);
-      hospitalQuality.setPatientExperience(newExp);
-      return hospitalQuality;
-    } catch (SQLException e) {
-      e.printStackTrace();
-      throw e;
-    } finally {
-      if(connection != null) {
-        connection.close();
-      }
-      if(updateStmt != null) {
-        updateStmt.close();
-      }
-    }
-  }
-
-  public HosptialQuality delete(HospitalQuality hospitalQuality) throws SQLException {
-    String deleteHQ = "DELETE FROM HospitalQuality WHERE HospitalQualityCode=?;";
+  public HospitalQuality delete(HospitalQuality hospitalQuality) throws SQLException {
+    String deleteHospitalQuality = "DELETE FROM HospitalQuality WHERE HospitalQualityCode=?;";
     Connection connection = null;
     PreparedStatement deleteStmt = null;
     try {
       connection = connectionManager.getConnection();
-      deleteStmt = connection.prepareStatement(deleteHQ);
-      deleteStmt.setInt(1, hospital.getHospitalQualityCode());
+      deleteStmt = connection.prepareStatement(deleteHospitalQuality);
+      deleteStmt.setInt(1, hospitalQuality.getHospitalQualityCode());
       deleteStmt.executeUpdate();
       return null;
     } catch (SQLException e) {

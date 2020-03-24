@@ -68,7 +68,7 @@ public class HospitalDAO {
 			throws SQLException {
 		List<Hospital> hospitals = new ArrayList<Hospital>();
 		String selectCounties =
-			"SELECT HospitalCode,HospitalName,ZipCode FROM Hospital WHERE Hospital.HospitalName=?;";
+			"SELECT HospitalCode,HospitalName,ZipCode FROM Hospital WHERE Hospital.ZipCode=?;";
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;

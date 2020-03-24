@@ -14,7 +14,7 @@ public class Inserter {
      HealthCareSpendingDAO healthCareSpendingDAO = HealthCareSpendingDAO.getInstance();
      HealthCareUtilizationDAO healthCareUtilizationDAO = HealthCareUtilizationDAO.getInstance();
      HospitalDAO hospitalDAO = HospitalDAO.getInstance();
-//    HospitalQualityDAO hospitalQualityDAO = HospitalQualityDAO.getInstance();
+     HospitalQualityDAO hospitalQualityDAO = HospitalQualityDAO.getInstance();
 //    LocationDAO locationDAO = LocationDAO.getInstance();
 //    StateDAO stateDAO = StateDAO.getInstance();
 
@@ -22,7 +22,7 @@ public class Inserter {
     AirQuality airQuality = new AirQuality(9999,"WA",2,3,4,5,6,7,8,12,43,13);
 	airQuality = airQualityDAO.create(airQuality);
 
-    County county = new County("Testing12","WA");
+    County county = new County("Testing2212","WA");
     county = countyDAO.create(county);
     
 
@@ -60,7 +60,7 @@ public class Inserter {
 			healthCareUtilization2.getHealthCareUtilizationCode(), healthCareUtilization2.getTotalUtilization(), healthCareUtilization2.getInpatientServices(), healthCareUtilization2.getOutpatientServices(), healthCareUtilization2.getProfessionalServices(), healthCareUtilization2.getRxDrugs(), healthCareUtilization2.getStateCode());
 	
 	List<Hospital> hospitalsList = hospitalDAO.getHospitalsByZipCode("98105");
-	System.out.format("Getting hopsitals in zipcode 'King'\n");
+	System.out.format("Getting hopsitals in zipcode '98105'\n");
 	for(Hospital h : hospitalsList) {
 		System.out.format("%s: %s, %s\n",
 			h.getHospitalCode(), h.getHospitalName(), h.getZipCode());
@@ -68,7 +68,7 @@ public class Inserter {
 	
 	
 	List<Hospital> hospitalsList2 = hospitalDAO.getHospitalsByZipCode("90210");
-	System.out.format("Getting hopsitals in zipcode 'King'\n");
+	System.out.format("Getting hopsitals in zipcode '90210'\n");
 	for(Hospital h2 : hospitalsList2) {
 		System.out.format("%s: %s, %s\n",
 				h2.getHospitalCode(), h2.getHospitalName(), h2.getZipCode());
