@@ -12,7 +12,7 @@ public class Inserter {
 	 AirQualityDAO airQualityDAO = AirQualityDAO.getInstance();
      CountyDAO countyDAO = CountyDAO.getInstance();
      HealthCareSpendingDAO healthCareSpendingDAO = HealthCareSpendingDAO.getInstance();
-//    HealthCareUtilizationDAO healthCareUtilizationDAO = HealthCareUtilizationDAO.getInstance();
+    HealthCareUtilizationDAO healthCareUtilizationDAO = HealthCareUtilizationDAO.getInstance();
 //    HospitalDAO hospitalDAO = HospitalDAO.getInstance();
 //    HospitalQualityDAO hospitalQualityDAO = HospitalQualityDAO.getInstance();
 //    LocationDAO locationDAO = LocationDAO.getInstance();
@@ -28,6 +28,9 @@ public class Inserter {
 
     HealthCareSpending healthCareSpending = new HealthCareSpending("TE", 3, 2, 17, 6, 43);
     healthCareSpending = healthCareSpendingDAO.create(healthCareSpending);
+
+    HealthCareUtilization healthCareUtilization = new HealthCareUtilization("AB", 1, 2, 3, 4, 5);
+    healthCareUtilization = healthCareUtilizationDAO.create(healthCareUtilization);
 	
     //READ
 	AirQuality airQuality2 = airQualityDAO.getAirQualityFromCountyCode(9999);
@@ -44,9 +47,13 @@ public class Inserter {
 	HealthCareSpending healthCareSpending2 = healthCareSpendingDAO.getHealthCareSpendingByState("TE");
 	System.out.format("Health Care Spending for State: 'TEST' | Code: %s, TotalSpending: %s, InpatientServices: %s, OutpatientServices: %s, ProfessionalServices: %s, RxDrugs: %s, StateCode: %s \n",
 			healthCareSpending2.getHealthCareSpendingCode(), healthCareSpending2.getTotalSpending(), healthCareSpending2.getInpatientServices(), healthCareSpending2.getOutpatientServices(), healthCareSpending2.getProfessionalServices(), healthCareSpending2.getRxDrugs(), healthCareSpending2.getStateCode());
-	
-	
-    //UPDATE	
+
+	HealthCareUtilization healthCareUtilization1 = healthCareUtilizationDAO.getHealthCareUtilizationbyState("AB");
+		System.out.format("Health Care Utilization for State: 'TEST' | Code: %s, TotalUtilization: %s, InpatientServices: %s, OutpatientServices: %s, ProfessionalServices: %s, RxDrugs: %s, StateCode: %s \n",
+						healthCareUtilization1.getHealthCareUtilizationCode(), healthCareUtilization1.getTotalUtilization(), healthCareUtilization1.getInpatientServices(), healthCareUtilization1.getOutpatientServices(), healthCareUtilization1.getProfessionalServices(), healthCareUtilization1.getRxDrugs(), healthCareUtilization1.getStateCode());
+
+
+		//UPDATE
 	airQualityDAO.updateMedianAQI(airQuality2, 678);
 	
 	AirQuality airQuality2updated = airQualityDAO.getAirQualityFromCountyCode(9999);
