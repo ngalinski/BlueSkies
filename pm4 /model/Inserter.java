@@ -11,33 +11,43 @@ public class Inserter {
   public static void main(String[] args) throws SQLException {
 	 AirQualityDAO airQualityDAO = AirQualityDAO.getInstance();
      CountyDAO countyDAO = CountyDAO.getInstance();
+     HealthCareCoverageDAO healthCareCoverageDAO = HealthCareCoverageDAO.getInstance();
      HealthCareSpendingDAO healthCareSpendingDAO = HealthCareSpendingDAO.getInstance();
      HealthCareUtilizationDAO healthCareUtilizationDAO = HealthCareUtilizationDAO.getInstance();
      HospitalDAO hospitalDAO = HospitalDAO.getInstance();
      HospitalQualityDAO hospitalQualityDAO = HospitalQualityDAO.getInstance();
-//    LocationDAO locationDAO = LocationDAO.getInstance();
-//    StateDAO stateDAO = StateDAO.getInstance();
+     LocationDAO locationDAO = LocationDAO.getInstance();
+     StateDAO stateDAO = StateDAO.getInstance();
 
     //CREATE
     AirQuality airQuality = new AirQuality(9999,"WA",2,3,4,5,6,7,8,12,43,13);
 	airQuality = airQualityDAO.create(airQuality);
 
-    County county = new County("Testing2212","WA");
+    County county = new County("asdfsdf","WA");
     county = countyDAO.create(county);
     
-
+    HealthCareCoverage healthCareCoverage1 = new HealthCareCoverage(99, 1, 98, 2, "washington", "king2");
+    healthCareCoverage1 = healthCareCoverageDAO.create(healthCareCoverage1);
+  
+    
     HealthCareSpending healthCareSpending = new HealthCareSpending("TE", 3, 2, 17, 6, 43);
     healthCareSpending = healthCareSpendingDAO.create(healthCareSpending);
     
-
     HealthCareUtilization healthCareUtilization = new HealthCareUtilization("TE", 4520.0, 122.0, 47.2, 32.2, 2.43);
     healthCareUtilization = healthCareUtilizationDAO.create(healthCareUtilization);
 
-    
-
     Hospital hospital = new Hospital("Amy's Hospital", "90210");
     hospital = hospitalDAO.create(hospital);
-	
+
+    HospitalQuality hospitalQuality = new HospitalQuality(200, 3, 4, 5, 6, 7, 8, 9, 10);
+    hospitalQuality = hospitalQualityDAO.create(hospitalQuality);
+ 
+    Location location = new Location("sdasfsf", "SampleedCity", "WA", 12223, 300);
+    location = locationDAO.create(location);
+    
+    State state1 = new State("IP", "Puerto Rico Island", "S");
+    state1 = stateDAO.create(state1);
+    
     
     //READ
 	AirQuality airQuality2 = airQualityDAO.getAirQualityFromCountyCode(9999);
@@ -50,6 +60,10 @@ public class Inserter {
 		System.out.format("%s: %s, %s\n",
 			c.getCountyCode(), c.getCountyName(), c.getStateCode());
 	}
+	
+    HealthCareCoverage readingHealthCareCoverage = healthCareCoverageDAO.getHealthCareCoverageByCoverageCode(healthCareCoverage1.getHealthCareCoverageCode());
+	System.out.format("Health Care Coverage for County, State: %s, %s | # Uninsured: %s, # Insured: %s, Percent Uninsured: %s, Percent Insured: %s  \n",
+			readingHealthCareCoverage.getStateName(), readingHealthCareCoverage.getCountyName(), readingHealthCareCoverage.getNumberUninsured(), readingHealthCareCoverage.getNumberInsured(), readingHealthCareCoverage.getPercentUninsured(), readingHealthCareCoverage.getPercentInsured());
 	
 	HealthCareSpending healthCareSpending2 = healthCareSpendingDAO.getHealthCareSpendingByState("TE");
 	System.out.format("Health Care Spending for State: 'TEST' | Code: %s, TotalSpending: %s, InpatientServices: %s, OutpatientServices: %s, ProfessionalServices: %s, RxDrugs: %s, StateCode: %s \n",
@@ -68,13 +82,25 @@ public class Inserter {
 	
 	
 	List<Hospital> hospitalsList2 = hospitalDAO.getHospitalsByZipCode("90210");
-	System.out.format("Getting hopsitals in zipcode '90210'\n");
+	System.out.format("Getting hospitals in zipcode '90210'\n");
 	for(Hospital h2 : hospitalsList2) {
 		System.out.format("%s: %s, %s\n",
 				h2.getHospitalCode(), h2.getHospitalName(), h2.getZipCode());
 	}
 	
+	HospitalQuality hospitalQuality1 = hospitalQualityDAO.getHospitalQualityFromHospitalCode(200);
+	System.out.format("Quality For Hospital Code # %s: Safety: %s  Readmission: %s\n",
+			hospitalQuality1.getHospitalCode(), hospitalQuality1.getSafety(), hospitalQuality1.getReadmission());
 	
+	List<Location> locationsList = locationDAO.getLocationsByCountyCode(300);
+	System.out.format("Getting locations in countycode '300'\n");
+	for(Location l : locationsList) {
+		System.out.format("%s: %s, %s, %s, Population: %s\n",
+			l.getLocationName(), l.getStateCode(), l.getCountyCode(), l.getZipCode(), l.getPopulation());
+	}
+	
+	State state2 = stateDAO.getStateFromStateCode("IP");
+	System.out.format("%s is short for %s in the %s region.\n", state2.getStateCode(), state2.getStateName(), state2.getRegion());
 	
     //UPDATE	
 	airQualityDAO.updateMedianAQI(airQuality2, 678);
@@ -97,12 +123,36 @@ public class Inserter {
 			
 	hospitalDAO.updateHospitalName(hospital, "Oscar's Hospital");
 	
+	hospitalQualityDAO.updateOverallRating(hospitalQuality1, 5665);
+
+	HealthCareCoverage newHealthCareCoverage = new HealthCareCoverage(100, 0, 101, 4, "washington", "king2");
+	   
+	healthCareCoverageDAO.updateHealthCareCoverageByCoverageCode(healthCareCoverage1, newHealthCareCoverage);
+    
+	HealthCareCoverage readingHealthCareCoverage2 = healthCareCoverageDAO.getHealthCareCoverageByCoverageCode(healthCareCoverage1.getHealthCareCoverageCode());
+	System.out.format("Health Care Coverage for County, State (After update): %s, %s | # Uninsured: %s, # Insured: %s, Percent Uninsured: %s, Percent Insured: %s  \n",
+			readingHealthCareCoverage2.getStateName(), readingHealthCareCoverage2.getCountyName(), readingHealthCareCoverage2.getNumberUninsured(), readingHealthCareCoverage2.getNumberInsured(), readingHealthCareCoverage.getPercentUninsured(), readingHealthCareCoverage.getPercentInsured());
+	
+	
+	HospitalQuality hospitalQuality2 = hospitalQualityDAO.getHospitalQualityFromHospitalCode(200);
+	System.out.format("Quality For Hospital Code # %s: Safety: %s  Readmission: %s, Effectiveness: %s \n",
+			hospitalQuality2.getHospitalCode(), hospitalQuality2.getSafety(), hospitalQuality2.getReadmission(), hospitalQuality2.getEffectiveness());
+	
+	locationDAO.updatePopulation(location, 6000);
+
+	Location location2 = locationDAO.getLocationByZipCode(location.getZipCode());
+	System.out.format("%s: %s, %s, %s, Population: %s\n",
+			location2.getLocationName(), location2.getStateCode(), location2.getCountyCode(), location2.getZipCode(), location2.getPopulation());
+
 	
     //DELETE
 	airQualityDAO.delete(airQuality2updated);
 	countyDAO.delete(county);
 	healthCareSpendingDAO.delete(healthCareSpending2);
 	healthCareUtilizationDAO.delete(healthCareUtilization2);
+	hospitalQualityDAO.delete(hospitalQuality2);
+	locationDAO.delete(location2);
+	healthCareCoverageDAO.delete(healthCareCoverage1);
 
   }
 }
