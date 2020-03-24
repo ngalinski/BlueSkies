@@ -23,14 +23,32 @@ public class HospitalCareUtilizationDAO {
   }
 
   public HealthCareUtilization create(HealthCareUtilization healthCareUtilization) throws SQLException {
-    String insertHCU = "INSERT INTO HealthCareUtilization() VALUE();";
+    String insertHCU = "INSERT INTO HealthCareUtilization(StateCode,TotalSpending,InpatientServices,OutpatientServices,ProfessionalServices,RxDrugs) VALUE(?,?,?,?,?,?);";
     Connection connection = null;
     PreparedStatement insertStmt = null;
+    ResultSet resultKey = null;
+
     try {
       connection = connectionManager.getConnection();
-      insertStmt = connection.prepareStatement(insertHCU);
 
+      insertStmt = connection.prepareStatement(insertHCS,
+              Statement.RETURN_GENERATED_KEYS);
+      insertStmt.setString(1, healthCareUtilization.getStateCode());
+      insertStmt.setInt(2, healthCareUtilization.getTotalSpending());
+      insertStmt.setInt(3, healthCareUtilization.getInpatientServices());
+      insertStmt.setInt(4, healthCareUtilization.getOutpatientServices());
+      insertStmt.setInt(5, healthCareUtilization.getProfessionalServices());
+      insertStmt.setInt(6, healthCareUtilization.getRxDrugs());
       insertStmt.executeUpdate();
+
+      resultKey = insertStmt.getGeneratedKeys();
+      int healthCareUtilizationCode = -1;
+      if(resultKey.next()) {
+        healthCareUtilizationCode = resultKey.getInt(1);
+      } else {
+        throw new SQLException("Unable to retrieve auto-generated key.");
+      }
+      healthCareUtilization.setHealthCareSpendingCode(healthCareUtilizationCode);
       return healthCareUtilization;
     } catch (SQLException e) {
       e.printStackTrace();
@@ -46,7 +64,46 @@ public class HospitalCareUtilizationDAO {
   }
 
   public HealthCareUtilization getHealthCareUtilizationbyState(String StateCode) throws SQLException {
+    String selectHCU = "SELECT StateCode,TotalSpending,InpatientServices,OutpatientServices,ProfessionalServices,RxDrugs FROM HealthCareUtilization WHERE StateCode =?;";
 
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+
+    try {
+      connection = connectionManager.getConnection();
+      selectStmt = connection.prepareStatement(selectHCU);
+      selectStmt.setString(1, stateCode);
+
+      results = selectStmt.executeQuery();
+
+      if(results.next()) {
+
+        String resultStateCode = results.getString("StateCode");
+        int totalSpending = results.getInt("TotalSpending");
+        int inpatientServices = results.getInt("InpatientServices");
+        int outpatientServices = results.getInt("OutpatientServices");
+        int professionalServices = results.getInt("ProfessionalServices");
+        int rxDrugs = results.getInt("RxDrugs");
+
+        HealthCareUtilization healthCareUtilization = new HealthCareUtilization(resultStateCode, totalSpending, inpatientServices, outpatientServices, professionalServices, rxDrugs);
+        return healthCareUtilization;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if(connection != null) {
+        connection.close();
+      }
+      if(selectStmt != null) {
+        selectStmt.close();
+      }
+      if(results != null) {
+        results.close();
+      }
+    }
+    return null;
   }
 
   public HealthCareUtilization updateUtilization(HealthCareUtilization healthCareUtilization, double newUtil) throws SQLException {
@@ -60,7 +117,7 @@ public class HospitalCareUtilizationDAO {
     try {
       connection = connectionManager.getConnection();
       deleteStmt = connection.prepareStatement(deleteHCU);
-      deleteStmt.setString(1, healthCareUtilization.getHealthCareUtilizationCode());
+      deleteStmt.setInt(1, healthCareUtilization.getHealthCareUtilizationCode());
       deleteStmt.executeUpdate();
       return null;
     } catch (SQLException e) {
