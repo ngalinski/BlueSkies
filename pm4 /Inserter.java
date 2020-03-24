@@ -16,13 +16,13 @@ public class Inserter {
      HospitalDAO hospitalDAO = HospitalDAO.getInstance();
      HospitalQualityDAO hospitalQualityDAO = HospitalQualityDAO.getInstance();
      LocationDAO locationDAO = LocationDAO.getInstance();
-//    StateDAO stateDAO = StateDAO.getInstance();
+     StateDAO stateDAO = StateDAO.getInstance();
 
     //CREATE
     AirQuality airQuality = new AirQuality(9999,"WA",2,3,4,5,6,7,8,12,43,13);
 	airQuality = airQualityDAO.create(airQuality);
 
-    County county = new County("T2ssdf12","WA");
+    County county = new County("asdfsdf","WA");
     county = countyDAO.create(county);
     
 
@@ -39,9 +39,11 @@ public class Inserter {
     HospitalQuality hospitalQuality = new HospitalQuality(200, 3, 4, 5, 6, 7, 8, 9, 10);
     hospitalQuality = hospitalQualityDAO.create(hospitalQuality);
  
-
-    Location location = new Location("3331221", "SampleedCity", "WA", 12223, 300);
+    Location location = new Location("sdasfsf", "SampleedCity", "WA", 12223, 300);
     location = locationDAO.create(location);
+    
+    State state1 = new State("IP", "Puerto Rico Island", "S");
+    state1 = stateDAO.create(state1);
     
     
     //READ
@@ -90,6 +92,9 @@ public class Inserter {
 			l.getLocationName(), l.getStateCode(), l.getCountyCode(), l.getZipCode(), l.getPopulation());
 	}
 	
+	State state2 = stateDAO.getStateFromStateCode("IP");
+	System.out.format("%s is short for %s in the %s region.\n", state2.getStateCode(), state2.getStateName(), state2.getRegion());
+	
     //UPDATE	
 	airQualityDAO.updateMedianAQI(airQuality2, 678);
 	
@@ -114,7 +119,7 @@ public class Inserter {
 	hospitalQualityDAO.updateOverallRating(hospitalQuality1, 5665);
 
 	HospitalQuality hospitalQuality2 = hospitalQualityDAO.getHospitalQualityFromHospitalCode(200);
-	System.out.format("Quality For Hospital Code # %s: %s Safety: %s  Readmission: %s, Effectiveness: %s \n",
+	System.out.format("Quality For Hospital Code # %s: Safety: %s  Readmission: %s, Effectiveness: %s \n",
 			hospitalQuality2.getHospitalCode(), hospitalQuality2.getSafety(), hospitalQuality2.getReadmission(), hospitalQuality2.getEffectiveness());
 	
 	locationDAO.updatePopulation(location, 6000);
