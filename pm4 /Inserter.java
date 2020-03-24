@@ -134,8 +134,9 @@ public class Inserter {
 	countyDAO.delete(county);
 	healthCareSpendingDAO.delete(healthCareSpending2);
 	healthCareUtilizationDAO.delete(healthCareUtilization2);
+	hospitalDAO.delete(hospital);
 	hospitalQualityDAO.delete(hospitalQuality2);
 	locationDAO.delete(location2);
-
+	stateDAO.delete(state2);
   }
 }
