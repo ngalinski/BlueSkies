@@ -55,22 +55,20 @@ public class CountyCreate extends HttpServlet {
     if (countyCode == null || countyCode.trim().isEmpty()) {
       messages.put("success", "Invalid County Code");
     } else {
-      if (countynName == null || countyName.trim().isEmpty()) {
+      if (countyName == null || countyName.trim().isEmpty()) {
         messages.put("success", "Invalid County Name");
       } else {
         if (stateCode == null || stateCode.trim().isEmpty()) {
           messages.put("success", "Invalid State Code");
         } else {
-              County county = new County(Integer.parseInt(countyCode), countyName, stateCode);
-              try {
-                county = countyDAO.create(county);
-                messages.put("success", "Successfully created " + countyCode);
-              } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                throw new IOException(e);
-              }
-            }
+          County county = new County(Integer.parseInt(countyCode), countyName, stateCode);
+          try {
+            county = countyDAO.create(county);
+            messages.put("success", "Successfully created " + countyCode);
+          } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            throw new IOException(e);
           }
         }
       }
