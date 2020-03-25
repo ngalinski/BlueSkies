@@ -38,12 +38,12 @@ public class CountyUpdate extends HttpServlet {
     Map<String, String> messages = new HashMap<String, String>();
     req.setAttribute("messages", messages);
 
-    String countyName = req.getParameter("countyname");
-    if (countyName == null || countyName.trim().isEmpty()) {
-      messages.put("success", "Please enter a valid County Name.");
+    String countyCode = req.getParameter("countycode");
+    if (countyCode == null || countyCode.trim().isEmpty()) {
+      messages.put("success", "Please enter a valid County Code.");
     } else {
       try {
-        County county = countyDAO.getCountiesbyName(countyName);
+        County county = countyDAO.getCountyFromCountyCode(Integer.parseInt(countyCode));
         if(county == null) {
           messages.put("success", "County does not exist.");
         }
@@ -64,18 +64,18 @@ public class CountyUpdate extends HttpServlet {
     Map<String, String> messages = new HashMap<String, String>();
     req.setAttribute("messages", messages);
 
-    String countyName = req.getParameter("countyname");
-    if (countyName == null || countyName.trim().isEmpty()) {
-      messages.put("success", "Please enter a valid County Name.");
+    String countyCode = req.getParameter("countycode");
+    if (countyCode == null || countyCode.trim().isEmpty()) {
+      messages.put("success", "Please enter a valid County Code.");
     } else {
       try {
-        County county = countyDAO.getCountiesbyName(countyName);
+        County county = countyDAO.getCountyFromCountyCode(Integer.parseInt(countyCode));
         if(county == null) {
           messages.put("success", "County does not exist. No update to perform.");
         } else {
           String newName = req.getParameter("countyname");
           if (newName == null || newName.trim().isEmpty()) {
-            messages.put("success", "Please enter a valid county name.");
+            messages.put("success", "Please enter a valid new county name.");
           } else {
             countyDAO.updateCountyName(county, newName);
             messages.put("success", "Successfully updated " + newName);

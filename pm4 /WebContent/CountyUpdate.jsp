@@ -14,8 +14,8 @@
 <h1>Update County Name</h1>
 <form action="locationupdate" method="post">
     <p>
-        <label for="countyname">County Name</label>
-        <input id="countyname" name="countyname" value="${fn:escapeXml(param.countyname)}">
+        <label for="countycode">County Code</label>
+        <input id="countycode" name="countycode" value="${fn:escapeXml(param.countycode)}">
     </p>
     <p>
         <label for="countyname2">New County Name</label>
