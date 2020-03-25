@@ -11,7 +11,7 @@
     <title>Create Location</title>
 </head>
 <body>
-<h1>Create Hospital</h1>
+<h1>Create Location</h1>
 <form action="locationcreate" method="post">
     <p>
         <label for="zipcode">ZipCode</label>
