@@ -6,15 +6,19 @@ public class Location {
   private String stateCode;
   private int population;
   private int countyCode;
-  
+
   public Location(String zipCode, String locationName, String stateCode, int population, int countyCode) {
-	  this.zipCode = zipCode;
-	  this.locationName = locationName;
-	  this.stateCode = stateCode;
-	  this.population = population;
-	  this.countyCode = countyCode;
+    this.zipCode = zipCode;
+    this.locationName = locationName;
+    this.stateCode = stateCode;
+    this.population = population;
+    this.countyCode = countyCode;
   }
-  
+
+  public Location(int parseInt) {
+    // TODO Auto-generated constructor stub
+  }
+
   public String getZipCode() {
     return zipCode;
   }
