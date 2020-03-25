@@ -14,10 +14,6 @@
 	<h1>Create Hospital</h1>
 	<form action="hospitalcreate" method="post">
 		<p>
-			<label for="hospitalcode">HospitalCode</label>
-			<input id="hospitalcode" name="hospitalcode" value="">
-		</p>
-		<p>
 			<label for="hospitalname">HospitalName</label>
 			<input id="hospitalname" name="hospitalname" value="">
 		</p>

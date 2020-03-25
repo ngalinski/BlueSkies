@@ -103,15 +103,20 @@ public class HospitalDAO {
 	}
 
 
-  public Hospital updateHospitalName(Hospital hospital, String newName) throws SQLException {
-    String updateName = "UPDATE Hospital SET HospitalName=?;";
+  public Hospital updateHospital(Hospital hospital, Hospital newHospital) throws SQLException {
+    String updateHospital = "UPDATE Hospital SET HospitalName=?, ZipCode=? WHERE HospitalCode=?;";
     Connection connection = null;
     PreparedStatement updateStmt = null;
     try {
       connection = connectionManager.getConnection();
-      updateStmt = connection.prepareStatement(updateName);
-      updateStmt.setString(1, newName);
-      hospital.setHospitalName(newName);
+      updateStmt = connection.prepareStatement(updateHospital);
+      updateStmt.setString(1, newHospital.getHospitalName());
+      updateStmt.setString(2, newHospital.getZipCode());
+      updateStmt.setInt(3, hospital.getHospitalCode());
+
+      hospital.setHospitalName(newHospital.getHospitalName());
+      hospital.setHospitalName(newHospital.getZipCode());
+
       return hospital;
     } catch (SQLException e) {
       e.printStackTrace();

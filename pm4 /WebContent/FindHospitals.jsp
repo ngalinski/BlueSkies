@@ -12,10 +12,10 @@
 </head>
 <body>
 	<form action="findhospitals" method="post">
-		<h1>Search for a Hospital by HospitalCode</h1>
+		<h1>Search for a Hospital by Zip Code</h1>
 		<p>
-			<label for="hospitalcode">HospitalCode</label>
-			<input id="hospitalcode" name="hospitalcode" value="${fn:escapeXml(param.hospitalcode)}">
+			<label for="zipcode">Zip Code</label>
+			<input id="zipcode" name="zipcode" value="${fn:escapeXml(param.zipcode)}">
 		</p>
 		<p>
 			<input type="submit">
@@ -32,18 +32,18 @@
                 <th>HospitalCode</th>
                 <th>HospitalName</th>
                 <th>ZipCode</th>
-                <th>Delete Hospital</th>
-                <th>Update Delete Hospital</th>
+                <th>Hospital Quality</th>
+                <th>Update</th>
+                <th>Delete</th>
             </tr>
             <c:forEach items="${hospitals}" var="hospital" >
                 <tr>
                     <td><c:out value="${hospital.getHospitalCode()}" /></td>
                     <td><c:out value="${hospital.getHospitalName()}" /></td>
                     <td><c:out value="${hospital.getZipCode()}" /></td>
-                    <td><a href="hospitalquality?hospitalcode=<c:out value="${hospital.getHospitalCode()}"/>">Hospital Quality</a></td>
-                    <td><a href="findhospitals?zipcode=<c:out value="${hospital.getZipCode()}"/>">Other Hospitals in this ZipCode</a></td>
+                    <td><a href="hospitalquality?hospitalcod=<c:out value="${hospital.getHospitalCode()}"/>">Hospital Quality</a></td>
+                    <td><a href="hospitalupdate?hospitalcode=<c:out value="${hospital.getHospitalCode()}"/>">Update</a></td>
                     <td><a href="hospitaldelete?hospitalcode=<c:out value="${hospital.getHospitalCode()}"/>">Delete</a></td>
-                    <td><a href="hospitaldelete?hospitalcode=<c:out value="${hospital.getHospitalCode()}"/>">Update</a></td>
                 </tr>
             </c:forEach>
        </table>

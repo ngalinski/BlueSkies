@@ -1,49 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
-  <display-name>BlueSkies</display-name>
+  <display-name>BlueSkies Application</display-name>
   <welcome-file-list>
     <welcome-file>FindHospitals.jsp</welcome-file>
   </welcome-file-list>
-
- 
-    <context-param>
-        <param-name>jdbcURL</param-name>
-        <param-value>jdbc:mysql://localhost:3306/blueskies</param-value>
-    </context-param>
- 
-    <context-param>
-        <param-name>jdbcUsername</param-name>
-        <param-value>root</param-value>
-    </context-param>
- 
-    <context-param>
-        <param-name>jdbcPassword</param-name>
-        <param-value>Coffeecup01</param-value>
-    </context-param>
-
-   <servlet>
-    <servlet-name>FindHospitals</servlet-name>
-    <servlet-class>servlet.FindHospitals</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>FindHospitals</servlet-name>
-    <url-pattern>/findhospitals</url-pattern>
-  </servlet-mapping>
-
-  <!--
   <servlet>
     <servlet-name>FindHospitals</servlet-name>
     <servlet-class>servlet.FindHospitals</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>FindHospitals</servlet-name>
-    <url-pattern>/findhospitals</url-pattern>
+    <url-pattern>/FindHospitals</url-pattern>
   </servlet-mapping>
-
+<servlet>
+    <servlet-name>HospitalCreate</servlet-name>
+    <servlet-class>servlet.HospitalCreate</servlet-class>
+  </servlet>
   <servlet-mapping>
-        <servlet-name>ControllerServlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-
-  -->
+    <servlet-name>HospitalCreate</servlet-name>
+    <url-pattern>/HospitalCreate</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>HospitalDelete</servlet-name>
+    <servlet-class>servlet.HospitalDelete</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HospitalDelete</servlet-name>
+    <url-pattern>/HospitalDelete</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>HospitalUpdate</servlet-name>
+    <servlet-class>servlet.HospitalUpdate</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HospitalUpdate</servlet-name>
+    <url-pattern>/HospitalUpdate</url-pattern>
+  </servlet-mapping>
 </web-app>
