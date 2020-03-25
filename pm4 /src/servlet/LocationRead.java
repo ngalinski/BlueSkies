@@ -42,7 +42,7 @@ public class LocationRead extends HttpServlet {
       messages.put("success", "Please enter a valid county code.");
     } else {
       try {
-        locationList = locationDAO.getLocationsByCountyCode(countyCode);
+        locationList = locationDAO.getLocationsByCountyCode(Integer.parseInt(countyCode));
       } catch (SQLException e) {
         e.printStackTrace();
         throw new IOException(e);
@@ -69,7 +69,7 @@ public class LocationRead extends HttpServlet {
       messages.put("success", "Please enter a valid county code.");
     } else {
       try {
-        locationList = locationDAO.getLocationByCountyCode(countyCode);
+        locationList = locationDAO.getLocationsByCountyCode(Integer.parseInt(countyCode));
       } catch (SQLException e) {
         e.printStackTrace();
         throw new IOException(e);

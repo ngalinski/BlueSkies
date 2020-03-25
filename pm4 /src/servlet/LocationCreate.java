@@ -52,8 +52,8 @@ public class LocationCreate extends HttpServlet {
     String zipCode = req.getParameter("zipcode");
     String locationName = req.getParameter("locationname");
     String stateCode = req.getParameter("statecode");
-    int population = req.getParameter("population");
-    int countyCode = req.getParameter("countycode");
+    String population = req.getParameter("population");
+    String countyCode = req.getParameter("countycode");
     if (zipCode == null || zipCode.trim().isEmpty()) {
       messages.put("success", "Invalid ZipCode");
     } else {
@@ -69,7 +69,7 @@ public class LocationCreate extends HttpServlet {
             if (countyCode == null || countyCode.trim().isEmpty()) {
               messages.put("success", "Invalid County Code");
             } else {
-              Location location = new Location(zipCode, locationName, stateCode, population, countyCode);
+              Location location = new Location(zipCode, locationName, stateCode, Integer.parseInt(population), Integer.parseInt(countyCode));
               try {
                 location = locationDAO.create(location);
                 messages.put("success", "Successfully created " + zipCode);

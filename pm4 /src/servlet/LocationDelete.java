@@ -53,7 +53,7 @@ public class LocationDelete extends HttpServlet {
       messages.put("disableSubmit", "true");
     } else {
       // Delete the Location.
-      Location location = new Location(Integer.valueOf(zipCode));
+      Location location = new Location(Integer.parseInt(zipCode));
       try {
         location = locationDAO.delete(location);
         // Update the message.

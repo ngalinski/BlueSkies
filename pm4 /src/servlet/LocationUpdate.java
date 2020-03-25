@@ -43,7 +43,7 @@ public class LocationUpdate extends HttpServlet {
       messages.put("success", "Please enter a valid Zip Code.");
     } else {
       try {
-        Location location = locationDAO.getLocationByZipCode(Integer.valueOf(zipCode));
+        Location location = locationDAO.getLocationByZipCode(zipCode);
         if(location == null) {
           messages.put("success", "Location does not exist.");
         }
@@ -69,7 +69,7 @@ public class LocationUpdate extends HttpServlet {
       messages.put("success", "Please enter a valid Zip Code.");
     } else {
       try {
-        Location location = locationDAO.getLocationByZipCode(Integer.valueOf(zipCode));
+        Location location = locationDAO.getLocationByZipCode(zipCode);
         if(location == null) {
           messages.put("success", "Location does not exist. No update to perform.");
         } else {
@@ -77,9 +77,8 @@ public class LocationUpdate extends HttpServlet {
           if (newPop == null || newPop.trim().isEmpty()) {
             messages.put("success", "Please enter a valid population.");
           } else {
-            Location locationNew = new Location(location.getZipCode(), location.getLocationName(), location.getStateCode(), newPop, location.getCountyCode());
-            location.updatePopulation(location, locationNew);
-            messages.put("success", "Successfully updated " + locationNew.getLocationName());
+            locationDAO.updatePopulation(location, Integer.parseInt(newPop));
+            messages.put("success", "Successfully updated " + location.getLocationName());
           }
         }
         req.setAttribute("location", location);
