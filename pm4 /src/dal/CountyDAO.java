@@ -30,27 +30,27 @@ public class CountyDAO {
     String insertCounty = "INSERT INTO County(CountyName, StateCode) VALUE(?,?);";
     Connection connection = null;
     PreparedStatement insertStmt = null;
-	ResultSet resultKey = null;
+  ResultSet resultKey = null;
 
     try {
       connection = connectionManager.getConnection();
       
       insertStmt = connection.prepareStatement(insertCounty,
-				Statement.RETURN_GENERATED_KEYS);
-		insertStmt.setString(1, county.getCountyName());
-		insertStmt.setString(2, county.getStateCode());
-		
-		insertStmt.executeUpdate();
+        Statement.RETURN_GENERATED_KEYS);
+    insertStmt.setString(1, county.getCountyName());
+    insertStmt.setString(2, county.getStateCode());
+    
+    insertStmt.executeUpdate();
 
-		resultKey = insertStmt.getGeneratedKeys();
-		int countyCode = -1;
-		if(resultKey.next()) {
-			countyCode = resultKey.getInt(1);
-		} else {
-			throw new SQLException("Unable to retrieve auto-generated key.");
-		}
-		county.setCountyCode(countyCode);
-		return county;
+    resultKey = insertStmt.getGeneratedKeys();
+    int countyCode = -1;
+    if(resultKey.next()) {
+      countyCode = resultKey.getInt(1);
+    } else {
+      throw new SQLException("Unable to retrieve auto-generated key.");
+    }
+    county.setCountyCode(countyCode);
+    return county;
     } catch (SQLException e) {
       e.printStackTrace();
       throw e;
@@ -64,43 +64,81 @@ public class CountyDAO {
     }
   }
 
-  public List<County> getCountiesbyName(String countyName)
-			throws SQLException {
-		List<County> counties = new ArrayList<County>();
-		String selectCounties =
-			"SELECT CountyCode,CountyName,StateCode FROM County WHERE County.CountyName=?;";
-		Connection connection = null;
-		PreparedStatement selectStmt = null;
-		ResultSet results = null;
-		try {
-			connection = connectionManager.getConnection();
-			selectStmt = connection.prepareStatement(selectCounties);
-			selectStmt.setString(1, countyName);
-			results = selectStmt.executeQuery();
-			while(results.next()) {
-				int countyCode = results.getInt("CountyCode");
-				String resultCountyName = results.getString("CountyName");
-				String stateCode = results.getString("StateCode");
+  // READ from CountyCode
+  public County getCountyFromCountyCode(int countyCode) throws SQLException {
+    String selectCounty = "SELECT CountyCode,CountyName,StateCode FROM County WHERE County.CountyCode=?;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = connectionManager.getConnection();
+      selectStmt = connection.prepareStatement(selectCounty);
+      selectStmt.setInt(1, countyCode);
 
-				County county = new County(countyCode, resultCountyName, stateCode);
-				counties.add(county);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw e;
-		} finally {
-			if(connection != null) {
-				connection.close();
-			}
-			if(selectStmt != null) {
-				selectStmt.close();
-			}
-			if(results != null) {
-				results.close();
-			}
-		}
-		return counties;
-	}
+      results = selectStmt.executeQuery();
+
+      if(results.next()) {
+        int resultCountyCode = results.getInt("CountyCode");
+        String countyName = results.getString("CountyName");
+        String stateCode = results.getString("StateCode");
+        
+        County county = new County(resultCountyCode, countyName, stateCode);
+        return county;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if(connection != null) {
+        connection.close();
+      }
+      if(selectStmt != null) {
+        selectStmt.close();
+      }
+      if(results != null) {
+        results.close();
+      }
+    }
+    return null;
+  }
+  
+  public List<County> getCountiesbyName(String countyName)
+      throws SQLException {
+    List<County> counties = new ArrayList<County>();
+    String selectCounties =
+      "SELECT CountyCode,CountyName,StateCode FROM County WHERE County.CountyName=?;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet results = null;
+    try {
+      connection = connectionManager.getConnection();
+      selectStmt = connection.prepareStatement(selectCounties);
+      selectStmt.setString(1, countyName);
+      results = selectStmt.executeQuery();
+      while(results.next()) {
+        int countyCode = results.getInt("CountyCode");
+        String resultCountyName = results.getString("CountyName");
+        String stateCode = results.getString("StateCode");
+
+        County county = new County(countyCode, resultCountyName, stateCode);
+        counties.add(county);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if(connection != null) {
+        connection.close();
+      }
+      if(selectStmt != null) {
+        selectStmt.close();
+      }
+      if(results != null) {
+        results.close();
+      }
+    }
+    return counties;
+  }
 
 
   public County updateCountyName(County county, String newName) throws SQLException {
