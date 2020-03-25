@@ -140,13 +140,14 @@ public class LocationDAO {
 
 
   public Location updatePopulation(Location location, int newPopulation) throws SQLException {
-    String updateName = "UPDATE Location SET Population=?;";
+    String updateName = "UPDATE Location SET Population=? WHERE ZipCode=?;";
     Connection connection = null;
     PreparedStatement updateStmt = null;
     try {
       connection = connectionManager.getConnection();
       updateStmt = connection.prepareStatement(updateName);
       updateStmt.setInt(1, newPopulation);
+      updateStmt.setString(2, location.getZipCode());
       location.setPopulation(newPopulation);
       return location;
     } catch (SQLException e) {

@@ -104,13 +104,14 @@ public class CountyDAO {
 
 
   public County updateCountyName(County county, String newName) throws SQLException {
-    String updateName = "UPDATE County SET CountyName=?;";
+    String updateName = "UPDATE County SET CountyName=? WHERE CountyCode=?;";
     Connection connection = null;
     PreparedStatement updateStmt = null;
     try {
       connection = connectionManager.getConnection();
       updateStmt = connection.prepareStatement(updateName);
       updateStmt.setString(1, newName);
+      updateStmt.setInt(2, county.getCountyCode());
       county.setCountyName(newName);
       return county;
     } catch (SQLException e) {

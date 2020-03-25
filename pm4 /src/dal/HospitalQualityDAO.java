@@ -116,13 +116,16 @@ public class HospitalQualityDAO {
 
 
   public HospitalQuality updateOverallRating(HospitalQuality hospitalQuality, int overallRating) throws SQLException {
-    String updateOverallRating = "UPDATE HospitalQuality SET OverallRating=?;";
+    String updateOverallRating = "UPDATE HospitalQuality SET OverallRating=? WHERE HospitalQualityCode=?;";
     Connection connection = null;
     PreparedStatement updateStmt = null;
     try {
       connection = connectionManager.getConnection();
       updateStmt = connection.prepareStatement(updateOverallRating);
       updateStmt.setInt(1, overallRating);
+      updateStmt.setInt(2, hospitalQuality.getHospitalQualityCode());
+	  updateStmt.executeUpdate();
+
       hospitalQuality.setOverallRating(overallRating);
       return hospitalQuality;
     } catch (SQLException e) {

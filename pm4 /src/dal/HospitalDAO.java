@@ -63,18 +63,57 @@ public class HospitalDAO {
       }
     }
   }
+  
+	// READ from CountyCode
+	public Hospital getHospitalFromHospitalCode(int countyCode) throws SQLException {
+		String selectHospital = "SELECT HospitalCode,HospitalName,ZipCode FROM Hospital WHERE Hospital.HospitalCode=?;";
+		Connection connection = null;
+		PreparedStatement selectStmt = null;
+		ResultSet results = null;
+		try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectHospital);
+			selectStmt.setInt(1, countyCode);
+
+			results = selectStmt.executeQuery();
+
+			if(results.next()) {
+				int resultHospitalCode = results.getInt("HospitalCode");
+				String hospitalName = results.getString("HospitalName");
+				String zipCode = results.getString("ZipCode");
+				
+				Hospital hospital = new Hospital(resultHospitalCode, hospitalName, zipCode);
+				return hospital;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		return null;
+	}
+
 
   public List<Hospital> getHospitalsByZipCode(String zipCode)
 			throws SQLException {
 		List<Hospital> hospitals = new ArrayList<Hospital>();
-		String selectCounties =
+		String selectHospitals =
 			"SELECT HospitalCode,HospitalName,ZipCode FROM Hospital WHERE Hospital.ZipCode=?;";
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;
 		try {
 			connection = connectionManager.getConnection();
-			selectStmt = connection.prepareStatement(selectCounties);
+			selectStmt = connection.prepareStatement(selectHospitals);
 			selectStmt.setString(1, zipCode);
 			results = selectStmt.executeQuery();
 			while(results.next()) {
@@ -113,10 +152,11 @@ public class HospitalDAO {
       updateStmt.setString(1, newHospital.getHospitalName());
       updateStmt.setString(2, newHospital.getZipCode());
       updateStmt.setInt(3, hospital.getHospitalCode());
+	  updateStmt.executeUpdate();
 
       hospital.setHospitalName(newHospital.getHospitalName());
       hospital.setHospitalName(newHospital.getZipCode());
-
+		
       return hospital;
     } catch (SQLException e) {
       e.printStackTrace();
