@@ -41,8 +41,8 @@
                     <td><c:out value="${hospital.getHospitalCode()}" /></td>
                     <td><c:out value="${hospital.getHospitalName()}" /></td>
                     <td><c:out value="${hospital.getZipCode()}" /></td>
-                    <td><a href="hospitalquality?hospitalcod=<c:out value="${hospital.getHospitalCode()}"/>">Hospital Quality</a></td>
-                    <td><a href="hospitalupdate?hospitalcode=<c:out value="${hospital.getHospitalCode()}"/>">Update</a></td>
+                    <td><a href="findhospitalquality?hospitalcode=<c:out value="${hospital.getHospitalCode()}"/>">Hospital Quality</a></td>
+                    <td><a href="hospitalupdate?hospitalcode=<c:out value="${hospital.getHospitalCode()}"/>&hospitalname=<c:out value="${hospital.getHospitalName()}"/>&zipcode=<c:out value="${hospital.getZipCode()}"/>">Update</a></td>
                     <td><a href="hospitaldelete?hospitalcode=<c:out value="${hospital.getHospitalCode()}"/>">Delete</a></td>
                 </tr>
             </c:forEach>

@@ -12,19 +12,15 @@
 </head>
 <body>
 	<h1>Update Hospital</h1>
-	<form action="hospitalupdate" method="post">
+	<form action="hospitalqualityupdate" method="post">
 		<p>
 			<label for="hospitalcode">Hospital Code</label>
 			<input readonly="readonly" id="hospitalcode" name="hospitalcode" value="${fn:escapeXml(param.hospitalcode)}">
 		</p>
 
 		<p>
-			<label for="hospitalname">New Hospital Name</label>
-			<input id="hospitalname" name="hospitalname" value="${fn:escapeXml(param.hospitalname)}">
-		</p>
-		<p>
-			<label for="zipcode">New Zip Code</label>
-			<input id="zipcode" name="zipcode" value="${fn:escapeXml(param.zipcode)}">
+			<label for="newoverallrating">New Overall Rating (-1 for below national average, 0 for equal to national average, 1 for above national average) Code</label>
+			<input id="newoverallrating" name="newoverallrating" value="">
 		</p>
 		<p>
 			<input type="submit">
