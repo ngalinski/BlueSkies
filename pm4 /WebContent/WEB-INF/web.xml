@@ -36,4 +36,36 @@
     <servlet-name>HospitalUpdate</servlet-name>
     <url-pattern>/HospitalUpdate</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>FindHospitalQuality</servlet-name>
+    <servlet-class>servlet.FindHospitalQuality</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindHospitalQuality</servlet-name>
+    <url-pattern>/FindHospitalQuality</url-pattern>
+  </servlet-mapping>
+<servlet>
+    <servlet-name>HospitalQualityCreate</servlet-name>
+    <servlet-class>servlet.HospitalQualityCreate</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HospitalQualityCreate</servlet-name>
+    <url-pattern>/HospitalQualityCreate</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>HospitalQualityDelete</servlet-name>
+    <servlet-class>servlet.HospitalQualityDelete</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HospitalQualityDelete</servlet-name>
+    <url-pattern>/HospitalQualityDelete</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>HospitalQualityUpdate</servlet-name>
+    <servlet-class>servlet.HospitalQualityUpdate</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HospitalQualityUpdate</servlet-name>
+    <url-pattern>/HospitalQualityUpdate</url-pattern>
+  </servlet-mapping>
 </web-app>
