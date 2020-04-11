@@ -1,4 +1,6 @@
-Class AsthmaAQI{
+package model;
+
+public class AsthmaAQI{
 private String StateCode;
 private int UnitsReimbursed;
 private int GoodDaysCount;

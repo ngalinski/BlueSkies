@@ -1,4 +1,6 @@
-Class DrugUtilization{
+package model;
+
+public class DrugUtilization{
 private String StateCode;
 private String DrugName;
 private String NumReimbursed;

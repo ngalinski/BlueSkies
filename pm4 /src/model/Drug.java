@@ -1,4 +1,6 @@
-Class Drug{
+package model;
+
+public class Drug{
 private String PharmaCompanyName;
 private String DrugName;
 private String Strength;

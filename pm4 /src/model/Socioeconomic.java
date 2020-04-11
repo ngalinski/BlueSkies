@@ -1,4 +1,6 @@
-Class Socioeconomic{
+package model;
+
+public class Socioeconomic{
 private double UnemploymentRate;
 private double PercentPopulationInPoverty;
 private double PercentLessThanHSDiploma;

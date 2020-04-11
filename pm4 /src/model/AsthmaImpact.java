@@ -1,4 +1,6 @@
-Class AsthmaImpact{
+package model;
+
+public class AsthmaImpact{
 private int YearEnd;
 private double DataValue;
 private double DataValueAlt;
