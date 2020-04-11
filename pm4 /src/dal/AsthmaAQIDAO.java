@@ -12,6 +12,16 @@ public class AsthmaAQIDAO {
   protected ConnectionManager connectionManager;
 
   // Connection
+  private static AsthmaAQIDAO instance = null;
+  protected AsthmaAQIDAO() {
+    connectionManager = new ConnectionManager();
+  }
+  public static AsthmaAQIDAO getInstance() {
+    if(instance == null) {
+      instance = new AsthmaAQIDAO();
+    }
+    return instance;
+  }
 
   // CREATE
 

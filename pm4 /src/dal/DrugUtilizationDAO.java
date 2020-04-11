@@ -12,6 +12,16 @@ public class DrugUtilizationDAO {
   protected ConnectionManager connectionManager;
 
   // Connection
+  private static DrugUtilizationDAO instance = null;
+  protected DrugUtilizationDAO() {
+    connectionManager = new ConnectionManager();
+  }
+  public static DrugUtilizationDAO getInstance() {
+    if(instance == null) {
+      instance = new DrugUtilizationDAO();
+    }
+    return instance;
+  }
 
   // CREATE
 

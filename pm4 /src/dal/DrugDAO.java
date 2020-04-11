@@ -12,6 +12,16 @@ public class DrugDAO {
   protected ConnectionManager connectionManager;
 
   // Connection
+  private static DrugDAO instance = null;
+  protected DrugDAO() {
+    connectionManager = new ConnectionManager();
+  }
+  public static DrugDAO getInstance() {
+    if(instance == null) {
+      instance = new DrugDAO();
+    }
+    return instance;
+  }
 
   // CREATE
 

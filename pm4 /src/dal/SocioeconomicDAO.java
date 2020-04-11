@@ -12,6 +12,16 @@ public class SocioeconomicDAO {
   protected ConnectionManager connectionManager;
 
   // Connection
+  private static SocioeconomicDAO instance = null;
+  protected SocioeconomicDAO() {
+    connectionManager = new ConnectionManager();
+  }
+  public static SocioeconomicDAO getInstance() {
+    if(instance == null) {
+      instance = new SocioeconomicDAO();
+    }
+    return instance;
+  }
 
   // CREATE
 
