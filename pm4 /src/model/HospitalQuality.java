@@ -1,5 +1,7 @@
 package model;
 
+import util.HospitalType;
+
 public class HospitalQuality {
   private int hospitalQualityCode;
   private int hospitalCode;
@@ -124,6 +126,21 @@ public class HospitalQuality {
 		this.efficientUseMedicalImaging = efficientUseMedicalImaging;
 	}
 
+	public static String convertQualityKeyToDescriptor(int qualityKey) {
+		switch(qualityKey) {
+		   case -1:
+		      return "Below national average"; 
+	
+		   case 0:
+			  return "Equal to national average"; 
+			      
+		   case 1:
+			  return "Above national average"; 
+			  
+			default:
+				return "No data";
+		}
+	}
   
   
 }

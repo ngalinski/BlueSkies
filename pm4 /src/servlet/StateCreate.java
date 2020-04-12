@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import util.HospitalType;
+import util.Region;
+
 import javax.servlet.annotation.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -51,16 +54,18 @@ public class StateCreate extends HttpServlet {
     // Retrieve and validate name.
     String stateCode = req.getParameter("statecode");
     String stateName = req.getParameter("statename");
-    String region = req.getParameter("region");
+    String regionString = req.getParameter("region");
+
     if (stateCode == null || stateCode.trim().isEmpty()) {
       messages.put("success", "Invalid State Code");
     } else {
       if (stateName == null || stateName.trim().isEmpty()) {
         messages.put("success", "Invalid State Name");
       } else {
-        if (region == null || region.trim().isEmpty()) {
+        if (regionString == null || regionString.trim().isEmpty()) {
           messages.put("success", "Invalid State Region");
         } else {
+            Region region = Region.fromString(req.getParameter("region"));
           State state = new State(stateCode, stateName, region);
           try {
             state = stateDAO.create(state);

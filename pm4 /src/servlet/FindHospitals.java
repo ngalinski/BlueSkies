@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * FindHospitals is the primary entry point into the application.
+ * FindHospitals
  */
 @WebServlet("/findhospitals")
 public class FindHospitals extends HttpServlet {

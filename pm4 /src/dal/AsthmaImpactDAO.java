@@ -71,13 +71,13 @@ public class AsthmaImpactDAO {
 
 	// READ from StateCode
 	public AsthmaImpact getAsthmaImpactMetricForState(String stateCode, String metric, String dataType) throws SQLException {
-		String selectAirQuality = "SELECT AsthmaImpactCode,StateCode,Metric,DataType,DataValue FROM AsthmaImpact WHERE StateCode=? AND Metric=? AND DataType=?;";
+		String selectAsthmaImpact = "SELECT AsthmaImpactCode,StateCode,Metric,DataType,DataValue FROM AsthmaImpact WHERE StateCode=? AND Metric=? AND DataType=?;";
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;
 		try {
 			connection = connectionManager.getConnection();
-			selectStmt = connection.prepareStatement(selectAirQuality);
+			selectStmt = connection.prepareStatement(selectAsthmaImpact);
 			selectStmt.setString(1, stateCode);
 			selectStmt.setString(2, metric);
 			selectStmt.setString(3, dataType);

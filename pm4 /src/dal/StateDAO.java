@@ -103,7 +103,7 @@ public class StateDAO {
       connection = connectionManager.getConnection();
       updateStmt = connection.prepareStatement(updateName);
       updateStmt.setString(1, newName);
-      updateStmt.setInt(2, state.getStateCode());
+      updateStmt.setString(2, state.getStateCode());
       state.setStateName(newName);
       return state;
     } catch (SQLException e) {
@@ -127,7 +127,7 @@ public class StateDAO {
       connection = connectionManager.getConnection();
       updateStmt = connection.prepareStatement(updateCode);
       updateStmt.setString(1, newCode);
-      updateStmt.setInt(2, state.getStateName());
+      updateStmt.setString(2, state.getStateName());
       state.setStateCode(newCode);
       return state;
     } catch (SQLException e) {
