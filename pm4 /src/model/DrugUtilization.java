@@ -1,7 +1,7 @@
 package model;
 
-public class DrugUtilization {
-  private int DrugUtilizationCode;
+public class Drugutilization {
+  private int DrugUtilCode;
   private String StateCode;
   private String DrugName;
   private String NumReimbursed;
@@ -13,6 +13,14 @@ public class DrugUtilization {
   private int Label;
   private int Product;
   private int Size;
+
+  public int getDrugUtilCode() {
+    return DrugUtilCode;
+  }
+
+  public void setDrugUtilCode(int drugUtilCode) {
+    this.DrugUtilCode = drugUtilCode;
+  }
 
   public String getStatecode() {
     return StateCode;
@@ -68,5 +76,37 @@ public class DrugUtilization {
 
   public void setNonmedicaidreimbursed(String NonMedicaidReimbursed) {
     this.NonMedicaidReimbursed = NonMedicaidReimbursed;
+  }
+
+  public String getNdc() {
+    return NDC;
+  }
+
+  public void setNdc(String NDC) {
+    this.NDC = NDC;
+  }
+
+  public int getLabel() {
+    return Label;
+  }
+
+  public void setLabel(int Label) {
+    this.Label = Label;
+  }
+
+  public int getProduct() {
+    return Product;
+  }
+
+  public void setProduct(int Product) {
+    this.Product = Product;
+  }
+
+  public int getSize() {
+    return Size;
+  }
+
+  public void setSize(int Size) {
+    this.Size = Size;
   }
 }
