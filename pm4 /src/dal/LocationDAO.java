@@ -27,7 +27,7 @@ public class LocationDAO {
 	}
 
 	public Location create(Location location) throws SQLException {
-		String insertLocation = "INSERT INTO Location(ZipCode,LocationName,StateCode,Population,CountyCode) VALUE(?,?,?,?,?);";
+		String insertLocation = "INSERT INTO Location(ZipCode,StateCode,CountyCode,LocationName,Population) VALUE(?,?,?,?,?);";
 		Connection connection = null;
 		PreparedStatement insertStmt = null;
 		try {
@@ -35,13 +35,11 @@ public class LocationDAO {
 			insertStmt = connection.prepareStatement(insertLocation,
 							Statement.RETURN_GENERATED_KEYS);
 			insertStmt.setString(1, location.getZipCode());
-			insertStmt.setString(2, location.getLocationName());
-			insertStmt.setString(3, location.getStateCode());
-			insertStmt.setInt(4, location.getPopulation());
-			insertStmt.setInt(5, location.getCountyCode());
-
+			insertStmt.setString(2, location.getStateCode());
+			insertStmt.setInt(3, location.getCountyCode());
+			insertStmt.setString(4, location.getLocationName());
+			insertStmt.setInt(5, location.getPopulation());
 			insertStmt.executeUpdate();
-
 			return location;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -59,7 +57,7 @@ public class LocationDAO {
 
 	// READ 
 	public Location getLocationByZipCode(String zipCode) throws SQLException {
-		String selectLocation = "SELECT ZipCode,LocationName,StateCode,Population,CountyCode FROM Location WHERE ZipCode=?;";
+		String selectLocation = "SELECT ZipCode,StateCode,CountyCode,LocationName,Population FROM Location WHERE ZipCode=?;";
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;
@@ -72,13 +70,11 @@ public class LocationDAO {
 
 			if(results.next()) {
 				String resultZipCode = results.getString("ZipCode");
-				String locationName = results.getString("LocationName");
 				String stateCode = results.getString("StateCode");
+				int countyCode = results.getInt("CountyCode");
+				String locationName = results.getString("LocationName");
 				int population = results.getInt("Population");
-				int resultCountyCode = results.getInt("CountyCode");
-
-				Location location = new Location(resultZipCode, locationName, stateCode, population, resultCountyCode);
-
+				Location location = new Location(resultZipCode, stateCode, countyCode, locationName, population);
 				return location;
 			}
 		} catch (SQLException e) {
@@ -102,7 +98,7 @@ public class LocationDAO {
 					throws SQLException {
 		List<Location> locations = new ArrayList<Location>();
 		String selectLocations =
-						"SELECT ZipCode,LocationName,StateCode,Population,CountyCode FROM Location WHERE Location.CountyCode=?;";
+						"SELECT ZipCode,StateCode,CountyCode,LocationName,Population FROM Location WHERE Location.CountyCode=?;";
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;
@@ -113,12 +109,11 @@ public class LocationDAO {
 			results = selectStmt.executeQuery();
 			while(results.next()) {
 				String zipCode = results.getString("ZipCode");
-				String locationName = results.getString("LocationName");
 				String stateCode = results.getString("StateCode");
-				int population = results.getInt("Population");
 				int resultCountyCode = results.getInt("CountyCode");
-
-				Location location = new Location(zipCode, locationName, stateCode, population, resultCountyCode);
+				String locationName = results.getString("LocationName");
+				int population = results.getInt("Population");
+				Location location = new Location(zipCode, stateCode, resultCountyCode, locationName, population);
 				locations.add(location);
 			}
 		} catch (SQLException e) {
@@ -161,6 +156,44 @@ public class LocationDAO {
 			}
 		}
 	}
+	
+
+	  public Location updateLocation(Location location, Location newLocation) throws SQLException {
+	    String updateLocation = "UPDATE Location SET ZipCode=?,StateCode=?,CountyCode=?,LocationName=?,Population=? WHERE ZipCode=?;";
+	    Connection connection = null;
+	    PreparedStatement updateStmt = null;
+	    try {
+	      connection = connectionManager.getConnection();
+	      updateStmt = connection.prepareStatement(updateLocation);
+	      updateStmt.setString(1, newLocation.getZipCode());
+	      updateStmt.setString(2, newLocation.getStateCode());
+	      updateStmt.setInt(3, newLocation.getCountyCode());
+	      updateStmt.setString(4, newLocation.getLocationName());
+	      updateStmt.setInt(5, newLocation.getPopulation());
+	      updateStmt.setString(6, location.getZipCode());
+
+		  updateStmt.executeUpdate();
+
+		  location.setZipCode(newLocation.getZipCode());
+		  location.setStateCode(newLocation.getStateCode());
+		  location.setCountyCode(newLocation.getCountyCode());
+		  location.setLocationName(newLocation.getLocationName());
+		  location.setPopulation(newLocation.getPopulation());
+
+	      return location;
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	      throw e;
+	    } finally {
+	      if(connection != null) {
+	        connection.close();
+	      }
+	      if(updateStmt != null) {
+	        updateStmt.close();
+	      }
+	    }
+	  }
+
 
 	public Location delete(Location location) throws SQLException {
 		String deleteLocation = "DELETE FROM Location WHERE ZipCode=?;";

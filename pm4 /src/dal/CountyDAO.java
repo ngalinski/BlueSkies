@@ -26,11 +26,12 @@ public class CountyDAO {
     return instance;
   }
 
+  // CREATE County
   public County create(County county) throws SQLException {
     String insertCounty = "INSERT INTO County(CountyName, StateCode) VALUE(?,?);";
     Connection connection = null;
     PreparedStatement insertStmt = null;
-  ResultSet resultKey = null;
+    ResultSet resultKey = null;
 
     try {
       connection = connectionManager.getConnection();
@@ -102,6 +103,7 @@ public class CountyDAO {
     return null;
   }
   
+  // READ By CountyName
   public List<County> getCountiesbyName(String countyName)
       throws SQLException {
     List<County> counties = new ArrayList<County>();
@@ -140,7 +142,7 @@ public class CountyDAO {
     return counties;
   }
 
-
+  // UPDATE
   public County updateCountyName(County county, String newName) throws SQLException {
     String updateName = "UPDATE County SET CountyName=? WHERE CountyCode=?;";
     Connection connection = null;
@@ -165,6 +167,7 @@ public class CountyDAO {
     }
   }
 
+  // DELETE
   public County delete(County county) throws SQLException {
     String deleteCounty = "DELETE FROM County WHERE CountyCode=?;";
     Connection connection = null;

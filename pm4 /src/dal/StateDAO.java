@@ -1,6 +1,7 @@
 package dal;
 
 import model.*;
+import util.Region;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,7 +36,7 @@ public class StateDAO {
 				Statement.RETURN_GENERATED_KEYS);
 		insertStmt.setString(1, state.getStateCode());
 		insertStmt.setString(2, state.getStateName());
-		insertStmt.setString(3, state.getRegion());
+		insertStmt.setString(3, state.getRegion().getString());
 		
 		insertStmt.executeUpdate();
 
@@ -70,7 +71,7 @@ public class StateDAO {
 			if(results.next()) {
 				String resultStateCode = results.getString("StateCode");
 				String stateName = results.getString("StateName");
-				String region = results.getString("Region");
+				Region region = Region.fromString(results.getString("Region"));
 
 				State state = new State(resultStateCode, stateName, region);
 				return state;

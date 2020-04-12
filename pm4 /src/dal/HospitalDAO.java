@@ -1,6 +1,7 @@
 package dal;
 
 import model.*;
+import util.HospitalType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,19 +28,20 @@ public class HospitalDAO {
   }
 
   public Hospital create(Hospital hospital) throws SQLException {
-    String insertHospital = "INSERT INTO Hospital(HospitalName, ZipCode) VALUE(?,?);";
+    String insertHospital = "INSERT INTO Hospital(HospitalName, ZipCode, HospitalType, EmergencyServices) VALUE(?,?,?,?);";
     Connection connection = null;
     PreparedStatement insertStmt = null;
 	ResultSet resultKey = null;
 
     try {
-      connection = connectionManager.getConnection();
-      
+      connection = connectionManager.getConnection();      
       insertStmt = connection.prepareStatement(insertHospital,
 				Statement.RETURN_GENERATED_KEYS);
 		insertStmt.setString(1, hospital.getHospitalName());
 		insertStmt.setString(2, hospital.getZipCode());
-		
+		insertStmt.setString(3, hospital.getHospitalType().getString());
+		insertStmt.setInt(4, hospital.getEmergencyServices());
+
 		insertStmt.executeUpdate();
 
 		resultKey = insertStmt.getGeneratedKeys();
@@ -65,24 +67,24 @@ public class HospitalDAO {
   }
   
 	// READ from CountyCode
-	public Hospital getHospitalFromHospitalCode(int countyCode) throws SQLException {
-		String selectHospital = "SELECT HospitalCode,HospitalName,ZipCode FROM Hospital WHERE Hospital.HospitalCode=?;";
+	public Hospital getHospitalFromHospitalCode(int hospitalCode) throws SQLException {
+		String selectHospital = "SELECT HospitalCode,HospitalName,ZipCode,HospitalType,EmergencyServices FROM Hospital WHERE Hospital.HospitalCode=?;";
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;
 		try {
 			connection = connectionManager.getConnection();
 			selectStmt = connection.prepareStatement(selectHospital);
-			selectStmt.setInt(1, countyCode);
-
+			selectStmt.setInt(1, hospitalCode);
 			results = selectStmt.executeQuery();
 
 			if(results.next()) {
 				int resultHospitalCode = results.getInt("HospitalCode");
 				String hospitalName = results.getString("HospitalName");
 				String zipCode = results.getString("ZipCode");
-				
-				Hospital hospital = new Hospital(resultHospitalCode, hospitalName, zipCode);
+				HospitalType hospitalType = HospitalType.fromString(results.getString("HospitalType"));
+				int emergencyServices = results.getInt("EmergencyServices");
+				Hospital hospital = new Hospital(resultHospitalCode, hospitalName, zipCode, hospitalType, emergencyServices);
 				return hospital;
 			}
 		} catch (SQLException e) {
@@ -103,11 +105,9 @@ public class HospitalDAO {
 	}
 
 
-  public List<Hospital> getHospitalsByZipCode(String zipCode)
-			throws SQLException {
+  public List<Hospital> getHospitalsByZipCode(String zipCode) throws SQLException {
 		List<Hospital> hospitals = new ArrayList<Hospital>();
-		String selectHospitals =
-			"SELECT HospitalCode,HospitalName,ZipCode FROM Hospital WHERE Hospital.ZipCode=?;";
+		String selectHospitals = "SELECT HospitalCode,HospitalName,ZipCode,HospitalType,EmergencyServices FROM Hospital WHERE Hospital.ZipCode=?;";
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;
@@ -120,8 +120,10 @@ public class HospitalDAO {
 				int hospitalCode = results.getInt("HospitalCode");
 				String hospitalName = results.getString("HospitalName");
 				String resultZipCode = results.getString("ZipCode");
+				HospitalType hospitalType = HospitalType.fromString(results.getString("HospitalType"));
+				int emergencyServices = results.getInt("EmergencyServices");
 
-				Hospital hospital = new Hospital(hospitalCode, hospitalName, resultZipCode);
+				Hospital hospital = new Hospital(hospitalCode, hospitalName, resultZipCode, hospitalType, emergencyServices);
 				hospitals.add(hospital);
 			}
 		} catch (SQLException e) {
@@ -141,9 +143,8 @@ public class HospitalDAO {
 		return hospitals;
 	}
 
-
   public Hospital updateHospital(Hospital hospital, Hospital newHospital) throws SQLException {
-    String updateHospital = "UPDATE Hospital SET HospitalName=?, ZipCode=? WHERE HospitalCode=?;";
+    String updateHospital = "UPDATE Hospital SET HospitalName=?,ZipCode=?,HospitalType=?,EmergencyServices=? WHERE HospitalCode=?;";
     Connection connection = null;
     PreparedStatement updateStmt = null;
     try {
@@ -151,11 +152,15 @@ public class HospitalDAO {
       updateStmt = connection.prepareStatement(updateHospital);
       updateStmt.setString(1, newHospital.getHospitalName());
       updateStmt.setString(2, newHospital.getZipCode());
-      updateStmt.setInt(3, hospital.getHospitalCode());
+      updateStmt.setString(3, hospital.getHospitalType().getString());
+      updateStmt.setInt(4, hospital.getEmergencyServices());
+
 	  updateStmt.executeUpdate();
 
       hospital.setHospitalName(newHospital.getHospitalName());
       hospital.setHospitalName(newHospital.getZipCode());
+      hospital.setHospitalType(newHospital.getHospitalType());
+      hospital.setEmergencyServices(newHospital.getEmergencyServices());
 		
       return hospital;
     } catch (SQLException e) {

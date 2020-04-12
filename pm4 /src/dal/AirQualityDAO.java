@@ -142,7 +142,6 @@ public class AirQualityDAO {
 	}
 
 	// UPDATE
-	
 	public AirQuality updateMedianAQI(AirQuality airQuality, int newMedianAQI) throws SQLException {
 		String updateAirQuality = "UPDATE AirQuality SET MedianAQI=? WHERE AirQualityCode=?;";
 		Connection connection = null;
