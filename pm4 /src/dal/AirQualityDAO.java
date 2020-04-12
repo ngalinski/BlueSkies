@@ -30,7 +30,16 @@ public class AirQualityDAO {
 
 	// CREATE
 	public AirQuality create(AirQuality airQuality) throws SQLException {
-		String insertAirQuality = "INSERT INTO AirQuality(CountyCode,StateCode,0_DaysWithAQI,1_GoodDaysCount,2_ModerateDaysCount,3_UnhealthyForSensitiveDaysCount,4_UnhealthyDays,5_VeryUnhealthyDays,6_HazardousDays,MaxAQI,90thPercentileAQI,MedianAQI) VALUES(?,?,?,?,?,?,?,?,?,?,?,?);";
+		String insertAirQuality = "INSERT INTO AirQuality(CountyCode,"
+				+ "DaysWithAQI,GoodDays,ModerateDays,"
+				+ "UnhealthyForSensitiveDays,"
+				+ "UnhealthyDays,"
+				+ "VeryUnhealthyDays,"
+				+ "HazardousDays,"
+				+ "MaxAQI,"
+				+ "90thPercentileAQI,"
+				+ "MedianAQI) "
+				+ "VALUES(?,?,?,?,?,?,?,?,?,?,?);";
 		Connection connection = null;
 		PreparedStatement insertStmt = null;
 		ResultSet resultKey = null;
@@ -40,17 +49,16 @@ public class AirQualityDAO {
 			insertStmt = connection.prepareStatement(insertAirQuality,
 					Statement.RETURN_GENERATED_KEYS);
 			insertStmt.setInt(1, airQuality.getCountyCode());
-			insertStmt.setString(2, airQuality.getStateCode());
-			insertStmt.setInt(3, airQuality.getDaysWithAQI());
-			insertStmt.setInt(4, airQuality.getGoodDays());
-			insertStmt.setInt(5, airQuality.getModerateDays());
-			insertStmt.setInt(6, airQuality.getUnhealthyForSensitiveDays());
-			insertStmt.setInt(7, airQuality.getUnhealthyDays());
-			insertStmt.setInt(8, airQuality.getVeryUnhealthyDays());
-			insertStmt.setInt(9, airQuality.getHazardousDays());
-			insertStmt.setInt(10, airQuality.getMaxAQI());
-			insertStmt.setInt(11, airQuality.getNinetiethPercentileAQI());
-			insertStmt.setInt(12, airQuality.getMedianAQI());
+			insertStmt.setInt(2, airQuality.getDaysWithAQI());
+			insertStmt.setInt(3, airQuality.getGoodDays());
+			insertStmt.setInt(4, airQuality.getModerateDays());
+			insertStmt.setInt(5, airQuality.getUnhealthyForSensitiveDays());
+			insertStmt.setInt(6, airQuality.getUnhealthyDays());
+			insertStmt.setInt(7, airQuality.getVeryUnhealthyDays());
+			insertStmt.setInt(8, airQuality.getHazardousDays());
+			insertStmt.setInt(9, airQuality.getMaxAQI());
+			insertStmt.setInt(10, airQuality.getNinetiethPercentileAQI());
+			insertStmt.setInt(11, airQuality.getMedianAQI());
 			insertStmt.executeUpdate();
 
 			resultKey = insertStmt.getGeneratedKeys();
@@ -77,7 +85,18 @@ public class AirQualityDAO {
 
 	// READ from CountyCode
 	public AirQuality getAirQualityFromCountyCode(int countyCode) throws SQLException {
-		String selectAirQuality = "SELECT AirQualityCode,CountyCode,StateCode,0_DaysWithAQI,1_GoodDaysCount,2_ModerateDaysCount,3_UnhealthyForSensitiveDaysCount,4_UnhealthyDays,5_VeryUnhealthyDays,6_HazardousDays,MaxAQI,90thPercentileAQI,MedianAQI FROM AirQuality WHERE CountyCode=?;";
+		String selectAirQuality = "SELECT AirQualityCode,"
+				+ "CountyCode,"
+				+ "DaysWithAQI,"
+				+ "GoodDays,"
+				+ "ModerateDays,"
+				+ "UnhealthyForSensitiveDays,"
+				+ "UnhealthyDays,"
+				+ "VeryUnhealthyDays,"
+				+ "HazardousDays,"
+				+ "MaxAQI,"
+				+ "90thPercentileAQI,"
+				+ "MedianAQI FROM AirQuality WHERE CountyCode=?;";
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;
@@ -91,19 +110,18 @@ public class AirQualityDAO {
 			if(results.next()) {
 				int airQualityCode = results.getInt("AirQualityCode");
 				int resultCountyCode = results.getInt("CountyCode");
-				String stateCode = results.getString("StateCode");
-				int daysWithAQI = results.getInt("0_DaysWithAQI");
-				int goodDays = results.getInt("1_GoodDaysCount");
-				int moderateDays = results.getInt("2_ModerateDaysCount");
-				int unhealthyForSensitiveDays = results.getInt("3_UnhealthyForSensitiveDaysCount");
-				int unhealthyDays = results.getInt("4_UnhealthyDays");
-				int veryUnhealthyDays = results.getInt("5_VeryUnhealthyDays");
-				int hazardousDays = results.getInt("6_HazardousDays");
+				int daysWithAQI = results.getInt("DaysWithAQI");
+				int goodDays = results.getInt("GoodDays");
+				int moderateDays = results.getInt("ModerateDays");
+				int unhealthyForSensitiveDays = results.getInt("UnhealthyForSensitiveDays");
+				int unhealthyDays = results.getInt("UnhealthyDays");
+				int veryUnhealthyDays = results.getInt("VeryUnhealthyDays");
+				int hazardousDays = results.getInt("HazardousDays");
 				int maxAQI = results.getInt("MaxAQI");
 				int ninetiethPercentileAQI = results.getInt("90thPercentileAQI");
 				int medianAQI = results.getInt("MedianAQI");
 
-				AirQuality airQuality = new AirQuality(airQualityCode, resultCountyCode, stateCode, daysWithAQI, goodDays, moderateDays, unhealthyForSensitiveDays, unhealthyDays, veryUnhealthyDays, hazardousDays, maxAQI, ninetiethPercentileAQI, medianAQI);
+				AirQuality airQuality = new AirQuality(airQualityCode, resultCountyCode, daysWithAQI, goodDays, moderateDays, unhealthyForSensitiveDays, unhealthyDays, veryUnhealthyDays, hazardousDays, maxAQI, ninetiethPercentileAQI, medianAQI);
 				return airQuality;
 			}
 		} catch (SQLException e) {

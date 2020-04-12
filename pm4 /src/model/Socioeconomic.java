@@ -1,58 +1,120 @@
 package model;
 
-public class Socioeconomic{
-private double UnemploymentRate;
-private double PercentPopulationInPoverty;
-private double PercentLessThanHSDiploma;
-private double PercentHSDiplomaOnly;
-private double PercentSomeCollegeOnly;
-private double PercentBachelorsOrMore;
+public class Socioeconomic {
+	private int socioeconomicCode;
+	private int countyCode;
+	private double unemploymentRte;
+	private double percentPopulationInPoverty;
+	private int medianHouseholdIncome;
+	private double percentLessThanHSDiploma;
+	private double percentHSDiplomaOnly;
+	private double percentSomeCollegeOnly;
+	private double percentBachelorsOrMore;
+	
+	public Socioeconomic(int socioeconomicCode, int countyCode, double unemploymentRte,
+			double percentPopulationInPoverty, int medianHouseholdIncome, double percentLessThanHSDiploma,
+			double percentHSDiplomaOnly, double percentSomeCollegeOnly, double percentBachelorsOrMore) {
+		this.socioeconomicCode = socioeconomicCode;
+		this.countyCode = countyCode;
+		this.unemploymentRte = unemploymentRte;
+		this.percentPopulationInPoverty = percentPopulationInPoverty;
+		this.medianHouseholdIncome = medianHouseholdIncome;
+		this.percentLessThanHSDiploma = percentLessThanHSDiploma;
+		this.percentHSDiplomaOnly = percentHSDiplomaOnly;
+		this.percentSomeCollegeOnly = percentSomeCollegeOnly;
+		this.percentBachelorsOrMore = percentBachelorsOrMore;
+	}
+	
+	public Socioeconomic(int countyCode, double unemploymentRte,
+			double percentPopulationInPoverty, int medianHouseholdIncome, double percentLessThanHSDiploma,
+			double percentHSDiplomaOnly, double percentSomeCollegeOnly, double percentBachelorsOrMore) {
+		this.countyCode = countyCode;
+		this.unemploymentRte = unemploymentRte;
+		this.percentPopulationInPoverty = percentPopulationInPoverty;
+		this.medianHouseholdIncome = medianHouseholdIncome;
+		this.percentLessThanHSDiploma = percentLessThanHSDiploma;
+		this.percentHSDiplomaOnly = percentHSDiplomaOnly;
+		this.percentSomeCollegeOnly = percentSomeCollegeOnly;
+		this.percentBachelorsOrMore = percentBachelorsOrMore;
+	}
+	
+	public Socioeconomic(int socioeconomicCode) {
+		this.socioeconomicCode = socioeconomicCode;
+	}
 
-public double getUnemploymentrate(){
-        return UnemploymentRate;
-        }
+	public int getSocioeconomicCode() {
+		return socioeconomicCode;
+	}
 
-public void setUnemploymentrate(double UnemploymentRate){
-        this.UnemploymentRate=UnemploymentRate;
-        }
+	public void setSocioeconomicCode(int socioeconomicCode) {
+		this.socioeconomicCode = socioeconomicCode;
+	}
 
-public double getPercentpopulationinpoverty(){
-        return PercentPopulationInPoverty;
-        }
+	public int getCountyCode() {
+		return countyCode;
+	}
 
-public void setPercentpopulationinpoverty(double PercentPopulationInPoverty){
-        this.PercentPopulationInPoverty=PercentPopulationInPoverty;
-        }
+	public void setCountyCode(int countyCode) {
+		this.countyCode = countyCode;
+	}
 
-public double getPercentlessthanhsdiploma(){
-        return PercentLessThanHSDiploma;
-        }
+	public double getUnemploymentRte() {
+		return unemploymentRte;
+	}
 
-public void setPercentlessthanhsdiploma(double PercentLessThanHSDiploma){
-        this.PercentLessThanHSDiploma=PercentLessThanHSDiploma;
-        }
+	public void setUnemploymentRte(double unemploymentRte) {
+		this.unemploymentRte = unemploymentRte;
+	}
 
-public double getPercenthsdiplomaonly(){
-        return PercentHSDiplomaOnly;
-        }
+	public double getPercentPopulationInPoverty() {
+		return percentPopulationInPoverty;
+	}
 
-public void setPercenthsdiplomaonly(double PercentHSDiplomaOnly){
-        this.PercentHSDiplomaOnly=PercentHSDiplomaOnly;
-        }
+	public void setPercentPopulationInPoverty(double percentPopulationInPoverty) {
+		this.percentPopulationInPoverty = percentPopulationInPoverty;
+	}
 
-public double getPercentsomecollegeonly(){
-        return PercentSomeCollegeOnly;
-        }
+	public int getMedianHouseholdIncome() {
+		return medianHouseholdIncome;
+	}
 
-public void setPercentsomecollegeonly(double PercentSomeCollegeOnly){
-        this.PercentSomeCollegeOnly=PercentSomeCollegeOnly;
-        }
+	public void setMedianHouseholdIncome(int medianHouseholdIncome) {
+		this.medianHouseholdIncome = medianHouseholdIncome;
+	}
 
-public double getPercentbachelorsormore(){
-        return PercentBachelorsOrMore;
-        }
+	public double getPercentLessThanHSDiploma() {
+		return percentLessThanHSDiploma;
+	}
 
-public void setPercentbachelorsormore(double PercentBachelorsOrMore){
-        this.PercentBachelorsOrMore=PercentBachelorsOrMore;
-        }
+	public void setPercentLessThanHSDiploma(double percentLessThanHSDiploma) {
+		this.percentLessThanHSDiploma = percentLessThanHSDiploma;
+	}
+
+	public double getPercentHSDiplomaOnly() {
+		return percentHSDiplomaOnly;
+	}
+
+	public void setPercentHSDiplomaOnly(double percentHSDiplomaOnly) {
+		this.percentHSDiplomaOnly = percentHSDiplomaOnly;
+	}
+
+	public double getPercentSomeCollegeOnly() {
+		return percentSomeCollegeOnly;
+	}
+
+	public void setPercentSomeCollegeOnly(double percentSomeCollegeOnly) {
+		this.percentSomeCollegeOnly = percentSomeCollegeOnly;
+	}
+
+	public double getPercentBachelorsOrMore() {
+		return percentBachelorsOrMore;
+	}
+
+	public void setPercentBachelorsOrMore(double percentBachelorsOrMore) {
+		this.percentBachelorsOrMore = percentBachelorsOrMore;
+	}
+	
 }
+	
+	
+	

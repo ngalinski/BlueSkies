@@ -9,7 +9,6 @@ public class HealthCareUtilization {
   private double professionalServices;
   private double rxDrugs;
 
-
   public HealthCareUtilization(int healthCareUtilizationCode, String stateCode, double totalUtilization, double inpatientServices, double outpatientServices, double professionalServices, double rxDrugs) {
 	  this.healthCareUtilizationCode = healthCareUtilizationCode;
 	  this.stateCode = stateCode;
@@ -18,10 +17,6 @@ public class HealthCareUtilization {
 	  this.outpatientServices = outpatientServices;
 	  this.professionalServices = professionalServices;
 	  this.rxDrugs = rxDrugs;
-  }
-  
-  public HealthCareUtilization(int healthCareUtilizationCode) {
-	  this.healthCareUtilizationCode = healthCareUtilizationCode;
   }
   
   public HealthCareUtilization(String stateCode, double totalUtilization, double inpatientServices, double outpatientServices, double professionalServices, double rxDrugs) {
@@ -33,6 +28,10 @@ public class HealthCareUtilization {
 	  this.rxDrugs = rxDrugs;
   }
   
+  public HealthCareUtilization(int healthCareUtilizationCode) {
+	  this.healthCareUtilizationCode = healthCareUtilizationCode;
+  }
+
   
   public int getHealthCareUtilizationCode() {
     return healthCareUtilizationCode;

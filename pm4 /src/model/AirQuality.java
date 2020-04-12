@@ -3,7 +3,6 @@ package model;
 public class AirQuality {
   private int airQualityCode;
   private int countyCode;
-  private String stateCode;
   private int daysWithAQI;
   private int goodDays;
   private int moderateDays;
@@ -14,29 +13,11 @@ public class AirQuality {
   private int maxAQI;
   private int ninetiethPercentileAQI;
   private int medianAQI;
-
-  
-  public AirQuality(int countyCode, String stateCode, int daysWithAQI, int goodDays, int moderateDays, int unhealthyForSensitiveDays,
-		 int unhealthyDays, int veryUnhealthyDays, int hazardousDays, int maxAQI, int ninetiethPercentileAQI, int medianAQI) {
-	 this.countyCode = countyCode;
-	 this.stateCode = stateCode;
-	 this.daysWithAQI = daysWithAQI;
-	 this.goodDays = goodDays;
-	 this.moderateDays = moderateDays;
-	 this.unhealthyForSensitiveDays = unhealthyForSensitiveDays;
-	 this.unhealthyDays = unhealthyDays;
-	 this.veryUnhealthyDays = veryUnhealthyDays;
-	 this.hazardousDays = hazardousDays;
-	 this.maxAQI = maxAQI;
-	 this.ninetiethPercentileAQI =ninetiethPercentileAQI;
-	 this.medianAQI = medianAQI;
-  }
-  
-  public AirQuality(int airQualityCode, int countyCode, String stateCode, int daysWithAQI, int goodDays, int moderateDays, int unhealthyForSensitiveDays,
+ 
+  public AirQuality(int airQualityCode, int countyCode, int daysWithAQI, int goodDays, int moderateDays, int unhealthyForSensitiveDays,
 		  int unhealthyDays, int veryUnhealthyDays, int hazardousDays, int maxAQI, int ninetiethPercentileAQI, int medianAQI) {
-		this.airQualityCode = airQualityCode;
-	  	this.countyCode = countyCode;
-		 this.stateCode = stateCode;
+		 this.airQualityCode = airQualityCode;
+	  	 this.countyCode = countyCode;
 		 this.daysWithAQI = daysWithAQI;
 		 this.goodDays = goodDays;
 		 this.moderateDays = moderateDays;
@@ -49,6 +30,21 @@ public class AirQuality {
 		 this.medianAQI = medianAQI;
   }
   
+  public AirQuality(int countyCode, int daysWithAQI, int goodDays, int moderateDays, int unhealthyForSensitiveDays,
+			 int unhealthyDays, int veryUnhealthyDays, int hazardousDays, int maxAQI, int ninetiethPercentileAQI, int medianAQI) {
+		 this.countyCode = countyCode;
+		 this.daysWithAQI = daysWithAQI;
+		 this.goodDays = goodDays;
+		 this.moderateDays = moderateDays;
+		 this.unhealthyForSensitiveDays = unhealthyForSensitiveDays;
+		 this.unhealthyDays = unhealthyDays;
+		 this.veryUnhealthyDays = veryUnhealthyDays;
+		 this.hazardousDays = hazardousDays;
+		 this.maxAQI = maxAQI;
+		 this.ninetiethPercentileAQI =ninetiethPercentileAQI;
+		 this.medianAQI = medianAQI;
+  }
+
   
   public AirQuality(int airQualityCode) {
 	this.airQualityCode = airQualityCode;
@@ -69,14 +65,6 @@ public class AirQuality {
 
   public void setCountyCode(int countyCode) {
     this.countyCode = countyCode;
-  }
-
-  public String getStateCode() {
-    return stateCode;
-  }
-
-  public void setStateCode(String stateCode) {
-    this.stateCode = stateCode;
   }
 
   public int getDaysWithAQI() {
