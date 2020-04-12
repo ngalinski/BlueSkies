@@ -17,7 +17,7 @@ public class DrugUtilizationDAO {
     connectionManager = new ConnectionManager();
   }
   public static DrugUtilizationDAO getInstance() {
-    if(instance == null) {
+    if (instance == null) {
       instance = new DrugUtilizationDAO();
     }
     return instance;
