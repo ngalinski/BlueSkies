@@ -1,21 +1,22 @@
 package dal;
 
-import model.*;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DrugUtilizationDAO {
-  protected ConnectionManager connectionManager;
+import model.*;
 
+public class DrugUtilizationDAO {
   // Connection
   private static DrugUtilizationDAO instance = null;
+  protected ConnectionManager connectionManager;
+
   protected DrugUtilizationDAO() {
     connectionManager = new ConnectionManager();
   }
+
   public static DrugUtilizationDAO getInstance() {
     if (instance == null) {
       instance = new DrugUtilizationDAO();
@@ -74,7 +75,7 @@ public class DrugUtilizationDAO {
   // READ
   public List<DrugUtilization> getDrugUtilbyState(String StateCode) throws SQLException {
     List<DrugUtilization> drugUtilizationList = new ArrayList<DrugUtilization>();
-    String  selectUtil = "SELECT DrugUtilCode,StateCode,DrugName,NumReimbursed,NumRx,TotalReimbursed," +
+    String selectUtil = "SELECT DrugUtilCode,StateCode,DrugName,NumReimbursed,NumRx,TotalReimbursed," +
             "MedicaidReimbursed,NonMedicaidReimbursed,NDC,Label,Product,Size FROM DrugUtilization " +
             "WHERE DrugUtilization.StateCode=?;";
     Connection connection = null;
@@ -85,7 +86,7 @@ public class DrugUtilizationDAO {
       selectStmt = connection.prepareStatement(selectUtil);
       selectStmt.setString(1, StateCode);
       results = selectStmt.executeQuery();
-      while(results.next()) {
+      while (results.next()) {
         int drugUtilCode = results.getInt("DrugUtilCode");
         String stateCode = results.getString("StateCode");
         String drugName = results.getString("DrugName");
@@ -99,20 +100,20 @@ public class DrugUtilizationDAO {
         int prodcut = results.getInt("Product");
         int size = results.getInt("Size");
 
-        DrugUtilization drugUtil = new DrugUtilization(drugUtilCode,stateCode,drugName,numReim,numRx,totalReim,medicaidReim,nonMedicaidReim,ndc,label,prodcut,size);
+        DrugUtilization drugUtil = new DrugUtilization(drugUtilCode, stateCode, drugName, numReim, numRx, totalReim, medicaidReim, nonMedicaidReim, ndc, label, prodcut, size);
         drugUtilizationList.add(drugUtil);
       }
     } catch (SQLException e) {
       e.printStackTrace();
       throw e;
     } finally {
-      if(connection != null) {
+      if (connection != null) {
         connection.close();
       }
-      if(selectStmt != null) {
+      if (selectStmt != null) {
         selectStmt.close();
       }
-      if(results != null) {
+      if (results != null) {
         results.close();
       }
     }
@@ -162,10 +163,10 @@ public class DrugUtilizationDAO {
       e.printStackTrace();
       throw e;
     } finally {
-      if(connection != null) {
+      if (connection != null) {
         connection.close();
       }
-      if(updateStmt != null) {
+      if (updateStmt != null) {
         updateStmt.close();
       }
     }
@@ -183,7 +184,8 @@ public class DrugUtilizationDAO {
       deleteStmt.executeUpdate();
       return null;
     } catch (SQLException e) {
-      e.printStackTrace();;
+      e.printStackTrace();
+      ;
       throw e;
     } finally {
       if (connection != null) {

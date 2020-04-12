@@ -14,6 +14,36 @@ public class Drugutilization {
   private int Product;
   private int Size;
 
+  public Drugutilization(int drugUtilCode, String stateCode, String drugName, String numReimbursed,
+                         String numRx, String totalReimbursed, String medicaidReimbursed,
+                         String nonMedicaidReimbursed, String ndc, int label, int product, int size) {
+    this.DrugUtilCode = drugUtilCode;
+    this.StateCode = stateCode;
+    this.DrugName = drugName;
+    this.NumReimbursed = numReimbursed;
+    this.NumRx = numRx;
+    this.TotalReimbursed = totalReimbursed;
+    this.MedicaidReimbursed = medicaidReimbursed;
+    this.NonMedicaidReimbursed = nonMedicaidReimbursed;
+    this.NDC = ndc;
+    this.Label = label;
+    this.Product = product;
+    this.Size = size;
+  }
+
+  public Drugutilization(int drugUtilCode, String stateCode, String ndc, int label, int product, int size) {
+    this.DrugUtilCode = drugUtilCode;
+    this.StateCode = stateCode;
+    this.NDC = ndc;
+    this.Label = label;
+    this.Product = product;
+    this.Size = size;
+  }
+
+  public Drugutilization(int drugUtilCode) {
+    this.DrugUtilCode = drugUtilCode;
+  }
+
   public int getDrugUtilCode() {
     return DrugUtilCode;
   }
