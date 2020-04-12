@@ -24,6 +24,7 @@ public class StateDAO {
     return instance;
   }
 
+  // CREATE
   public State create(State state) throws SQLException {
     String insertState = "INSERT INTO State(StateCode,StateName,Region) VALUE(?,?,?);";
     Connection connection = null;
@@ -93,7 +94,56 @@ public class StateDAO {
 		return null;
 	}
 
+	//UPDATE
+  public State updateStateName(State state, String newName) throws SQLException {
+    String updateName = "UPDATE State SET StateName=? WHERE StateCode=?;";
+    Connection connection = null;
+    PreparedStatement updateStmt = null;
+    try {
+      connection = connectionManager.getConnection();
+      updateStmt = connection.prepareStatement(updateName);
+      updateStmt.setString(1, newName);
+      updateStmt.setInt(2, state.getStateCode());
+      state.setStateName(newName);
+      return state;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if(connection != null) {
+        connection.close();
+      }
+      if(updateStmt != null) {
+        updateStmt.close();
+      }
+    }
+  }
 
+  public State updateStateCode(State state, String newCode) throws SQLException {
+    String updateCode = "UPDATE State SET StateCode=? WHERE StateName=?;";
+    Connection connection = null;
+    PreparedStatement updateStmt = null;
+    try {
+      connection = connectionManager.getConnection();
+      updateStmt = connection.prepareStatement(updateCode);
+      updateStmt.setString(1, newCode);
+      updateStmt.setInt(2, state.getStateName());
+      state.setStateCode(newCode);
+      return state;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if(connection != null) {
+        connection.close();
+      }
+      if(updateStmt != null) {
+        updateStmt.close();
+      }
+    }
+  }
+
+  // DELETE
   public State delete(State state) throws SQLException {
     String deleteState = "DELETE FROM State WHERE StateCode=?;";
     Connection connection = null;
