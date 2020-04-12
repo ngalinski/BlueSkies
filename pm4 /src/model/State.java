@@ -1,19 +1,19 @@
 package model;
 
-import util.HospitalType;
+import util.Region;
 
 public class State {
   private String stateCode;
   private String stateName;
-  private HospitalType region;
+  private Region region;
   
-   public State(String stateCode, String stateName, HospitalType region) {
+   public State(String stateCode, String stateName, Region region) {
 	  this.stateCode = stateCode;
 	  this.stateName = stateName;
 	  this.region = region;
    }
 
-   public State(String stateName, HospitalType region) {
+   public State(String stateName, Region region) {
 	  this.stateName = stateName;
 	  this.region = region;
    }
@@ -38,11 +38,11 @@ public class State {
 		this.stateName = stateName;
 	}
 
-	public HospitalType getRegion() {
+	public Region getRegion() {
 		return region;
 	}
 
-	public void setRegion(HospitalType region) {
+	public void setRegion(Region region) {
 		this.region = region;
 	}
 

@@ -152,8 +152,9 @@ public class HospitalDAO {
       updateStmt = connection.prepareStatement(updateHospital);
       updateStmt.setString(1, newHospital.getHospitalName());
       updateStmt.setString(2, newHospital.getZipCode());
-      updateStmt.setString(3, hospital.getHospitalType().getString());
-      updateStmt.setInt(4, hospital.getEmergencyServices());
+      updateStmt.setString(3, newHospital.getHospitalType().getString());
+      updateStmt.setInt(4, newHospital.getEmergencyServices());
+      updateStmt.setInt(5, hospital.getHospitalCode());
 
 	  updateStmt.executeUpdate();
 

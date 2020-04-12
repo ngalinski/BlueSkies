@@ -3,7 +3,7 @@ package model;
 public class Socioeconomic {
 	private int socioeconomicCode;
 	private int countyCode;
-	private double unemploymentRte;
+	private double unemploymentRate;
 	private double percentPopulationInPoverty;
 	private int medianHouseholdIncome;
 	private double percentLessThanHSDiploma;
@@ -11,12 +11,12 @@ public class Socioeconomic {
 	private double percentSomeCollegeOnly;
 	private double percentBachelorsOrMore;
 	
-	public Socioeconomic(int socioeconomicCode, int countyCode, double unemploymentRte,
+	public Socioeconomic(int socioeconomicCode, int countyCode, double unemploymentRate,
 			double percentPopulationInPoverty, int medianHouseholdIncome, double percentLessThanHSDiploma,
 			double percentHSDiplomaOnly, double percentSomeCollegeOnly, double percentBachelorsOrMore) {
 		this.socioeconomicCode = socioeconomicCode;
 		this.countyCode = countyCode;
-		this.unemploymentRte = unemploymentRte;
+		this.unemploymentRate = unemploymentRate;
 		this.percentPopulationInPoverty = percentPopulationInPoverty;
 		this.medianHouseholdIncome = medianHouseholdIncome;
 		this.percentLessThanHSDiploma = percentLessThanHSDiploma;
@@ -25,11 +25,11 @@ public class Socioeconomic {
 		this.percentBachelorsOrMore = percentBachelorsOrMore;
 	}
 	
-	public Socioeconomic(int countyCode, double unemploymentRte,
+	public Socioeconomic(int countyCode, double unemploymentRate,
 			double percentPopulationInPoverty, int medianHouseholdIncome, double percentLessThanHSDiploma,
 			double percentHSDiplomaOnly, double percentSomeCollegeOnly, double percentBachelorsOrMore) {
 		this.countyCode = countyCode;
-		this.unemploymentRte = unemploymentRte;
+		this.unemploymentRate = unemploymentRate;
 		this.percentPopulationInPoverty = percentPopulationInPoverty;
 		this.medianHouseholdIncome = medianHouseholdIncome;
 		this.percentLessThanHSDiploma = percentLessThanHSDiploma;
@@ -58,12 +58,12 @@ public class Socioeconomic {
 		this.countyCode = countyCode;
 	}
 
-	public double getUnemploymentRte() {
-		return unemploymentRte;
+	public double getUnemploymentRate() {
+		return unemploymentRate;
 	}
 
-	public void setUnemploymentRte(double unemploymentRte) {
-		this.unemploymentRte = unemploymentRte;
+	public void setUnemploymentRate(double unemploymentRate) {
+		this.unemploymentRate = unemploymentRate;
 	}
 
 	public double getPercentPopulationInPoverty() {

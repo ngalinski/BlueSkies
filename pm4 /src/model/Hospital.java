@@ -7,10 +7,10 @@ public class Hospital {
   private String hospitalName;
   private String zipCode;
   private HospitalType hospitalType;
-  private Boolean emergencyServices;
+  private int emergencyServices;
 
   public Hospital(int hospitalCode, String hospitalName, String zipCode, HospitalType hospitalType,
-		Boolean emergencyServices) {
+		  int emergencyServices) {
 	this.hospitalCode = hospitalCode;
 	this.hospitalName = hospitalName;
 	this.zipCode = zipCode;
@@ -19,7 +19,7 @@ public class Hospital {
   }
   
   public Hospital(String hospitalName, String zipCode, HospitalType hospitalType,
-		Boolean emergencyServices) {
+		  int emergencyServices) {
 	this.hospitalName = hospitalName;
 	this.zipCode = zipCode;
 	this.hospitalType = hospitalType;
@@ -54,10 +54,10 @@ public class Hospital {
 	public void setHospitalType(HospitalType hospitalType) {
 		this.hospitalType = hospitalType;
 	}
-	public Boolean getEmergencyServices() {
+	public int getEmergencyServices() {
 		return emergencyServices;
 	}
-	public void setEmergencyServices(Boolean emergencyServices) {
+	public void setEmergencyServices(int emergencyServices) {
 		this.emergencyServices = emergencyServices;
 	}
 	  
