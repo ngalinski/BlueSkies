@@ -1,12 +1,14 @@
 package dal;
 
+import model.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+import java.util.ArrayList;
 
-import model.*;
 
 public class DrugUtilizationDAO {
   // Connection
@@ -149,10 +151,10 @@ public class DrugUtilizationDAO {
       drugUtilization.setStatecode(newUtil.getStatecode());
       drugUtilization.setDrugname(newUtil.getDrugname());
       drugUtilization.setNumreimbursed(newUtil.getNumreimbursed());
-      drugUtilization.setNumrx(newUtil.getNumrx);
+      drugUtilization.setNumrx(newUtil.getNumrx());
       drugUtilization.setTotalreimbursed(newUtil.getTotalreimbursed());
-      drugUtilization.setMedicaidreimbursed(newUtil.getMedicaidreimbursed);
-      drugUtilization.setNonmedicaidreimbursed(newUtil.getNonmedicaidreimbursed);
+      drugUtilization.setMedicaidreimbursed(newUtil.getMedicaidreimbursed());
+      drugUtilization.setNonmedicaidreimbursed(newUtil.getNonmedicaidreimbursed());
       drugUtilization.setNdc(newUtil.getNdc());
       drugUtilization.setLabel(newUtil.getLabel());
       drugUtilization.setProduct(newUtil.getProduct());
@@ -174,6 +176,7 @@ public class DrugUtilizationDAO {
 
   // DELETE
   public DrugUtilization delete(DrugUtilization drugUtilization) throws SQLException {
+
     String deleteUtil = "DELETE FROM DrugUtilization WHERE DrugUtilCode=?;";
     Connection connection = null;
     PreparedStatement deleteStmt = null;
