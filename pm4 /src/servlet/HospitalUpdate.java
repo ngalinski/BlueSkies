@@ -2,16 +2,11 @@ package servlet;
 
 import dal.*;
 import model.*;
+import util.HospitalType;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.annotation.*;
@@ -77,10 +72,13 @@ public class HospitalUpdate extends HttpServlet {
         		} else {
         			String newHospitalName = req.getParameter("hospitalname");
         			String newHospitalZipCode = req.getParameter("zipcode");
+        	    	HospitalType newHospitalType = HospitalType.fromString(req.getParameter("hospitaltype"));
+        	    	int newEmergencyServices = (int)Integer.valueOf(req.getParameter("emergencyservices"));
+
         			if (newHospitalName == null || newHospitalZipCode.trim().isEmpty() || newHospitalZipCode == null || newHospitalZipCode.trim().isEmpty()) {
         	            messages.put("success", "Please enter a valid hospital name and zip code.");
         	        } else {
-        	        	Hospital hospitalNew = new Hospital(hospital.getHospitalCode(), newHospitalName, newHospitalZipCode);
+                    	Hospital hospitalNew = new Hospital(hospital.getHospitalCode(), newHospitalName, newHospitalZipCode, newHospitalType, newEmergencyServices);
         	        	hospitalDAO.updateHospital(hospital, hospitalNew);
         	        	messages.put("success", "Successfully updated " + hospitalNew.getHospitalName());
         	        }

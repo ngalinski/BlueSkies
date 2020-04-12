@@ -14,12 +14,28 @@
 	<h1>Create Hospital</h1>
 	<form action="hospitalcreate" method="post">
 		<p>
-			<label for="hospitalname">HospitalName</label>
+			<label for="hospitalname">Hospital Name</label>
 			<input id="hospitalname" name="hospitalname" value="">
 		</p>
 		<p>
-			<label for="zipcode">ZipCode</label>
+			<label for="zipcode">Zip Code</label>
 			<input id="zipcode" name="zipcode" value="">
+		</p>
+		<p>
+			<label for="hospitaltype">Hospital Type</label>
+			<select id="hospitaltype" name="hospitaltype">
+			  <option value="Acute Care Hospitals">Acute Care Hospitals</option>
+			  <option value="Critical Access Hospitals">Critical Access Hospitals</option>
+			  <option value="Psychiatric">Psychiatric</option>
+			  <option value="Childrens">Childrens</option>
+			</select>
+		</p>
+		<p>
+			<label for="emergencyservices">Emergency Services Offered</label>
+			<select id="emergencyservices" name="emergencyservices">
+			  <option value="1">Yes</option>
+			  <option value="0">No</option>
+			 </select>
 		</p>
 		<p>
 			<input type="submit">

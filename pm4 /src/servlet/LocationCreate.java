@@ -69,7 +69,7 @@ public class LocationCreate extends HttpServlet {
             if (countyCode == null || countyCode.trim().isEmpty()) {
               messages.put("success", "Invalid County Code");
             } else {
-              Location location = new Location(zipCode, locationName, stateCode, Integer.parseInt(population), Integer.parseInt(countyCode));
+              Location location = new Location(zipCode, stateCode, Integer.parseInt(countyCode), locationName, Integer.parseInt(population));
               try {
                 location = locationDAO.create(location);
                 messages.put("success", "Successfully created " + zipCode);

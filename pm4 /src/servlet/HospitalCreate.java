@@ -19,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import util.HospitalType;
 
 
 @WebServlet("/hospitalcreate")
@@ -51,6 +52,9 @@ public class HospitalCreate extends HttpServlet {
         // Retrieve and validate name.
         String hospitalName = req.getParameter("hospitalname");
     	String zipCode = req.getParameter("zipcode");
+    	HospitalType hospitalType = HospitalType.fromString(req.getParameter("hospitaltype"));
+    	int emergencyServices = (int)Integer.valueOf(req.getParameter("emergencyservices"));
+
         if (hospitalName == null || hospitalName.trim().isEmpty()) {
             messages.put("success", "Invalid Hospital Name");
         } else {
@@ -58,7 +62,7 @@ public class HospitalCreate extends HttpServlet {
                 messages.put("success", "Invalid Zip Code");
             }
             else {
-            	Hospital hospital = new Hospital(hospitalName, zipCode);
+            	Hospital hospital = new Hospital(hospitalName, zipCode, hospitalType, emergencyServices);
             	try {
 					hospital = hospitalDAO.create(hospital);
 					messages.put("success", "Successfully created " + hospitalName);

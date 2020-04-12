@@ -27,6 +27,23 @@
 			<input id="zipcode" name="zipcode" value="${fn:escapeXml(param.zipcode)}">
 		</p>
 		<p>
+			<label for="hospitaltype">Hospital Type</label>
+			<select id="hospitaltype" name="hospitaltype">
+			  <option value="Acute Care Hospitals">Acute Care Hospitals</option>
+			  <option value="Critical Access Hospitals">Critical Access Hospitals</option>
+			  <option value="Psychiatric">Psychiatric</option>
+			  <option value="Childrens">Childrens</option>
+			</select>
+		</p>
+		<p>
+			<label for="emergencyservices">Emergency Services Offered</label>
+			<select id="emergencyservices" name="emergencyservices">
+			  <option value="1">Yes</option>
+			  <option value="0">No</option>
+			 </select>
+		</p>
+		
+		<p>
 			<input type="submit">
 		</p>
 	</form>
