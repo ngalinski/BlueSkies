@@ -1,6 +1,6 @@
 package model;
 
-public class Drugutilization {
+public class DrugUtilization {
   private int DrugUtilCode;
   private String StateCode;
   private String DrugName;
@@ -14,7 +14,7 @@ public class Drugutilization {
   private int Product;
   private int Size;
 
-  public Drugutilization(int drugUtilCode, String stateCode, String drugName, String numReimbursed,
+  public DrugUtilization(int drugUtilCode, String stateCode, String drugName, String numReimbursed,
                          String numRx, String totalReimbursed, String medicaidReimbursed,
                          String nonMedicaidReimbursed, String ndc, int label, int product, int size) {
     this.DrugUtilCode = drugUtilCode;
@@ -31,7 +31,7 @@ public class Drugutilization {
     this.Size = size;
   }
 
-  public Drugutilization(int drugUtilCode, String stateCode, String ndc, int label, int product, int size) {
+  public DrugUtilization(int drugUtilCode, String stateCode, String ndc, int label, int product, int size) {
     this.DrugUtilCode = drugUtilCode;
     this.StateCode = stateCode;
     this.NDC = ndc;
@@ -40,7 +40,7 @@ public class Drugutilization {
     this.Size = size;
   }
 
-  public Drugutilization(int drugUtilCode) {
+  public DrugUtilization(int drugUtilCode) {
     this.DrugUtilCode = drugUtilCode;
   }
 
