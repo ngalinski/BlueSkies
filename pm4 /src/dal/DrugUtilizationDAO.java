@@ -71,23 +71,36 @@ public class DrugUtilizationDAO {
     }
   }
 
-
   // READ
-  public DrugUtilization getDrugUtilbyState(String StateCode) throws SQLException {
-    String  selectUtil = "SELECT  FROM  WHERE StateCode=?;";
+  public List<DrugUtilization> getDrugUtilbyState(String StateCode) throws SQLException {
+    List<DrugUtilization> drugUtilizationList = new ArrayList<DrugUtilization>();
+    String  selectUtil = "SELECT DrugUtilCode,StateCode,DrugName,NumReimbursed,NumRx,TotalReimbursed," +
+            "MedicaidReimbursed,NonMedicaidReimbursed,NDC,Label,Product,Size FROM DrugUtilization " +
+            "WHERE DrugUtilization.StateCode=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet results = null;
     try {
       connection = connectionManager.getConnection();
-      selectStmt = connection.prepareStatement();
-      selectStmt.setInt();
-
+      selectStmt = connection.prepareStatement(selectUtil);
+      selectStmt.setString(1, StateCode);
       results = selectStmt.executeQuery();
+      while(results.next()) {
+        int drugUtilCode = results.getInt("DrugUtilCode");
+        String stateCode = results.getString("StateCode");
+        String drugName = results.getString("DrugName");
+        String numReim = results.getString("NumReimbursed");
+        String numRx = results.getString("NumRx");
+        String totalReim = results.getString("TotalReimbursed");
+        String medicaidReim = results.getString("MedicaidReimbursed");
+        String nonMedicaidReim = results.getString("NonMedicaidReimbursed");
+        String ndc = results.getString("NDC");
+        int label = results.getInt("Label");
+        int prodcut = results.getInt("Product");
+        int size = results.getInt("Size");
 
-      if(results.next()) {
-
-        return;
+        DrugUtilization drugUtil = new DrugUtilization(drugUtilCode,stateCode,drugName,numReim,numRx,totalReim,medicaidReim,nonMedicaidReim,ndc,label,prodcut,size);
+        drugUtilizationList.add(drugUtil);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -103,7 +116,7 @@ public class DrugUtilizationDAO {
         results.close();
       }
     }
-    return null;
+    return drugUtilizationList;
   }
 
   // UPDATE
