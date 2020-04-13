@@ -65,9 +65,10 @@
 
 		<br />
 		<h4>Air Quality</h4>
+		
 		<div class="row">
-			<div class="col-6">
-				<h6>Counts</h6>
+			<div class="col-6">			
+				<h6>${county.getCountyName()} County</h6>
 				<ul>
 					<li>Good days: <c:out value="${airquality.getGoodDays()}" /></li>
 					<li>Moderate days: <c:out
@@ -81,11 +82,10 @@
 							value="${airquality.getVeryUnhealthyDays()}" /></li>
 					<li>Hazardous days: <c:out
 							value="${airquality.getHazardousDays()}" /></li>
-					<li><strong>Total days measured: <c:out
-								value="${airquality.getDaysWithAQI()}" /></strong></li>
+					<li>Total days measured: <c:out
+								value="${airquality.getDaysWithAQI()}" /></li>
 				</ul>
 
-				<h6>Aggregated Data</h6>
 				<ul>
 					<li>Max Air Quality Index: <c:out
 							value="${airquality.getMaxAQI()}" /></li>
@@ -112,12 +112,11 @@
 								value="${avgairquality.getDaysWithAQI()}" /></li>
 				</ul>
 
-				<h6>US Averages</h6>
 				<ul>
 					<li>Max Air Quality Index: <c:out
-							value="${airquality.getMaxAQI()}" /></li>
+							value="${avgairquality.getMaxAQI()}" /></li>
 					<li>Median Air Quality Index: <c:out
-							value="${airquality.getMedianAQI()}" /></li>
+							value="${avgairquality.getMedianAQI()}" /></li>
 				</ul>
 			</div>
 		</div>
@@ -128,7 +127,7 @@
 		<h6>Education</h6>
 		<div class="row">
 			<div class="col-6">
-				<h6>State</h6>
+				<h6>${county.getCountyName()} County</h6>
 				<ul>
 					<li>Less than high school diploma (%): <c:out
 							value="${socioeconomic.getPercentLessThanHSDiploma()}" /></li>
@@ -164,7 +163,7 @@
 		<h6>Economic</h6>
 		<div class="row">
 			<div class="col-6">
-				<h6>State</h6>
+				<h6>${county.getCountyName()} County</h6>
 				<ul>
 					<li>Unemployment rate: <c:out
 							value="${socioeconomic.getUnemploymentRate()}" /></li>
@@ -196,7 +195,7 @@
 
 		<div class="row">
 			<div class="col-6">
-				<h6>State</h6>
+				<h6>${county.getCountyName()} County</h6>
 				<ul>
 					<li>Insured (%): <c:out
 							value="${healthcarecoverage.getPercentInsured()}" /></li>
@@ -224,7 +223,7 @@
 		<h4>Asthma Health Outcomes (2017)</h4>
 		<div class="row">
 			<div class="col-6">
-				<h6>For State</h6>
+				<h6>${location.getStateCode()}</h6>
 				<ul>
 					<c:forEach items="${asthmaimpactbymetric}" var="metric">
 						<li><span class="metric-name"><c:out
@@ -250,7 +249,7 @@
 		<h4>Health Care Spending (per capita)</h4>
 		<div class="row">
 			<div class="col-6">
-				<h6>State</h6>
+				<h6>${location.getStateCode()}</h6>
 				<ul>
 					<li>Total spending: <c:out
 							value="${healthcarespending.getTotalSpending()}" /></li>
@@ -281,7 +280,7 @@
 		<h4>Health Care Utilization (per capita)</h4>
 		<div class="row">
 			<div class="col-6">
-				<h6>State</h6>
+				<h6>${location.getStateCode()}</h6>
 				<ul>
 					<li>Total utilization: <c:out
 							value="${healthcareutilization.getTotalUtilization()}" /></li>
