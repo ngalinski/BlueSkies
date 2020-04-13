@@ -12,14 +12,14 @@
 </head>
 <body>
 <h1>Update County Name</h1>
-<form action="locationupdate" method="post">
+<form action="countyupdate" method="post">
     <p>
         <label for="countycode">County Code</label>
-        <input id="countycode" name="countycode" value="${fn:escapeXml(param.countycode)}">
+        <input id="countycode" name="countycode" value="${fn:escapeXml(param.countycode)}" />
     </p>
     <p>
         <label for="countyname2">New County Name</label>
-        <input id="countyname2" name="countyname2" value="">
+        <input id="countyname2" name="countyname2" value="${fn:escapeXml(param.countyname2)}" />
     </p>
     <p>
         <input type="submit">

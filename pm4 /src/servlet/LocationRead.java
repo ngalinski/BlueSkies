@@ -35,22 +35,22 @@ public class LocationRead extends HttpServlet {
     Map<String, String> messages = new HashMap<String, String>();
     req.setAttribute("messages", messages);
 
-    List<Location> locationList = new ArrayList<Location>();
-
-    String countyCode = req.getParameter("countycode");
-    if (countyCode == null || countyCode.trim().isEmpty()) {
-      messages.put("success", "Please enter a valid county code.");
+    Location location;
+    
+    String zipCode = req.getParameter("zipcode");
+    if (zipCode == null || zipCode.trim().isEmpty()) {
+      messages.put("success", "Please enter a valid zip code.");
     } else {
       try {
-        locationList = locationDAO.getLocationsByCountyCode(Integer.parseInt(countyCode));
+        location = locationDAO.getLocationByZipCode(zipCode);
       } catch (SQLException e) {
         e.printStackTrace();
         throw new IOException(e);
       }
-      messages.put("success", "Displaying results for county code" + countyCode);
-      messages.put("previousCountyCode", countyCode);
+      messages.put("success", "Displaying results for county code" + zipCode);
+      messages.put("previouszipcode", zipCode);
+      req.setAttribute("location", location);
     }
-    req.setAttribute("locations", locationList);
 
     req.getRequestDispatcher("/LocationRead.jsp").forward(req, resp);
   }
@@ -59,25 +59,28 @@ public class LocationRead extends HttpServlet {
   public void doPost(HttpServletRequest req, HttpServletResponse resp)
           throws ServletException, IOException {
     // Map for storing messages.
-    Map<String, String> messages = new HashMap<String, String>();
-    req.setAttribute("messages", messages);
+	  // Map for storing messages.
+	    Map<String, String> messages = new HashMap<String, String>();
+	    req.setAttribute("messages", messages);
 
-    List<Location> locationList = new ArrayList<Location>();
+	    Location location;
+	    
+	    String zipCode = req.getParameter("zipcode");
+	    if (zipCode == null || zipCode.trim().isEmpty()) {
+	      messages.put("success", "Please enter a valid zip code.");
+	    } else {
+	      try {
+	        location = locationDAO.getLocationByZipCode(zipCode);
+	      } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new IOException(e);
+	      }
+	      messages.put("success", "Displaying results for county code" + zipCode);
+	      messages.put("previouszipcode", zipCode);
+	      req.setAttribute("location", location);
+	    }
 
-    String countyCode = req.getParameter("countycode");
-    if (countyCode == null || countyCode.trim().isEmpty()) {
-      messages.put("success", "Please enter a valid county code.");
-    } else {
-      try {
-        locationList = locationDAO.getLocationsByCountyCode(Integer.parseInt(countyCode));
-      } catch (SQLException e) {
-        e.printStackTrace();
-        throw new IOException(e);
-      }
-      messages.put("success", "Displaying results for county code:" + countyCode);
-    }
-    req.setAttribute("location", locationList);
+	    req.getRequestDispatcher("/LocationRead.jsp").forward(req, resp);
+	  }
 
-    req.getRequestDispatcher("/LocaitonRead.jsp").forward(req, resp);
-  }
 }

@@ -11,18 +11,9 @@
     <title>Get Counties by Name</title>
 </head>
 <body>
-<form action="getlocation" method="post">
     <h1>Search for a County by Name</h1>
-    <p>
-        <label for="countyname">County Name</label>
-        <input id="countyname" name="countyname" value="${fn:escapeXml(param.countyname)}">
-    </p>
-    <p>
-        <input type="submit">
-        <br/><br/><br/>
-        <span id="successMessage"><b>${messages.success}</b></span>
-    </p>
-</form>
+    <p> <span id="successMessage"><b>${messages.success}</b></span></p>
+
 <h1>Matching Counties</h1>
 <table border="1">
     <tr>
@@ -32,15 +23,28 @@
         <th>Update</th>
         <th>Delete</th>
     </tr>
-    <c:forEach items="${counties}" var="location" >
+    <c:forEach items="${counties}" var="county" >
         <tr>
             <td><c:out value="${county.getCountyCode()}" /></td>
             <td><c:out value="${county.getCountyName()}" /></td>
             <td><c:out value="${county.getStateCode()}" /></td>
-            <td><a href="countyupdate?countyname=<c:out value="${county.getCountyName}"/>">Update</a></td>
-            <td><a href="countydelete?countycode=<c:out value="${county.getCountyCode}"/>">Delete</a></td>
+            <td><a href="countyupdate?countycode=<c:out value="${county.getCountyCode()}"/>">Update</a></td>
+            <td><a href="countydelete?countycode=<c:out value="${county.getCountyCode()}"/>">Delete</a></td>
         </tr>
     </c:forEach>
 </table>
+
+<div class="row">
+	<div class="col">
+	<br/><br/>
+	 	<form action="getcounty" method="post">
+		<p>Search for a county by name:</p>
+	        <label for="countyname">County Name</label>
+	        <input id="countyname" name="countyname" value="${fn:escapeXml(param.countyname)}">
+	       	<input type="submit"> 
+	    </form>
+	  </div>
+  </div>  
+  
 </body>
 </html>

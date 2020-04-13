@@ -49,29 +49,25 @@ public class CountyCreate extends HttpServlet {
     req.setAttribute("messages", messages);
 
     // Retrieve and validate name.
-    String countyCode = req.getParameter("countycode");
     String countyName = req.getParameter("countyname");
     String stateCode = req.getParameter("statecode");
-    if (countyCode == null || countyCode.trim().isEmpty()) {
-      messages.put("success", "Invalid County Code");
-    } else {
       if (countyName == null || countyName.trim().isEmpty()) {
         messages.put("success", "Invalid County Name");
       } else {
         if (stateCode == null || stateCode.trim().isEmpty()) {
           messages.put("success", "Invalid State Code");
         } else {
-          County county = new County(Integer.parseInt(countyCode), countyName, stateCode);
+          County county = new County(countyName, stateCode);
           try {
             county = countyDAO.create(county);
-            messages.put("success", "Successfully created " + countyCode);
+            messages.put("success", "Successfully created " + countyName + " County");
           } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             throw new IOException(e);
           }
         }
-      }
+      
     }
     req.getRequestDispatcher("/CountyCreate.jsp").forward(req, resp);
   }

@@ -16,6 +16,14 @@
     <servlet-name>FindHospitals</servlet-name>
     <url-pattern>/FindHospitals</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>DataAdmin</servlet-name>
+    <servlet-class>servlet.DataAdmin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DataAdmin</servlet-name>
+    <url-pattern>/DataAdmin</url-pattern>
+  </servlet-mapping>
 <servlet>
     <servlet-name>HospitalCreate</servlet-name>
     <servlet-class>servlet.HospitalCreate</servlet-class>

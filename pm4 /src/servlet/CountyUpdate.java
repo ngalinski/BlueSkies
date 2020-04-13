@@ -73,7 +73,7 @@ public class CountyUpdate extends HttpServlet {
         if(county == null) {
           messages.put("success", "County does not exist. No update to perform.");
         } else {
-          String newName = req.getParameter("countyname");
+          String newName = req.getParameter("countyname2");
           if (newName == null || newName.trim().isEmpty()) {
             messages.put("success", "Please enter a valid new county name.");
           } else {

@@ -47,7 +47,7 @@ public class CountyRead extends HttpServlet {
         e.printStackTrace();
         throw new IOException(e);
       }
-      messages.put("success", "Displaying results for county name" + countyName);
+      messages.put("success", "Displaying results for county name " + countyName);
       messages.put("previousCountyName", countyName);
     }
     req.setAttribute("counties", countyList);
@@ -74,7 +74,8 @@ public class CountyRead extends HttpServlet {
         e.printStackTrace();
         throw new IOException(e);
       }
-      messages.put("success", "Displaying results for county name:" + countyName);
+      messages.put("success", "Displaying results for county name" + countyName);
+      messages.put("previousCountyName", countyName);
     }
     req.setAttribute("counties", countyList);
 
