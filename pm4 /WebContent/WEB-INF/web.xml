@@ -4,10 +4,15 @@
   <welcome-file-list>
     <welcome-file>Home.jsp</welcome-file>
   </welcome-file-list>
+
   <servlet>
     <servlet-name>SearchZip</servlet-name>
     <servlet-class>servlet.SearchZip</servlet-class>
   </servlet>
+    <servlet-mapping>
+    <servlet-name>SearchZip</servlet-name>
+    <url-pattern>/searchzip</url-pattern>
+  </servlet-mapping>
     <servlet>
     <servlet-name>ReadAverages</servlet-name>
     <servlet-class>servlet.ReadAverages</servlet-class>
