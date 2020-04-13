@@ -66,6 +66,7 @@
 		<br />
 		<h4>Air Quality</h4>
 		
+		<c:if test="${not empty airquality}">
 		<div class="row">
 			<div class="col-6">			
 				<h6>${county.getCountyName()} County</h6>
@@ -120,10 +121,15 @@
 				</ul>
 			</div>
 		</div>
+		</c:if>
+		<c:if test="${empty airquality}">
+			<p>No air quality data available for this county.</p>
+		</c:if>
 
 		<br />
 		<h4>Socioeconomic</h4>
 
+		<c:if test="${not empty socioeconomic}">
 		<h6>Education</h6>
 		<div class="row">
 			<div class="col-6">
@@ -189,9 +195,16 @@
 				</ul>
 			</div>
 		</div>
+		</c:if>
+		<c:if test="${empty socioeconomic}">
+			<p>No socioeconomic data available for this county.</p>
+		</c:if>
+
 
 		<br />
 		<h4>Health Care Coverage</h4>
+		
+		<c:if test="${not empty healthcarecoverage}">
 
 		<div class="row">
 			<div class="col-6">
@@ -214,6 +227,12 @@
 				</ul>
 			</div>
 		</div>
+		</c:if>
+		
+		<c:if test="${empty healthcarecoverage}">
+			<p>No health care coverage data available for this county.</p>
+		</c:if>
+		
 
 		<br />
 		<hr />
@@ -221,6 +240,9 @@
 
 		<br />
 		<h4>Asthma Health Outcomes (2017)</h4>
+		
+		<c:if test="${not empty asthmaimpactbymetric}">
+		
 		<div class="row">
 			<div class="col-6">
 				<h6>${location.getStateCode()}</h6>
@@ -244,9 +266,17 @@
 				</ul>
 			</div>
 		</div>
-
+		</c:if>
+		
+		<c:if test="${empty asthmaimpactbymetric}">
+			<p>No asthma health outcomes data available for this state.</p>
+		</c:if>
+		
 		<br />
 		<h4>Health Care Spending (per capita)</h4>
+		
+		<c:if test="${not empty healthcarespending}">
+		
 		<div class="row">
 			<div class="col-6">
 				<h6>${location.getStateCode()}</h6>
@@ -274,10 +304,19 @@
 							value="${avghealthcarespending.getProfessionalServices()}" /></li>
 				</ul>
 			</div>
-
 		</div>
+		
+		</c:if>
+				
+		<c:if test="${empty healthcarespending}">
+			<p>No health care spending data available for this state.</p>
+		</c:if>
+		
 		<br />
 		<h4>Health Care Utilization (per capita)</h4>
+		
+		<c:if test="${not empty healthcareutilization}">
+		
 		<div class="row">
 			<div class="col-6">
 				<h6>${location.getStateCode()}</h6>
@@ -306,6 +345,13 @@
 				</ul>
 			</div>
 		</div>
+		
+		</c:if>
+		
+		<c:if test="${empty healthcareutilization}">
+			<p>No health care utilization data available for this state.</p>
+		</c:if>
+		
 
 		<br />
 		<%-- <h4>Drug Utilization (per capita, for common asthma medications)</h4>        
