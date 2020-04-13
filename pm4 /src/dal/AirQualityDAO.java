@@ -140,6 +140,63 @@ public class AirQualityDAO {
 		}
 		return null;
 	}
+	
+
+	// READ from CountyCode
+	public AirQuality getAverageAirQuality() throws SQLException {
+		String selectAirQuality = "SELECT AVG(DaysWithAQI),"
+				+ "AVG(GoodDays),"
+				+ "AVG(ModerateDays),"
+				+ "AVG(UnhealthyForSensitiveDays),"
+				+ "AVG(UnhealthyDays),"
+				+ "AVG(UnhealthyForSensitiveDays),"
+				+ "AVG(VeryUnhealthyDays),"
+				+ "AVG(HazardousDays),"
+				+ "AVG(MaxAQI),"
+				+ "AVG(MedianAQI),"
+				+ "AVG(90thPercentileAQI)"
+				+ "FROM AirQuality;";
+		
+		Connection connection = null;
+		PreparedStatement selectStmt = null;
+		ResultSet results = null;
+		try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectAirQuality);
+
+			results = selectStmt.executeQuery();
+
+			if(results.next()) {
+				int daysWithAQI = results.getInt("AVG(DaysWithAQI)");
+				int goodDays = results.getInt("AVG(GoodDays)");
+				int moderateDays = results.getInt("AVG(ModerateDays)");
+				int unhealthyForSensitiveDays = results.getInt("AVG(UnhealthyForSensitiveDays)");
+				int unhealthyDays = results.getInt("AVG(UnhealthyDays)");
+				int veryUnhealthyDays = results.getInt("AVG(VeryUnhealthyDays)");
+				int hazardousDays = results.getInt("AVG(HazardousDays)");
+				int maxAQI = results.getInt("AVG(MaxAQI)");
+				int ninetiethPercentileAQI = results.getInt("AVG(90thPercentileAQI)");
+				int medianAQI = results.getInt("AVG(MedianAQI)");
+
+				AirQuality airQuality = new AirQuality(0, daysWithAQI, goodDays, moderateDays, unhealthyForSensitiveDays, unhealthyDays, veryUnhealthyDays, hazardousDays, maxAQI, ninetiethPercentileAQI, medianAQI);
+				return airQuality;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		return null;
+	}
 
 	// UPDATE
 	public AirQuality updateMedianAQI(AirQuality airQuality, int newMedianAQI) throws SQLException {

@@ -111,6 +111,49 @@ public class HealthCareUtilizationDAO {
 		return null;
 	}
 
+  // READ
+  public HealthCareUtilization getAvgHealthCareUtilization() throws SQLException {
+	  String selectHealthCareUtilization = "SELECT AVG(TotalUtilization),AVG(InpatientServices)," + 
+	  		"AVG(OutpatientServices),AVG(ProfessionalServices),AVG(RxDrugs) FROM HealthCareUtilization;";
+
+	  Connection connection = null;
+	  PreparedStatement selectStmt = null;
+	  ResultSet results = null;
+	
+	  	try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectHealthCareUtilization);
+
+			results = selectStmt.executeQuery();
+
+			if(results.next()) {
+				
+				int totalUtilization = results.getInt("AVG(TotalUtilization)");
+				int inpatientServices = results.getInt("AVG(InpatientServices)");
+				int outpatientServices = results.getInt("AVG(OutpatientServices)");
+				int professionalServices = results.getInt("AVG(ProfessionalServices)");
+				int rxDrugs = results.getInt("AVG(RxDrugs)");
+			
+				HealthCareUtilization healthCareUtilization = new HealthCareUtilization("", totalUtilization,
+						inpatientServices, outpatientServices, professionalServices, rxDrugs);
+				return healthCareUtilization;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		return null;
+	}
 
 	// UPDATE
 	public HealthCareUtilization updateTotalUtilization(HealthCareUtilization healthCareUtilization, double newTotalUtilization) throws SQLException {

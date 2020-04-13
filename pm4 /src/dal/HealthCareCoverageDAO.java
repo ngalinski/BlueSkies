@@ -110,6 +110,45 @@ public class HealthCareCoverageDAO {
 	}
   
   // READ
+  public HealthCareCoverage getAverageHealthCareCov() throws SQLException {
+	  String selectHealthCareCoverage = "SELECT AVG(PercentUninsured),AVG(PercentInsured) FROM HealthCareCoverage;";
+
+	  Connection connection = null;
+	  PreparedStatement selectStmt = null;
+	  ResultSet results = null;
+	
+	  	try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectHealthCareCoverage);
+			results = selectStmt.executeQuery();
+
+			if(results.next()) {
+	
+				double uninsured = results.getInt("AVG(PercentUninsured)");
+				double insured = results.getInt("AVG(PercentInsured)");
+
+				HealthCareCoverage healthCareCoverage = new HealthCareCoverage(0, 0, -1, -1, uninsured, insured);
+				return healthCareCoverage;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		return null;
+	}
+
+  
+  // READ
   public HealthCareCoverage getHealthCareCoverageByCountyCode(int countyCode) throws SQLException {
 	  String selectHealthCareCoverage = "SELECT HealthCareCoverageCode,CountyCode,NumberUninsured,NumberInsured,PercentUninsured,PercentInsured FROM HealthCareCoverage WHERE CountyCode =?;";
 

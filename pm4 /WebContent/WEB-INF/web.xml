@@ -8,6 +8,10 @@
     <servlet-name>SearchZip</servlet-name>
     <servlet-class>servlet.SearchZip</servlet-class>
   </servlet>
+    <servlet>
+    <servlet-name>ReadAverages</servlet-name>
+    <servlet-class>servlet.ReadAverages</servlet-class>
+  </servlet>
   <servlet>
     <servlet-name>FindHospitals</servlet-name>
     <servlet-class>servlet.FindHospitals</servlet-class>

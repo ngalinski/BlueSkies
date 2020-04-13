@@ -111,6 +111,51 @@ public class HealthCareSpendingDAO {
 		}
 		return null;
 	}
+  
+
+  // READ
+  public HealthCareSpending getHealthCareSpendingAvgs() throws SQLException {
+	  String selectHealthCareSpending = "SELECT AVG(TotalSpending),AVG(InpatientServices),"
+	  		+ "AVG(OutpatientServices),AVG(ProfessionalServices),AVG(RxDrugs) FROM HealthCareSpending;";
+
+	  Connection connection = null;
+	  PreparedStatement selectStmt = null;
+	  ResultSet results = null;
+	
+	  	try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectHealthCareSpending);
+
+			results = selectStmt.executeQuery();
+
+			if(results.next()) {
+				
+				int totalSpending = results.getInt("AVG(TotalSpending)");
+				int inpatientServices = results.getInt("AVG(InpatientServices)");
+				int outpatientServices = results.getInt("AVG(OutpatientServices)");
+				int professionalServices = results.getInt("AVG(ProfessionalServices)");
+				int rxDrugs = results.getInt("AVG(RxDrugs)");
+			
+				HealthCareSpending healthCareSpending = new HealthCareSpending("", totalSpending, inpatientServices,
+						outpatientServices, professionalServices, rxDrugs);
+				return healthCareSpending;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		return null;
+	}
 
 
 	// UPDATE

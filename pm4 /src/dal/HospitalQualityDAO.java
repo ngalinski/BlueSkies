@@ -114,6 +114,50 @@ public class HospitalQualityDAO {
 		return null;
 	}
 
+	// READ 
+	public HospitalQuality getHospitalQualityAvg() throws SQLException {
+		String selectHospitalQualityCode = "SELECT AVG(OverallRating),AVG(Mortality),AVG(Safety),AVG(Readmission),"
+				+ "AVG(PatientExperience),AVG(Effectiveness),AVG(Timeliness),"
+				+ "AVG(EfficientUseMedicalImaging) FROM HospitalQuality;";
+		Connection connection = null;
+		PreparedStatement selectStmt = null;
+		ResultSet results = null;
+		try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectHospitalQualityCode);
+
+			results = selectStmt.executeQuery();
+
+			if(results.next()) {
+				int rating = results.getInt("AVG(OverallRating)");
+				int mortality = results.getInt("AVG(Mortality)");
+				int safety = results.getInt("AVG(Safety)");
+				int readmission = results.getInt("AVG(Readmission)");
+				int patientExperience = results.getInt("AVG(PatientExperience)");
+				int effectiveness = results.getInt("AVG(Effectiveness)");
+				int timeliness = results.getInt("AVG(Timeliness)");
+				int efficientUseMedicalImaging = results.getInt("AVG(EfficientUseMedicalImaging)");
+
+				HospitalQuality hospitalQuality = new HospitalQuality(0, 0, rating, mortality, safety, readmission, patientExperience, effectiveness, timeliness, efficientUseMedicalImaging);
+				return hospitalQuality;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		return null;
+	}
+
 
   public HospitalQuality updateOverallRating(HospitalQuality hospitalQuality, int overallRating) throws SQLException {
     String updateOverallRating = "UPDATE HospitalQuality SET OverallRating=? WHERE HospitalQualityCode=?;";

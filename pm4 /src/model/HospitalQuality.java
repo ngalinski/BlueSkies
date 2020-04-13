@@ -1,21 +1,19 @@
 package model;
 
-import util.HospitalType;
-
 public class HospitalQuality {
   private int hospitalQualityCode;
   private int hospitalCode;
-  private int overallRating;
-  private int mortality;
-  private int safety;
-  private int readmission;
-  private int patientExperience;
-  private int effectiveness;
-  private int timeliness;
-  private int efficientUseMedicalImaging;
+  private Integer overallRating;
+  private Integer mortality;
+  private Integer safety;
+  private Integer readmission;
+  private Integer patientExperience;
+  private Integer effectiveness;
+  private Integer timeliness;
+  private Integer efficientUseMedicalImaging;
  
 
-  public HospitalQuality(int hospitalQualityCode, int hospitalCode, int overallRating, int mortality, int safety, int readmission, int patientExperience, int effectiveness, int timeliness, int efficientUseMedicalImaging) {
+  public HospitalQuality(int hospitalQualityCode, int hospitalCode, Integer overallRating, Integer mortality, Integer safety, Integer readmission, Integer patientExperience, Integer effectiveness, Integer timeliness, Integer efficientUseMedicalImaging) {
     this.hospitalQualityCode = hospitalQualityCode;
     this.hospitalCode = hospitalCode;
     this.overallRating = overallRating;
@@ -33,7 +31,7 @@ public class HospitalQuality {
     this.hospitalQualityCode = hospitalQualityCode;
   }
 	  
-  public HospitalQuality(int hospitalCode, int overallRating, int mortality, int safety, int readmission, int patientExperience, int effectiveness, int timeliness, int efficientUseMedicalImaging) {
+  public HospitalQuality(int hospitalCode, Integer overallRating, Integer mortality, Integer safety, Integer readmission, Integer patientExperience, Integer effectiveness, Integer timeliness, Integer efficientUseMedicalImaging) {
 	this.hospitalCode = hospitalCode;
 	this.overallRating = overallRating;
 	this.mortality = mortality;
@@ -62,43 +60,43 @@ public class HospitalQuality {
 		this.hospitalCode = hospitalCode;
 	}
 	
-	public int getOverallRating() {
+	public Integer getOverallRating() {
 		return overallRating;
 	}
 	
-	public void setOverallRating(int overallRating) {
+	public void setOverallRating(Integer overallRating) {
 		this.overallRating = overallRating;
 	}
 	
-	public int getMortality() {
+	public Integer getMortality() {
 		return mortality;
 	}
 	
-	public void setMortality(int mortality) {
+	public void setMortality(Integer mortality) {
 		this.mortality = mortality;
 	}
 	
-	public int getSafety() {
+	public Integer getSafety() {
 		return safety;
 	}
 	
-	public void setSafety(int safety) {
+	public void setSafety(Integer safety) {
 		this.safety = safety;
 	}
 	
-	public int getReadmission() {
+	public Integer getReadmission() {
 		return readmission;
 	}
 	
-	public void setReadmission(int readmission) {
+	public void setReadmission(Integer readmission) {
 		this.readmission = readmission;
 	}
 	
-	public int getPatientExperience() {
+	public Integer getPatientExperience() {
 		return patientExperience;
 	}
 	
-	public void setPatientExperience(int patientExperience) {
+	public void setPatientExperience(Integer patientExperience) {
 		this.patientExperience = patientExperience;
 	}
 	
@@ -106,36 +104,98 @@ public class HospitalQuality {
 		return effectiveness;
 	}
 	
-	public void setEffectiveness(int effectiveness) {
+	public void setEffectiveness(Integer effectiveness) {
 		this.effectiveness = effectiveness;
 	}
 	
-	public int getTimeliness() {
+	public Integer getTimeliness() {
 		return timeliness;
 	}
 	
-	public void setTimeliness(int timeliness) {
+	public void setTimeliness(Integer timeliness) {
 		this.timeliness = timeliness;
 	}
 	
-	public int getEfficientUseMedicalImaging() {
+	public Integer getEfficientUseMedicalImaging() {
 		return efficientUseMedicalImaging;
 	}
 	
-	public void setEfficientUseMedicalImaging(int efficientUseMedicalImaging) {
+	public void setEfficientUseMedicalImaging(Integer efficientUseMedicalImaging) {
 		this.efficientUseMedicalImaging = efficientUseMedicalImaging;
 	}
 
-	public static String convertQualityKeyToDescriptor(int qualityKey) {
+	// --------------------------------------------------
+	
+	public String getOverallRatingString() {
+		if (overallRating == null) {
+			return "No data";
+		}
+		return String.format("%d/5", overallRating);
+	}
+	
+	public String getMortalityString() {
+		if (mortality == null) {
+			return "No data";
+		}
+		return this.convertQualityKeyToDescriptor(mortality);
+	}
+	
+	public String getSafetyString() {
+		if (safety == null) {
+			return "No data";
+		}
+		return this.convertQualityKeyToDescriptor(safety);
+	}
+	
+	public String getReadmissionString() {
+		if (readmission == null) {
+			return "No data";
+		}
+		return this.convertQualityKeyToDescriptor(readmission);
+	}
+	
+	public String getPatientExperienceString() {
+		if (patientExperience == null) {
+			return "No data";
+		}
+		return this.convertQualityKeyToDescriptor(patientExperience);
+	}
+	
+	public String getEffectivenessString() {
+		if (effectiveness == null) {
+			return "No data";
+		}
+		return this.convertQualityKeyToDescriptor(effectiveness);
+	}
+	
+	public String getTimelinessString() {
+		if (timeliness == null) {
+			return "No data";
+		}
+		return this.convertQualityKeyToDescriptor(timeliness);
+	}	
+	
+	public String getEfficientUseMedicalImagingString() {
+		if (efficientUseMedicalImaging == null) {
+			return "No data";
+		}
+		return this.convertQualityKeyToDescriptor(efficientUseMedicalImaging);
+	}
+	
+	private String convertQualityKeyToDescriptor(Integer qualityKey) {
+		if (qualityKey == null) {
+			return "No data";
+		}
 		switch(qualityKey) {
+		
 		   case -1:
-		      return "Below national average"; 
+		    	return "Below national average"; 
 	
 		   case 0:
-			  return "Equal to national average"; 
+				return "Equal to national average"; 
 			      
 		   case 1:
-			  return "Above national average"; 
+			   return "Above national average"; 
 			  
 			default:
 				return "No data";

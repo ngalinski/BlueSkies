@@ -111,7 +111,7 @@ public class SocioeconomicDAO {
   		return null;
   	}
   	
- // READ From SocioeconomicCode
+  	// READ From SocioeconomicCode
    	public Socioeconomic getSocioeconomicFromSocioeconomicCode(int socioeconomicCode) throws SQLException {
    		String  selectSocioeconomicFromSocioeconomicCode = "SELECT SocioeconomicCode,CountyCode,UnemploymentRate,PercentPopulationInPoverty,MedianHouseholdIncome,PercentLessThanHSDiploma,PercentHSDiplomaOnly,PercentSomeCollegeOnly,PercentBachelorsOrMore FROM Socioeconomic WHERE SocioeconomicCode=?;";
    		Connection connection = null;
@@ -155,7 +155,51 @@ public class SocioeconomicDAO {
    		return null;
    	}
 
+ 	
+  	// READ From SocioeconomicCode
+   	public Socioeconomic getSocioeconomicAvgs() throws SQLException {
+   		String  selectSocioeconomicFromSocioeconomicCode = "SELECT AVG(UnemploymentRate),"
+   				+ "AVG(PercentPopulationInPoverty),AVG(MedianHouseholdIncome),AVG(PercentLessThanHSDiploma),"
+   				+ "AVG(PercentHSDiplomaOnly),AVG(PercentSomeCollegeOnly),AVG(PercentBachelorsOrMore) FROM Socioeconomic;";
+   		Connection connection = null;
+   		PreparedStatement selectStmt = null;
+   		ResultSet results = null;
+   		try {
+   			connection = connectionManager.getConnection();
+   			selectStmt = connection.prepareStatement(selectSocioeconomicFromSocioeconomicCode);
 
+   			results = selectStmt.executeQuery();
+
+   			if(results.next()) {
+   				int unemploymentRate = results.getInt("AVG(UnemploymentRate)");
+   				int percentPopulationInPoverty = results.getInt("AVG(PercentPopulationInPoverty)");
+   				int medianHouseholdIncome = results.getInt("AVG(MedianHouseholdIncome)");
+   				int percentLessThanHSDiploma = results.getInt("AVG(PercentLessThanHSDiploma)");
+   				int percentHSDiplomaOnly = results.getInt("AVG(PercentHSDiplomaOnly)");
+   				int percentSomeCollegeOnly = results.getInt("AVG(PercentSomeCollegeOnly)");
+   				int percentBachelorsOrMore = results.getInt("AVG(PercentBachelorsOrMore)");
+
+   				Socioeconomic socioeconomic = new Socioeconomic(0, 0, unemploymentRate, percentPopulationInPoverty, medianHouseholdIncome, percentLessThanHSDiploma, percentHSDiplomaOnly, percentSomeCollegeOnly, percentBachelorsOrMore);
+   				return socioeconomic;
+   			}
+   		} catch (SQLException e) {
+   			e.printStackTrace();
+   			throw e;
+   		} finally {
+   			if(connection != null) {
+   				connection.close();
+   			}
+   			if(selectStmt != null) {
+   				selectStmt.close();
+   			}
+   			if(results != null) {
+   				results.close();
+   			}
+   		}
+   		return null;
+   	}
+
+   	
     public Socioeconomic updateSocioeconomic(Socioeconomic socioeconomic, Socioeconomic newSocioeconomic) throws SQLException {
       String updateSocioeconomicAll = "UPDATE Socioeconomic SET CountyCode=?,UnemploymentRate=?,PercentPopulationInPoverty=?, "
       		+ "MedianHouseholdIncome=?, PercentLessThanHSDiploma=?,PercentHSDiplomaOnly=?,PercentSomeCollegeOnly=?,"

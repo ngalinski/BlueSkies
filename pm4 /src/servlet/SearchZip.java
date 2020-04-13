@@ -2,6 +2,7 @@ package servlet;
 
 import dal.*;
 import model.*;
+import helpers.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -23,8 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/searchzip")
 public class SearchZip extends HttpServlet {
 
-	protected LocationDAO locationDao;
-	protected HospitalDAO hospitalDao;
+	protected LocationDAO locationDAO;
+	protected HospitalDAO hospitalDAO;
 	protected HospitalQualityDAO hospitalQualityDAO;
 	protected HealthCareSpendingDAO healthCareSpendingDAO;
 	protected HealthCareUtilizationDAO healthCareUtilizationDAO;
@@ -38,8 +39,8 @@ public class SearchZip extends HttpServlet {
 	
 	@Override
 	public void init() throws ServletException {
-		locationDao = LocationDAO.getInstance();
-		hospitalDao = HospitalDAO.getInstance();
+		locationDAO = LocationDAO.getInstance();
+		hospitalDAO = HospitalDAO.getInstance();
 		hospitalQualityDAO = HospitalQualityDAO.getInstance();
 		healthCareSpendingDAO = HealthCareSpendingDAO.getInstance();
 		healthCareUtilizationDAO = HealthCareUtilizationDAO.getInstance();
@@ -68,19 +69,51 @@ public class SearchZip extends HttpServlet {
       
         // Search zip code for location and hospitals   
         } else {
-        	Location location = this.doZipSearch(zipCode);
-        	List<Hospital> hospitals = this.doHospitalSearch(zipCode);
+        	Location location = ZipMetrics.readZip(zipCode, locationDAO);
+        	List<Hospital> hospitals = ZipMetrics.readHospital(zipCode, hospitalDAO);
         	List<HospitalAndQuality> hospitalsWithQuality = new ArrayList<HospitalAndQuality>();
-        	
+             
+        	AirQuality avgAirQuality;
+			try {
+				avgAirQuality = airQualityDAO.getAverageAirQuality();
+				req.setAttribute("avgairquality", avgAirQuality);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+        	// Get metrics for location
         	for (int i = 0; i < hospitals.size(); i++) {
-        		HospitalQuality quality = doHospitalQualitySearch(hospitals.get(i).getHospitalCode());
+        		HospitalQuality quality = ZipMetrics.readHospitalQuality(hospitals.get(i).getHospitalCode(), hospitalQualityDAO);
         		HospitalAndQuality hospitalAndQuality = new HospitalAndQuality(hospitals.get(i), quality);
         		hospitalsWithQuality.add(hospitalAndQuality);
         	}
        
+        	// Get metrics for state
          	if (location != null) {
+            	HashMap<String, AsthmaImpact> asthmaImpactByMetric = StateMetrics.readAsthmaImpact(location.getStateCode(), asthmaImpactDAO);
+            	HealthCareSpending healthCareSpending = StateMetrics.readHealthCareSpending(location.getStateCode(), healthCareSpendingDAO);
+            	HealthCareUtilization healthCareUtilization = StateMetrics.readHealthCareUtilization(location.getStateCode(), healthCareUtilizationDAO);
+             	List<DrugUtilization> drugUtilization = StateMetrics.readDrugUtilization(location.getStateCode(), drugUtilizationDAO);
+            	
+             	HealthCareCoverage healthCareCoverage = CountyMetrics.readHealthCareCoverage(location.getCountyCode(), healthCareCoverageDAO);
+            	AirQuality airQuality = CountyMetrics.readAirQuality(location.getCountyCode(), airQualityDAO);
+            	Socioeconomic socioeconomic = CountyMetrics.readSocioeconomic(location.getCountyCode(), socioeconomicDAO);
+            	County county = CountyMetrics.readCounty(location.getCountyCode(), countyDAO);
+            	
 	            req.setAttribute("location", location);
 	            req.setAttribute("hospitals", hospitalsWithQuality);
+	            req.setAttribute("asthmaimpactbymetric", asthmaImpactByMetric);
+	            req.setAttribute("healthcarespending", healthCareSpending);
+	            req.setAttribute("healthcareutilization", healthCareUtilization);
+	            req.setAttribute("drugutilization", drugUtilization);
+	            
+	            // Metrics for county
+	            req.setAttribute("county", county);
+	            req.setAttribute("healthcarecoverage", healthCareCoverage);
+	            req.setAttribute("airquality", airQuality);
+	            req.setAttribute("socioeconomic", socioeconomic);
+
 	            req.getRequestDispatcher("/SearchZip.jsp").forward(req, resp);
 	            
         	} else {
@@ -89,162 +122,6 @@ public class SearchZip extends HttpServlet {
 	            req.getRequestDispatcher("/Home.jsp").forward(req, resp);
         	}
         }
-	}
-	
-	// ZIP Metrics --------- 
-	
-	// Location (City or town)
-	protected Location doZipSearch(String zipCode) throws IOException {
-        Location location;
-        try {
-            location = locationDao.getLocationByZipCode(zipCode);
-         } 
-        catch (SQLException e) {
-    		e.printStackTrace();
-    		throw new IOException(e);
-        }
-		return location;
-	}
-	
-	// Hospitals
-	protected List<Hospital> doHospitalSearch(String zipCode) throws IOException {
-		List<Hospital> hospitals;
-        try {
-        	hospitals = hospitalDao.getHospitalsByZipCode(zipCode);
-         } 
-        catch (SQLException e) {
-    		e.printStackTrace();
-    		throw new IOException(e);
-        }
-		return hospitals;
-	}
-	
-	// Hospital Quality
-	protected HospitalQuality doHospitalQualitySearch(Integer hospitalCode) throws IOException {
-		HospitalQuality hospitalQuality;
-        try {
-        	hospitalQuality = hospitalQualityDAO.getHospitalQualityFromHospitalCode(hospitalCode);
-         } 
-        catch (SQLException e) {
-    		e.printStackTrace();
-    		throw new IOException(e);
-        }
-		return hospitalQuality;
-	}
-	
-	// STATE Metrics --------- 
-		
-	// Health Care Spending
-	protected HealthCareSpending doHealthCareSpendingSearch(String stateCode) throws IOException {
-		HealthCareSpending healthCareSpending;
-        try {
-        	healthCareSpending = healthCareSpendingDAO.getHealthCareSpendingByState(stateCode);
-         } 
-        catch (SQLException e) {
-    		e.printStackTrace();
-    		throw new IOException(e);
-        }
-		return healthCareSpending;
-	}
-	
-	// Health Care Utilization
-	protected HealthCareUtilization doHealthCareUtilizationSearch(String stateCode) throws IOException {
-		HealthCareUtilization healthCareUtilization;
-        try {
-        	healthCareUtilization = healthCareUtilizationDAO.getHealthCareUtilizationByState(stateCode);
-         } 
-        catch (SQLException e) {
-    		e.printStackTrace();
-    		throw new IOException(e);
-        }
-		return healthCareUtilization;
-	}
-	
-	// Drug Utilization
-	protected List<DrugUtilization> doDrugUtilizationSearch(String stateCode) throws IOException {
-		List<DrugUtilization> drugUtilization;
-        try {
-        	drugUtilization = drugUtilizationDAO.getDrugUtilbyState(stateCode);
-         } 
-        catch (SQLException e) {
-    		e.printStackTrace();
-    		throw new IOException(e);
-        }
-		return drugUtilization;
-	}
-
-	// Asthma Impact (Health Outcomes)
-	protected HashMap<String, AsthmaImpact> doAsthmaImpactSearch(String stateCode) throws IOException {
-		HashMap<String, AsthmaImpact> asthmaImpactForState = new HashMap<String, AsthmaImpact>();
-        try {
-        	AsthmaImpact mortalityRateCrude = asthmaImpactDAO.getAsthmaImpactMetricForState(stateCode, "Asthma mortality rate", "Crude Rate");
-        	AsthmaImpact mortalityRateNumber = asthmaImpactDAO.getAsthmaImpactMetricForState(stateCode, "Asthma mortality rate", "Number");
-        	AsthmaImpact prevalence = asthmaImpactDAO.getAsthmaImpactMetricForState(stateCode, "Adult asthma prevalence", "Percent");
-        	asthmaImpactForState.put("Mortality (Crude Rate, per 1,000,000)", mortalityRateCrude);
-        	asthmaImpactForState.put("Mortality (Number)", mortalityRateNumber);
-        	asthmaImpactForState.put("Adult Asthma Prevalence (% of Population)", prevalence);
-        } 
-        catch (SQLException e) {
-    		e.printStackTrace();
-    		throw new IOException(e);
-        }
-		return asthmaImpactForState;
-	}
-	
-	
-	// COUNTY metrics --------- 
-	
-	// County
-	protected County doCountySearch(Integer countyCode) throws IOException {
-		County county;
-        try {
-        	county = countyDAO.getCountyFromCountyCode(countyCode);
-         } 
-        catch (SQLException e) {
-    		e.printStackTrace();
-    		throw new IOException(e);
-        }
-		return county;
-	}
-	
-	// Socioeconomic
-	protected Socioeconomic doSocioeconomicSearch(Integer countyCode) throws IOException {
-		Socioeconomic socioeconomic;
-        try {
-        	socioeconomic = socioeconomicDAO.getSocioeconomicFromCountyCode(countyCode);
-         } 
-        catch (SQLException e) {
-    		e.printStackTrace();
-    		throw new IOException(e);
-        }
-		return socioeconomic;
-	}
-	
-	// Air Quality
-	protected AirQuality doAirQualitySearch(Integer countyCode) throws IOException {
-		AirQuality airQuality;
-        try {
-        	airQuality = airQualityDAO.getAirQualityFromCountyCode(countyCode);
-         } 
-        catch (SQLException e) {
-    		e.printStackTrace();
-    		throw new IOException(e);
-        }
-		return airQuality;
-	}
-	
-	
-	// Health Care Coverage
-	protected HealthCareCoverage doHealthCareCoverageSearch(Integer countyCode) throws IOException {
-		HealthCareCoverage healthCareCoverage;
-        try {
-        	healthCareCoverage = healthCareCoverageDAO.getHealthCareCoverageByCountyCode(countyCode);
-         } 
-        catch (SQLException e) {
-    		e.printStackTrace();
-    		throw new IOException(e);
-        }
-		return healthCareCoverage;
 	}
 	
 	
@@ -262,32 +139,74 @@ public class SearchZip extends HttpServlet {
             req.getRequestDispatcher("/Home.jsp").forward(req, resp);
       
         } else {
-        	Location location = this.doZipSearch(zipCode);
-        	List<Hospital> hospitals = this.doHospitalSearch(zipCode);
+        	Location location = ZipMetrics.readZip(zipCode, locationDAO);
+        	List<Hospital> hospitals = ZipMetrics.readHospital(zipCode, hospitalDAO);
         	List<HospitalAndQuality> hospitalsWithQuality = new ArrayList<HospitalAndQuality>();
               	
+        	AirQuality avgAirQuality;
+        	AsthmaImpact avgAsthmaImpactMortalityNumber;
+        	AsthmaImpact avgAsthmaImpactMortalityCrude;
+        	AsthmaImpact avgAsthmaImpactPrevalence;
+        	HealthCareCoverage avgHealthCareCoverage;
+        	HealthCareSpending avgHealthCareSpending;
+        	HealthCareUtilization avgHealthCareUtilization;
+        	Socioeconomic avgSocioeconomic;
+
+
+			try {
+				// Get averages
+				avgAirQuality = airQualityDAO.getAverageAirQuality();
+				avgAsthmaImpactMortalityNumber = asthmaImpactDAO.getAsthmaImpactAveragesByMetric("Asthma mortality rate", "Number");
+				avgAsthmaImpactMortalityCrude = asthmaImpactDAO.getAsthmaImpactAveragesByMetric("Asthma mortality rate", "Crude Rate");
+				avgAsthmaImpactPrevalence = asthmaImpactDAO.getAsthmaImpactAveragesByMetric("Adult asthma prevalence", "Percent");
+				
+				HashMap<String, AsthmaImpact> avgAsthmaImpactForState = new HashMap<String, AsthmaImpact>();
+				avgAsthmaImpactForState.put("Mortality (Crude Rate, per 1,000,000)", avgAsthmaImpactMortalityNumber);
+				avgAsthmaImpactForState.put("Mortality (Number)", avgAsthmaImpactMortalityCrude);
+				avgAsthmaImpactForState.put("Adult Asthma Prevalence (% of Population)", avgAsthmaImpactPrevalence);
+				
+				avgSocioeconomic = socioeconomicDAO.getSocioeconomicAvgs();				
+				avgHealthCareCoverage = healthCareCoverageDAO.getAverageHealthCareCov();
+				avgHealthCareSpending = healthCareSpendingDAO.getHealthCareSpendingAvgs();
+				avgHealthCareUtilization = healthCareUtilizationDAO.getAvgHealthCareUtilization();
+
+				
+				req.setAttribute("avgairquality", avgAirQuality);
+				req.setAttribute("avgasthmaimpactforstate", avgAsthmaImpactForState);
+				req.setAttribute("avghealthcarecoverage", avgHealthCareCoverage);
+				req.setAttribute("avghealthcarespending", avgHealthCareSpending);
+				req.setAttribute("avghealthcareutilization", avgHealthCareUtilization);
+				req.setAttribute("avgsocioeconomic", avgSocioeconomic);
+
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
         	// Get metrics for location
         	for (int i = 0; i < hospitals.size(); i++) {
-        		HospitalQuality quality = doHospitalQualitySearch(hospitals.get(i).getHospitalCode());
+        		HospitalQuality quality = ZipMetrics.readHospitalQuality(hospitals.get(i).getHospitalCode(), hospitalQualityDAO);
         		HospitalAndQuality hospitalAndQuality = new HospitalAndQuality(hospitals.get(i), quality);
         		hospitalsWithQuality.add(hospitalAndQuality);
         	}
        
         	// Get metrics for state
          	if (location != null) {
-            	HashMap<String, AsthmaImpact> asthmaImpactByMetric = this.doAsthmaImpactSearch(location.getStateCode());
-            	HealthCareSpending healthcareSpending = doHealthCareSpendingSearch(location.getStateCode());
-            	HealthCareUtilization healthCareUtilization = doHealthCareUtilizationSearch(location.getStateCode());
-             	List<DrugUtilization> drugUtilization = doDrugUtilizationSearch(location.getStateCode());
-            	HealthCareCoverage healthCareCoverage = doHealthCareCoverageSearch(location.getCountyCode());
-            	AirQuality airQuality = doAirQualitySearch(location.getCountyCode());
-            	Socioeconomic socioeconomic = doSocioeconomicSearch(location.getCountyCode());
-            	County county = doCountySearch(location.getCountyCode());
+            	HashMap<String, AsthmaImpact> asthmaImpactByMetric = StateMetrics.readAsthmaImpact(location.getStateCode(), asthmaImpactDAO);
+            	HealthCareSpending healthCareSpending = StateMetrics.readHealthCareSpending(location.getStateCode(), healthCareSpendingDAO);
+            	HealthCareUtilization healthCareUtilization = StateMetrics.readHealthCareUtilization(location.getStateCode(), healthCareUtilizationDAO);
+             	List<DrugUtilization> drugUtilization = StateMetrics.readDrugUtilization(location.getStateCode(), drugUtilizationDAO);
+            	
+             	HealthCareCoverage healthCareCoverage = CountyMetrics.readHealthCareCoverage(location.getCountyCode(), healthCareCoverageDAO);
+            	AirQuality airQuality = CountyMetrics.readAirQuality(location.getCountyCode(), airQualityDAO);
+            	Socioeconomic socioeconomic = CountyMetrics.readSocioeconomic(location.getCountyCode(), socioeconomicDAO);
+            	County county = CountyMetrics.readCounty(location.getCountyCode(), countyDAO);
             	
 	            req.setAttribute("location", location);
 	            req.setAttribute("hospitals", hospitalsWithQuality);
 	            req.setAttribute("asthmaimpactbymetric", asthmaImpactByMetric);
-	            req.setAttribute("healthcarespending", healthcareSpending);
+	            req.setAttribute("healthcarespending", healthCareSpending);
 	            req.setAttribute("healthcareutilization", healthCareUtilization);
 	            req.setAttribute("drugutilization", drugUtilization);
 	            
@@ -296,8 +215,6 @@ public class SearchZip extends HttpServlet {
 	            req.setAttribute("healthcarecoverage", healthCareCoverage);
 	            req.setAttribute("airquality", airQuality);
 	            req.setAttribute("socioeconomic", socioeconomic);
-
-	            
 
 	            req.getRequestDispatcher("/SearchZip.jsp").forward(req, resp);
 	            
