@@ -161,17 +161,17 @@ public class SearchZip extends HttpServlet {
 	}
 	
 	// Drug Utilization
-//	protected List<DrugUtilization> doDrugUtilizationSearch(String stateCode) throws IOException {
-//		List<DrugUtilization> drugUtilization;
-//        try {
-//        	drugUtilization = drugUtilizationDAO.getDrugUtilbyState(stateCode);
-//         } 
-//        catch (SQLException e) {
-//    		e.printStackTrace();
-//    		throw new IOException(e);
-//        }
-//		return drugUtilization;
-//	}
+	protected List<DrugUtilization> doDrugUtilizationSearch(String stateCode) throws IOException {
+		List<DrugUtilization> drugUtilization;
+        try {
+        	drugUtilization = drugUtilizationDAO.getDrugUtilbyState(stateCode);
+         } 
+        catch (SQLException e) {
+    		e.printStackTrace();
+    		throw new IOException(e);
+        }
+		return drugUtilization;
+	}
 
 	// Asthma Impact (Health Outcomes)
 	protected HashMap<String, AsthmaImpact> doAsthmaImpactSearch(String stateCode) throws IOException {
@@ -278,7 +278,7 @@ public class SearchZip extends HttpServlet {
             	HashMap<String, AsthmaImpact> asthmaImpactByMetric = this.doAsthmaImpactSearch(location.getStateCode());
             	HealthCareSpending healthcareSpending = doHealthCareSpendingSearch(location.getStateCode());
             	HealthCareUtilization healthCareUtilization = doHealthCareUtilizationSearch(location.getStateCode());
-//            	List<DrugUtilization> drugUtilization = doDrugUtilizationSearch(location.getStateCode());
+             	List<DrugUtilization> drugUtilization = doDrugUtilizationSearch(location.getStateCode());
             	HealthCareCoverage healthCareCoverage = doHealthCareCoverageSearch(location.getCountyCode());
             	AirQuality airQuality = doAirQualitySearch(location.getCountyCode());
             	Socioeconomic socioeconomic = doSocioeconomicSearch(location.getCountyCode());
@@ -289,13 +289,15 @@ public class SearchZip extends HttpServlet {
 	            req.setAttribute("asthmaimpactbymetric", asthmaImpactByMetric);
 	            req.setAttribute("healthcarespending", healthcareSpending);
 	            req.setAttribute("healthcareutilization", healthCareUtilization);
+	            req.setAttribute("drugutilization", drugUtilization);
+	            
+	            // Metrics for county
 	            req.setAttribute("county", county);
 	            req.setAttribute("healthcarecoverage", healthCareCoverage);
 	            req.setAttribute("airquality", airQuality);
 	            req.setAttribute("socioeconomic", socioeconomic);
 
 	            
-//	            req.setAttribute("drugutilization", drugUtilization);
 
 	            req.getRequestDispatcher("/SearchZip.jsp").forward(req, resp);
 	            

@@ -75,9 +75,9 @@ public class DrugUtilizationDAO {
   }
 
   // READ
-  public List<DrugUtilization> getDrugUtilbyState(String StateCode) throws SQLException {
+  public List<DrugUtilization> getDrugUtilbyState(String stateCode) throws SQLException {
     List<DrugUtilization> drugUtilizationList = new ArrayList<DrugUtilization>();
-    String selectUtil = "SELECT DrugUtilCode,StateCode,DrugName,NumReimbursed,NumRx,TotalReimbursed," +
+    String selectUtil = "SELECT DrugUtilizationCode,StateCode,DrugName,NumReimbursed,NumRx,TotalReimbursed," +
             "MedicaidReimbursed,NonMedicaidReimbursed,NDC,Label,Product,Size FROM DrugUtilization " +
             "WHERE DrugUtilization.StateCode=?;";
     Connection connection = null;
@@ -86,11 +86,11 @@ public class DrugUtilizationDAO {
     try {
       connection = connectionManager.getConnection();
       selectStmt = connection.prepareStatement(selectUtil);
-      selectStmt.setString(1, StateCode);
+      selectStmt.setString(1, stateCode);
       results = selectStmt.executeQuery();
       while (results.next()) {
-        int drugUtilCode = results.getInt("DrugUtilCode");
-        String stateCode = results.getString("StateCode");
+        int drugUtilCode = results.getInt("DrugUtilizationCode");
+        String resultStateCode = results.getString("StateCode");
         String drugName = results.getString("DrugName");
         String numReim = results.getString("NumReimbursed");
         String numRx = results.getString("NumRx");
@@ -102,7 +102,7 @@ public class DrugUtilizationDAO {
         int prodcut = results.getInt("Product");
         int size = results.getInt("Size");
 
-        DrugUtilization drugUtil = new DrugUtilization(drugUtilCode, stateCode, drugName, numReim, numRx, totalReim, medicaidReim, nonMedicaidReim, ndc, label, prodcut, size);
+        DrugUtilization drugUtil = new DrugUtilization(drugUtilCode, resultStateCode, drugName, numReim, numRx, totalReim, medicaidReim, nonMedicaidReim, ndc, label, prodcut, size);
         drugUtilizationList.add(drugUtil);
       }
     } catch (SQLException e) {
@@ -124,9 +124,9 @@ public class DrugUtilizationDAO {
 
   // UPDATE
   public DrugUtilization updateDrugUtil(DrugUtilization drugUtilization, DrugUtilization newUtil) throws SQLException {
-    String updateUtil = "UPDATE DrugUtilization SET StateCode=?,DrugNamee=?,NumReimbursed=?, "
+    String updateUtil = "UPDATE DrugUtilization SET StateCode=?,DrugName=?,NumReimbursed=?, "
             + "NumRx=?, TotalReimbursed=?,MedicaidReimbursed=?,NonMedicaidReimbursed=?,"
-            + "NDC=?, Label=?, Product=?, Size=? WHERE DrugUtilCode=?;";
+            + "NDC=?, Label=?, Product=?, Size=? WHERE DrugUtilizationCode=?;";
 
     Connection connection = null;
     PreparedStatement updateStmt = null;
@@ -177,7 +177,7 @@ public class DrugUtilizationDAO {
   // DELETE
   public DrugUtilization delete(DrugUtilization drugUtilization) throws SQLException {
 
-    String deleteUtil = "DELETE FROM DrugUtilization WHERE DrugUtilCode=?;";
+    String deleteUtil = "DELETE FROM DrugUtilization WHERE DrugUtilizationCode=?;";
     Connection connection = null;
     PreparedStatement deleteStmt = null;
     try {

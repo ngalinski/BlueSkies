@@ -114,7 +114,24 @@
          		<li>Outpatient Services: <c:out value="${healthcareutilization.getOutpatientServices()}" /></li>
            		<li>Professional Services: <c:out value="${healthcareutilization.getProfessionalServices()}" /></li>
   			</ul>
+  			
+  			<br/>
+       		<%-- <h4>Drug Utilization (per capita, for common asthma medications)</h4>        
+       		<ul>
+	       		<c:forEach items="${drugutilization}" var="drug" >
+	            <li><c:out value="${drug.getDrugname()}"/>, Number Prescriptions: <c:out value="${drug.getNumrx()}" />, Total Reimbursed: <c:out value="${drug.getTotalreimbursed()}"/></li>
+	            </c:forEach>
+     		</ul> --%>
+     		
+     	   <br/>
+
+     		<a class="btn btn-primary" href="/BlueSkies">Return to zip code search</a>
+     		<br/>
+     		<br/>
+     		
 	</div>
+	
+	
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
