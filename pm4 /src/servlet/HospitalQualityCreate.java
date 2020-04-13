@@ -50,14 +50,14 @@ public class HospitalQualityCreate extends HttpServlet {
 
         // Retrieve and validate name.
         String hospitalCode = req.getParameter("hospitalcode");
-        int overallRating = Integer.valueOf(req.getParameter("overallrating"));
-        int mortality = Integer.valueOf(req.getParameter("mortality"));
-        int safety = Integer.valueOf(req.getParameter("safety"));
-        int readmission = Integer.valueOf(req.getParameter("readmission"));
-        int patientExperience = Integer.valueOf(req.getParameter("patientexperience"));
-        int effectiveness = Integer.valueOf(req.getParameter("effectiveness"));
-        int timeliness = Integer.valueOf(req.getParameter("timeliness"));
-        int medicalImaging = Integer.valueOf(req.getParameter("medicalimaging"));
+        String overallRating = req.getParameter("overallrating");
+        String mortality = req.getParameter("mortality");
+        String safety = req.getParameter("safety");
+        String readmission = req.getParameter("readmission");
+        String patientExperience = req.getParameter("patientexperience");
+        String effectiveness = req.getParameter("effectiveness");
+        String timeliness = req.getParameter("timeliness");
+        String medicalImaging =req.getParameter("medicalimaging");
 
         if (hospitalCode == null || hospitalCode.trim().isEmpty()) {
             messages.put("success", "Invalid Hospital Code");

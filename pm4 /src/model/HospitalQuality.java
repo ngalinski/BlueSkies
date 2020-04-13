@@ -3,17 +3,17 @@ package model;
 public class HospitalQuality {
   private int hospitalQualityCode;
   private int hospitalCode;
-  private Integer overallRating;
-  private Integer mortality;
-  private Integer safety;
-  private Integer readmission;
-  private Integer patientExperience;
-  private Integer effectiveness;
-  private Integer timeliness;
-  private Integer efficientUseMedicalImaging;
+  private String overallRating;
+  private String mortality;
+  private String safety;
+  private String readmission;
+  private String patientExperience;
+  private String effectiveness;
+  private String timeliness;
+  private String efficientUseMedicalImaging;
  
 
-  public HospitalQuality(int hospitalQualityCode, int hospitalCode, Integer overallRating, Integer mortality, Integer safety, Integer readmission, Integer patientExperience, Integer effectiveness, Integer timeliness, Integer efficientUseMedicalImaging) {
+  public HospitalQuality(int hospitalQualityCode, int hospitalCode, String overallRating, String mortality, String safety, String readmission, String patientExperience, String effectiveness, String timeliness, String efficientUseMedicalImaging) {
     this.hospitalQualityCode = hospitalQualityCode;
     this.hospitalCode = hospitalCode;
     this.overallRating = overallRating;
@@ -31,7 +31,7 @@ public class HospitalQuality {
     this.hospitalQualityCode = hospitalQualityCode;
   }
 	  
-  public HospitalQuality(int hospitalCode, Integer overallRating, Integer mortality, Integer safety, Integer readmission, Integer patientExperience, Integer effectiveness, Integer timeliness, Integer efficientUseMedicalImaging) {
+  public HospitalQuality(int hospitalCode, String overallRating, String mortality, String safety, String readmission, String patientExperience, String effectiveness, String timeliness, String efficientUseMedicalImaging) {
 	this.hospitalCode = hospitalCode;
 	this.overallRating = overallRating;
 	this.mortality = mortality;
@@ -60,67 +60,67 @@ public class HospitalQuality {
 		this.hospitalCode = hospitalCode;
 	}
 	
-	public Integer getOverallRating() {
+	public String getOverallRating() {
 		return overallRating;
 	}
 	
-	public void setOverallRating(Integer overallRating) {
+	public void setOverallRating(String overallRating) {
 		this.overallRating = overallRating;
 	}
 	
-	public Integer getMortality() {
+	public String getMortality() {
 		return mortality;
 	}
 	
-	public void setMortality(Integer mortality) {
+	public void setMortality(String mortality) {
 		this.mortality = mortality;
 	}
 	
-	public Integer getSafety() {
+	public String getSafety() {
 		return safety;
 	}
 	
-	public void setSafety(Integer safety) {
+	public void setSafety(String safety) {
 		this.safety = safety;
 	}
 	
-	public Integer getReadmission() {
+	public String getReadmission() {
 		return readmission;
 	}
 	
-	public void setReadmission(Integer readmission) {
+	public void setReadmission(String readmission) {
 		this.readmission = readmission;
 	}
 	
-	public Integer getPatientExperience() {
+	public String getPatientExperience() {
 		return patientExperience;
 	}
 	
-	public void setPatientExperience(Integer patientExperience) {
+	public void setPatientExperience(String patientExperience) {
 		this.patientExperience = patientExperience;
 	}
 	
-	public int getEffectiveness() {
+	public String getEffectiveness() {
 		return effectiveness;
 	}
 	
-	public void setEffectiveness(Integer effectiveness) {
+	public void setEffectiveness(String effectiveness) {
 		this.effectiveness = effectiveness;
 	}
 	
-	public Integer getTimeliness() {
+	public String getTimeliness() {
 		return timeliness;
 	}
 	
-	public void setTimeliness(Integer timeliness) {
+	public void setTimeliness(String timeliness) {
 		this.timeliness = timeliness;
 	}
 	
-	public Integer getEfficientUseMedicalImaging() {
+	public String getEfficientUseMedicalImaging() {
 		return efficientUseMedicalImaging;
 	}
 	
-	public void setEfficientUseMedicalImaging(Integer efficientUseMedicalImaging) {
+	public void setEfficientUseMedicalImaging(String efficientUseMedicalImaging) {
 		this.efficientUseMedicalImaging = efficientUseMedicalImaging;
 	}
 
@@ -130,7 +130,7 @@ public class HospitalQuality {
 		if (overallRating == null) {
 			return "No data";
 		}
-		return String.format("%d/5", overallRating);
+		return String.format("%s/5", overallRating);
 	}
 	
 	public String getMortalityString() {
@@ -182,19 +182,19 @@ public class HospitalQuality {
 		return this.convertQualityKeyToDescriptor(efficientUseMedicalImaging);
 	}
 	
-	private String convertQualityKeyToDescriptor(Integer qualityKey) {
+	private String convertQualityKeyToDescriptor(String qualityKey) {
 		if (qualityKey == null) {
 			return "No data";
 		}
 		switch(qualityKey) {
 		
-		   case -1:
+		   case "-1":
 		    	return "Below national average"; 
 	
-		   case 0:
+		   case "0":
 				return "Equal to national average"; 
 			      
-		   case 1:
+		   case "1":
 			   return "Above national average"; 
 			  
 			default:

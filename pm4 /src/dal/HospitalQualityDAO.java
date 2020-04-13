@@ -36,14 +36,14 @@ public class HospitalQualityDAO {
         insertStmt = connection.prepareStatement(insertHospitalQuality,
   				Statement.RETURN_GENERATED_KEYS);
 	      insertStmt.setInt(1, hospitalQuality.getHospitalCode());
-	  	  insertStmt.setInt(2, hospitalQuality.getOverallRating());
-	  	  insertStmt.setInt(3, hospitalQuality.getMortality());
-	  	  insertStmt.setInt(4, hospitalQuality.getSafety());
-	  	  insertStmt.setInt(5, hospitalQuality.getReadmission());
-	  	  insertStmt.setInt(6, hospitalQuality.getPatientExperience());
-	  	  insertStmt.setInt(7, hospitalQuality.getEffectiveness());
-	  	  insertStmt.setInt(8, hospitalQuality.getTimeliness());
-	  	  insertStmt.setInt(9, hospitalQuality.getEfficientUseMedicalImaging());
+	  	  insertStmt.setString(2, hospitalQuality.getOverallRating());
+	  	  insertStmt.setString(3, hospitalQuality.getMortality());
+	  	  insertStmt.setString(4, hospitalQuality.getSafety());
+	  	  insertStmt.setString(5, hospitalQuality.getReadmission());
+	  	  insertStmt.setString(6, hospitalQuality.getPatientExperience());
+	  	  insertStmt.setString(7, hospitalQuality.getEffectiveness());
+	  	  insertStmt.setString(8, hospitalQuality.getTimeliness());
+	  	  insertStmt.setString(9, hospitalQuality.getEfficientUseMedicalImaging());
 
   	  insertStmt.executeUpdate();
 
@@ -85,14 +85,14 @@ public class HospitalQualityDAO {
 			if(results.next()) {
 				int hospitalQualityCode = results.getInt("HospitalQualityCode");
 				int resultHospitalCode = results.getInt("HospitalCode");
-				int rating = results.getInt("OverallRating");
-				int mortality = results.getInt("Mortality");
-				int safety = results.getInt("Safety");
-				int readmission = results.getInt("Readmission");
-				int patientExperience = results.getInt("PatientExperience");
-				int effectiveness = results.getInt("Effectiveness");
-				int timeliness = results.getInt("Timeliness");
-				int efficientUseMedicalImaging = results.getInt("EfficientUseMedicalImaging");
+				String rating = results.getString("OverallRating");
+				String mortality = results.getString("Mortality");
+				String safety = results.getString("Safety");
+				String readmission = results.getString("Readmission");
+				String patientExperience = results.getString("PatientExperience");
+				String effectiveness = results.getString("Effectiveness");
+				String timeliness = results.getString("Timeliness");
+				String efficientUseMedicalImaging = results.getString("EfficientUseMedicalImaging");
 
 				HospitalQuality hospitalQuality = new HospitalQuality(hospitalQualityCode, resultHospitalCode, rating, mortality, safety, readmission, patientExperience, effectiveness, timeliness, efficientUseMedicalImaging);
 				return hospitalQuality;
@@ -129,14 +129,14 @@ public class HospitalQualityDAO {
 			results = selectStmt.executeQuery();
 
 			if(results.next()) {
-				int rating = results.getInt("AVG(OverallRating)");
-				int mortality = results.getInt("AVG(Mortality)");
-				int safety = results.getInt("AVG(Safety)");
-				int readmission = results.getInt("AVG(Readmission)");
-				int patientExperience = results.getInt("AVG(PatientExperience)");
-				int effectiveness = results.getInt("AVG(Effectiveness)");
-				int timeliness = results.getInt("AVG(Timeliness)");
-				int efficientUseMedicalImaging = results.getInt("AVG(EfficientUseMedicalImaging)");
+				String rating = results.getString("AVG(OverallRating)");
+				String mortality = results.getString("AVG(Mortality)");
+				String safety = results.getString("AVG(Safety)");
+				String readmission = results.getString("AVG(Readmission)");
+				String patientExperience = results.getString("AVG(PatientExperience)");
+				String effectiveness = results.getString("AVG(Effectiveness)");
+				String timeliness = results.getString("AVG(Timeliness)");
+				String efficientUseMedicalImaging = results.getString("AVG(EfficientUseMedicalImaging)");
 
 				HospitalQuality hospitalQuality = new HospitalQuality(0, 0, rating, mortality, safety, readmission, patientExperience, effectiveness, timeliness, efficientUseMedicalImaging);
 				return hospitalQuality;
@@ -159,14 +159,14 @@ public class HospitalQualityDAO {
 	}
 
 
-  public HospitalQuality updateOverallRating(HospitalQuality hospitalQuality, int overallRating) throws SQLException {
+  public HospitalQuality updateOverallRating(HospitalQuality hospitalQuality, String overallRating) throws SQLException {
     String updateOverallRating = "UPDATE HospitalQuality SET OverallRating=? WHERE HospitalQualityCode=?;";
     Connection connection = null;
     PreparedStatement updateStmt = null;
     try {
       connection = connectionManager.getConnection();
       updateStmt = connection.prepareStatement(updateOverallRating);
-      updateStmt.setInt(1, overallRating);
+      updateStmt.setString(1, overallRating);
       updateStmt.setInt(2, hospitalQuality.getHospitalQualityCode());
 	  updateStmt.executeUpdate();
 

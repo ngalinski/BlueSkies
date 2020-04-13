@@ -85,7 +85,7 @@ public class HospitalQualityUpdate extends HttpServlet {
         			if (newRatingInt < 0 || newRatingInt > 5) {
         	            messages.put("success", "Please enter a valid hospital overall ratin (either -1, 0, or 1).");
         	        } else {
-        	        	hospitalQualityDAO.updateOverallRating(hospitalQuality, newRatingInt);
+        	        	hospitalQualityDAO.updateOverallRating(hospitalQuality, newOverallRating);
         	        	messages.put("success", "Successfully updated quality record for hospital code " + hospitalQuality.getHospitalCode());
         	        }
         		}
