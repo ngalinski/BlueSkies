@@ -30,6 +30,10 @@ public class SearchZip extends HttpServlet {
 	protected HealthCareUtilizationDAO healthCareUtilizationDAO;
 	protected DrugUtilizationDAO drugUtilizationDAO;
 	protected AsthmaImpactDAO asthmaImpactDAO;
+	protected CountyDAO countyDAO;
+	protected SocioeconomicDAO socioeconomicDAO;
+	protected AirQualityDAO airQualityDAO;
+	protected HealthCareCoverageDAO healthCareCoverageDAO;
 
 	
 	@Override
@@ -41,7 +45,10 @@ public class SearchZip extends HttpServlet {
 		healthCareUtilizationDAO = HealthCareUtilizationDAO.getInstance();
 		drugUtilizationDAO = DrugUtilizationDAO.getInstance();
 		asthmaImpactDAO = AsthmaImpactDAO.getInstance();
-
+		countyDAO = CountyDAO.getInstance();
+		socioeconomicDAO = SocioeconomicDAO.getInstance();
+		airQualityDAO = AirQualityDAO.getInstance();
+		healthCareCoverageDAO = HealthCareCoverageDAO.getInstance();
 	}
 	
 	@Override
@@ -185,6 +192,60 @@ public class SearchZip extends HttpServlet {
 	}
 	
 	
+	// COUNTY metrics --------- 
+	
+	// County
+	protected County doCountySearch(Integer countyCode) throws IOException {
+		County county;
+        try {
+        	county = countyDAO.getCountyFromCountyCode(countyCode);
+         } 
+        catch (SQLException e) {
+    		e.printStackTrace();
+    		throw new IOException(e);
+        }
+		return county;
+	}
+	
+	// Socioeconomic
+	protected Socioeconomic doSocioeconomicSearch(Integer countyCode) throws IOException {
+		Socioeconomic socioeconomic;
+        try {
+        	socioeconomic = socioeconomicDAO.getSocioeconomicFromCountyCode(countyCode);
+         } 
+        catch (SQLException e) {
+    		e.printStackTrace();
+    		throw new IOException(e);
+        }
+		return socioeconomic;
+	}
+	
+	// Air Quality
+	protected AirQuality doAirQualitySearch(Integer countyCode) throws IOException {
+		AirQuality airQuality;
+        try {
+        	airQuality = airQualityDAO.getAirQualityFromCountyCode(countyCode);
+         } 
+        catch (SQLException e) {
+    		e.printStackTrace();
+    		throw new IOException(e);
+        }
+		return airQuality;
+	}
+	
+	
+	// Health Care Coverage
+	protected HealthCareCoverage doHealthCareCoverageSearch(Integer countyCode) throws IOException {
+		HealthCareCoverage healthCareCoverage;
+        try {
+        	healthCareCoverage = healthCareCoverageDAO.getHealthCareCoverageByCountyCode(countyCode);
+         } 
+        catch (SQLException e) {
+    		e.printStackTrace();
+    		throw new IOException(e);
+        }
+		return healthCareCoverage;
+	}
 	
 	
 	@Override
@@ -218,12 +279,22 @@ public class SearchZip extends HttpServlet {
             	HealthCareSpending healthcareSpending = doHealthCareSpendingSearch(location.getStateCode());
             	HealthCareUtilization healthCareUtilization = doHealthCareUtilizationSearch(location.getStateCode());
 //            	List<DrugUtilization> drugUtilization = doDrugUtilizationSearch(location.getStateCode());
-
+            	HealthCareCoverage healthCareCoverage = doHealthCareCoverageSearch(location.getCountyCode());
+            	AirQuality airQuality = doAirQualitySearch(location.getCountyCode());
+            	Socioeconomic socioeconomic = doSocioeconomicSearch(location.getCountyCode());
+            	County county = doCountySearch(location.getCountyCode());
+            	
 	            req.setAttribute("location", location);
 	            req.setAttribute("hospitals", hospitalsWithQuality);
 	            req.setAttribute("asthmaimpactbymetric", asthmaImpactByMetric);
 	            req.setAttribute("healthcarespending", healthcareSpending);
 	            req.setAttribute("healthcareutilization", healthCareUtilization);
+	            req.setAttribute("county", county);
+	            req.setAttribute("healthcarecoverage", healthCareCoverage);
+	            req.setAttribute("airquality", airQuality);
+	            req.setAttribute("socioeconomic", socioeconomic);
+
+	            
 //	            req.setAttribute("drugutilization", drugUtilization);
 
 	            req.getRequestDispatcher("/SearchZip.jsp").forward(req, resp);

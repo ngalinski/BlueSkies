@@ -5,26 +5,26 @@ public class HealthCareCoverage {
 	private int countyCode;
 	private int numberUninsured;
 	private int numberInsured;
-	private double percentInsured;
 	private double percentUninsured;
+	private double percentInsured;
 	
 	public HealthCareCoverage(int healthCareCoverageCode, int countyCode, int numberUninsured, int numberInsured,
-			double percentInsured, double percentUninsured) {
+			double percentUninsured, double percentInsured) {
 		this.healthCareCoverageCode = healthCareCoverageCode;
 		this.countyCode = countyCode;
 		this.numberUninsured = numberUninsured;
 		this.numberInsured = numberInsured;
-		this.percentInsured = percentInsured;
 		this.percentUninsured = percentUninsured;
+		this.percentInsured = percentInsured;
 	}
 	
 	public HealthCareCoverage(int countyCode, int numberUninsured, int numberInsured,
-			double percentInsured, double percentUninsured) {
+			double percentUninsured, double percentInsured) {
 		this.countyCode = countyCode;
 		this.numberUninsured = numberUninsured;
 		this.numberInsured = numberInsured;
-		this.percentInsured = percentInsured;
 		this.percentUninsured = percentUninsured;
+		this.percentInsured = percentInsured;
 	}
 	
 	public HealthCareCoverage(int healthCareCoverageCode) {
@@ -63,6 +63,14 @@ public class HealthCareCoverage {
 		this.numberInsured = numberInsured;
 	}
 
+	public double getPercentUninsured() {
+		return percentUninsured;
+	}
+
+	public void setPercentUninsured(double percentUninsured) {
+		this.percentUninsured = percentUninsured;
+	}
+
 	public double getPercentInsured() {
 		return percentInsured;
 	}
@@ -71,13 +79,6 @@ public class HealthCareCoverage {
 		this.percentInsured = percentInsured;
 	}
 
-	public double getPercentUninsured() {
-		return percentUninsured;
-	}
-
-	public void setPercentUninsured(double percentUninsured) {
-		this.percentUninsured = percentUninsured;
-	}
 	
 }
 	

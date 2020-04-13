@@ -108,6 +108,49 @@ public class HealthCareCoverageDAO {
 		}
 		return null;
 	}
+  
+  // READ
+  public HealthCareCoverage getHealthCareCoverageByCountyCode(int countyCode) throws SQLException {
+	  String selectHealthCareCoverage = "SELECT HealthCareCoverageCode,CountyCode,NumberUninsured,NumberInsured,PercentUninsured,PercentInsured FROM HealthCareCoverage WHERE CountyCode =?;";
+
+	  Connection connection = null;
+	  PreparedStatement selectStmt = null;
+	  ResultSet results = null;
+	
+	  	try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectHealthCareCoverage);
+			selectStmt.setInt(1, countyCode);
+			results = selectStmt.executeQuery();
+
+			if(results.next()) {
+	
+				int healthCareCoverageCode = results.getInt("HealthCareCoverageCode");
+				int resultCountyCode = results.getInt("CountyCode");
+				int numberUninsured = results.getInt("NumberUninsured");
+				int numberInsured = results.getInt("NumberInsured");
+				double percentUninsured = results.getDouble("PercentUninsured");
+				double percentInsured = results.getDouble("PercentInsured");
+
+				HealthCareCoverage healthCareCoverage = new HealthCareCoverage(healthCareCoverageCode, resultCountyCode, numberUninsured, numberInsured, percentUninsured, percentInsured);
+				return healthCareCoverage;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		return null;
+	}
 
 
 	// UPDATE

@@ -69,7 +69,7 @@ public class SocioeconomicDAO {
     }
   	// READ From CountyCode
   	public Socioeconomic getSocioeconomicFromCountyCode(int countyCode) throws SQLException {
-  		String selectSocioeconomicFromCountyCode = "SELECT SocioeconomicCode,CountyCode,UnemploymentRate,PercentPopulationInPoverty,MedianHouseholdIncome,PercentLessThanHSDiploma,PercentHSDiplomaOnly,PercentSomeCollegeOnly,PercentBachelorsOrMore FROM HospitalQuality WHERE CountyCode=?;";
+  		String selectSocioeconomicFromCountyCode = "SELECT SocioeconomicCode,CountyCode,UnemploymentRate,PercentPopulationInPoverty,MedianHouseholdIncome,PercentLessThanHSDiploma,PercentHSDiplomaOnly,PercentSomeCollegeOnly,PercentBachelorsOrMore FROM Socioeconomic WHERE CountyCode=?;";
   		Connection connection = null;
   		PreparedStatement selectStmt = null;
   		ResultSet results = null;
@@ -113,7 +113,7 @@ public class SocioeconomicDAO {
   	
  // READ From SocioeconomicCode
    	public Socioeconomic getSocioeconomicFromSocioeconomicCode(int socioeconomicCode) throws SQLException {
-   		String  selectSocioeconomicFromSocioeconomicCode = "SELECT SocioeconomicCode,CountyCode,UnemploymentRate,PercentPopulationInPoverty,MedianHouseholdIncome,PercentLessThanHSDiploma,PercentHSDiplomaOnly,PercentSomeCollegeOnly,PercentBachelorsOrMore FROM HospitalQuality WHERE SocioeconomicCode=?;";
+   		String  selectSocioeconomicFromSocioeconomicCode = "SELECT SocioeconomicCode,CountyCode,UnemploymentRate,PercentPopulationInPoverty,MedianHouseholdIncome,PercentLessThanHSDiploma,PercentHSDiplomaOnly,PercentSomeCollegeOnly,PercentBachelorsOrMore FROM Socioeconomic WHERE SocioeconomicCode=?;";
    		Connection connection = null;
    		PreparedStatement selectStmt = null;
    		ResultSet results = null;
