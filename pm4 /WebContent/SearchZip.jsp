@@ -43,7 +43,7 @@
 			<h6><c:out value="${hospital.getHospital().getHospitalName()}" /></h6>
 			<c:if test="${not empty hospital.getQuality()}">
 				<ul>
-					<li>Overall Rating:<c:out value="${hospital.getQuality().getOverallRatingString()}" /></li>
+					<li>Overall Rating: <c:out value="${hospital.getQuality().getOverallRatingString()}" /></li>
 					<li>Mortality: <c:out value="${hospital.getQuality().getMortalityString()}" /></li>
 					<li>Safety: <c:out value="${hospital.getQuality().getSafetyString()}" /></li>
 					<li>Readmission: <c:out value="${hospital.getQuality().getReadmissionString()}" /></li>

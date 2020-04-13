@@ -161,8 +161,8 @@ public class SearchZip extends HttpServlet {
 				avgAsthmaImpactPrevalence = asthmaImpactDAO.getAsthmaImpactAveragesByMetric("Adult asthma prevalence", "Percent");
 				
 				HashMap<String, AsthmaImpact> avgAsthmaImpactForState = new HashMap<String, AsthmaImpact>();
-				avgAsthmaImpactForState.put("Mortality (Crude Rate, per 1,000,000)", avgAsthmaImpactMortalityNumber);
-				avgAsthmaImpactForState.put("Mortality (Number)", avgAsthmaImpactMortalityCrude);
+				avgAsthmaImpactForState.put("Mortality (Crude Rate, per 1,000,000)", avgAsthmaImpactMortalityCrude);
+				avgAsthmaImpactForState.put("Mortality (Number)", avgAsthmaImpactMortalityNumber);
 				avgAsthmaImpactForState.put("Adult Asthma Prevalence (% of Population)", avgAsthmaImpactPrevalence);
 				
 				avgSocioeconomic = socioeconomicDAO.getSocioeconomicAvgs();				
